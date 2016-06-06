@@ -253,9 +253,6 @@ public class ScreenshotApplet : Budgie.Applet
         var clipboard = Gtk.Clipboard.get_for_display(display, Gdk.SELECTION_CLIPBOARD);
         clipboard.set_text(link, -1);
         img.get_style_context().add_class("alert");
-        // var c = new GLib.Cancellable();
-        // yield sleep_async(5000, c);
-        // img.get_style_context().remove_class("alert");
     }
 
     private string upload_imgur()
@@ -396,24 +393,6 @@ public class ScreenshotApplet : Budgie.Applet
         }
 
         return "";
-    }
-
-    public async void sleep_async(int timeout, GLib.Cancellable? cancellable = null)
-    {
-        ulong cancel = 0;
-        uint timeout_src = 0;
-        if (cancellable != null) {
-            if (cancellable.is_cancelled()) 
-                return;
-            cancel = cancellable.cancelled.connect(()=>sleep_async.callback());
-        }
-        timeout_src = GLib.Timeout.add(timeout, sleep_async.callback);
-        yield;
-        GLib.Source.remove(timeout_src);
-
-        if (cancel != 0 && ! cancellable.is_cancelled ()) {
-            cancellable.disconnect(cancel);
-        }
     }
 
     protected void on_settings_changed(string key)
