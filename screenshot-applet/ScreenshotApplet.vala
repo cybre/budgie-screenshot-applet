@@ -70,7 +70,8 @@ public class ScreenshotApplet : Budgie.Applet
     Gtk.Stack stack;
     public int screenshot_delay { public set; public get; default = 2; }
     public string uuid { public set ; public get; }
-    MainLoop loop;
+    GLib.Cancellable cancellable;
+    Gtk.Widget start_page;
 
     public override Gtk.Widget? get_settings_ui()
     {
@@ -85,8 +86,6 @@ public class ScreenshotApplet : Budgie.Applet
     public ScreenshotApplet(string uuid)
     {
         Object(uuid: uuid);
-
-        loop = new MainLoop();
 
         settings_schema = "com.github.cybre.screenshot-applet";
         settings_prefix = "/com/github/cybre/screenshot-applet";
@@ -116,11 +115,15 @@ public class ScreenshotApplet : Budgie.Applet
 
         var uploading_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         uploading_box.margin = 20;
-        var uploading_image = new Gtk.Image.from_icon_name("view-refresh-symbolic", Gtk.IconSize.DIALOG);
+        var uploading_image = new Gtk.Image.from_icon_name("software-update-available-symbolic", Gtk.IconSize.DIALOG);
         var uploading_label = new Gtk.Label("<big>Uploading...</big>");
         uploading_label.set_use_markup(true);
+        uploading_label.margin_top = 10;
+        var uploading_cancel_button = new Gtk.Button.with_label("Cancel");
+        uploading_cancel_button.margin_top = 20;
         uploading_box.pack_start(uploading_image, true, true, 0);
         uploading_box.pack_start(uploading_label, true, true, 0);
+        uploading_box.pack_start(uploading_cancel_button, true, true, 0);
         stack.add_named(uploading_box, "uploading_box");
 
         var done_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
@@ -136,16 +139,21 @@ public class ScreenshotApplet : Budgie.Applet
         button_box.pack_start(done_button, true, true, 0);
         button_box.pack_start(done_open_button, true, true, 0);
         button_box.margin_top = 20;
-        // button_box.width_request = 100;
         done_box.pack_start(done_image, true, true, 0);
         done_box.pack_start(done_label, true, true, 0);
         done_box.pack_start(button_box, true, true, 0);
         stack.add_named(done_box, "done_box");
 
-        var start = stack.get_visible_child();
+        this.start_page = stack.get_visible_child();
+
+        this.cancellable = new GLib.Cancellable();
+
+        uploading_cancel_button.clicked.connect(() => {
+            this.cancellable.cancel();
+        });
 
         done_button.clicked.connect(() => {
-            stack.set_visible_child(start);
+            stack.set_visible_child(this.start_page);
         });
 
         done_open_button.clicked.connect(() => {
@@ -242,12 +250,25 @@ public class ScreenshotApplet : Budgie.Applet
 
     private void upload()
     {
+        MainLoop mainloop = new MainLoop();
+
+        this.cancellable = new Cancellable ();
+        this.cancellable.cancelled.connect (() => {
+            mainloop.quit ();
+            spinner.stop();
+            spinner.visible = false;
+            img.visible = true;
+            stack.set_visible_child(this.start_page);
+        });
+
         stack.set_visible_child_name("uploading_box");
         img.visible = false;
         spinner.start();
         spinner.visible = true;
+
         if (provider_to_use == "imgur") {
             this.link = upload_imgur();
+            
         } else {
             this.link = upload_ibin();
         }
@@ -258,12 +279,14 @@ public class ScreenshotApplet : Budgie.Applet
         var clipboard = Gtk.Clipboard.get_for_display(display, Gdk.SELECTION_CLIPBOARD);
         clipboard.set_text(this.link, -1);
         img.get_style_context().add_class("alert");
+        mainloop.run();
     }
 
     private string upload_imgur()
     {
         var url = "";
         try {
+            MainLoop loop = new MainLoop();
             Rest.Proxy proxy = new Rest.Proxy("https://api.imgur.com/3/", false);
             Rest.ProxyCall call = proxy.new_call();
 
@@ -359,6 +382,7 @@ public class ScreenshotApplet : Budgie.Applet
     private string run_command(string[] spawn_args)
     {
         try {
+            MainLoop loop = new MainLoop();
             string[] spawn_env = Environ.get();
             int standard_output;
             Pid child_pid;
