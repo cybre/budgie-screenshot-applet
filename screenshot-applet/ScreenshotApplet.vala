@@ -279,9 +279,10 @@ public class ScreenshotApplet : Budgie.Applet
         spinner.visible = false;
         img.visible = true;
 
-        if (popover.visible) {
+        if (popover.visible && !this.cancellable.is_cancelled()) {
             stack.set_visible_child_name("done_box");
-        } else {
+        }
+        if (popover.visible == false && !this.cancellable.is_cancelled()) {
             img.get_style_context().add_class("alert");
         }
 
