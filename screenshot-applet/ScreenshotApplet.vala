@@ -84,8 +84,6 @@ public class ScreenshotApplet : Budgie.Applet
     {
         Object(uuid: uuid);
 
-        Notify.init("Screenshot Applet");
-
         loop = new MainLoop();
 
         settings_schema = "com.github.cybre.screenshot-applet";

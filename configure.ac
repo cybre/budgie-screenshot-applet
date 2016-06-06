@@ -29,11 +29,6 @@ PKG_CHECK_MODULES(REST,
         rest-0.7 >= 0.7
 )
 
-PKG_CHECK_MODULES(LIBNOTIFY,
-        libnotify >= 0.7
-)
-
-
 # Required only for Vala applets.
 AM_PROG_VALAC([0.28], [], [AC_MSG_ERROR([valac is required to build Vala applets])])
 

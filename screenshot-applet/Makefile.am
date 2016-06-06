@@ -37,14 +37,12 @@ libscreenshotapplet_la_SOURCES = \
 libscreenshotapplet_la_CFLAGS = \
 	$(BUDGIE_PLUGIN_CFLAGS) \
 	$(JSON_CFLAGS) \
-	$(REST_CFLAGS) \
-	$(LIBNOTIFY_CFLAGS)
+	$(REST_CFLAGS)
 
 libscreenshotapplet_la_LIBADD = \
 	$(BUDGIE_PLUGIN_LIBS) \
 	$(JSON_LIBS) \
-	$(REST_LIBS) \
-	$(LIBNOTIFY_LIBS)
+	$(REST_LIBS)
 
 libscreenshotapplet_la_LDFLAGS = \
 	-module \
@@ -60,7 +58,6 @@ libscreenshotapplet_la_VALAFLAGS = \
 	--pkg budgie-1.0 \
 	--pkg json-glib-1.0 \
 	--pkg rest-0.7 \
-	--pkg libnotify \
 	--vapidir ../vapi \
 	--gresources=${srcdir}/plugin.gresource.xml \
 	--target-glib=2.38
