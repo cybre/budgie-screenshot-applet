@@ -104,7 +104,6 @@ public class ScreenshotApplet : Budgie.Applet
         label = new Gtk.Label("Screenshot");
         label.halign = Gtk.Align.START;
         layout.pack_start(label, true, true, 3);
-        spinner.visible = false;
         box.add(layout);
 
         var menu = new GLib.Menu();
@@ -188,6 +187,8 @@ public class ScreenshotApplet : Budgie.Applet
         add(box);
         show_all();
 
+        spinner.visible = false;
+
         on_settings_changed("provider");
         on_settings_changed("delay");
         on_settings_changed("enable-label");
@@ -237,6 +238,7 @@ public class ScreenshotApplet : Budgie.Applet
         string link;
         print("\nProvider: " + provider_to_use + "\n");
         stack.set_visible_child_name("uploading_box");
+        img.visible = false;
         spinner.start();
         spinner.visible = true;
         if (provider_to_use == "imgur") {
@@ -246,6 +248,7 @@ public class ScreenshotApplet : Budgie.Applet
         }
         spinner.stop();
         spinner.visible = false;
+        img.visible = true;
         var display = this.get_display();
         var clipboard = Gtk.Clipboard.get_for_display(display, Gdk.SELECTION_CLIPBOARD);
         clipboard.set_text(link, -1);
