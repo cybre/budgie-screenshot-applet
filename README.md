@@ -17,7 +17,7 @@ rest-0.7
 These can be installed on Solus by running:  
 ```
 sudo eopkg it vala libgtk-3-devel glib2-devel libpeas-devel budgie-desktop-devel \
-libjson-glib-devel libnotify-devel librest-devel gnome-screenshot
+libjson-glib-devel libnotify-devel librest-devel
 ```
 
 You will also need Gnome Screenshot to be able to use this applet.  
