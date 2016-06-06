@@ -39,7 +39,7 @@ public class ScreenshotAppletSettings : Gtk.Grid
         providers.append(out iter);
         providers.set(iter, 0, "imgur", 1, "Imgur.com");
         providers.append(out iter);
-        providers.set(iter, 0, "imagebin", 1, "Ibin.co");
+        providers.set(iter, 0, "ibin", 1, "Ibin.co");
         combobox_provider.set_model(providers);
         Gtk.CellRendererText renderer = new Gtk.CellRendererText();
         combobox_provider.pack_start(renderer, true);
@@ -73,13 +73,11 @@ public class ScreenshotApplet : Budgie.Applet
     GLib.Cancellable cancellable;
     Gtk.Widget start_page;
 
-    public override Gtk.Widget? get_settings_ui()
-    {
+    public override Gtk.Widget? get_settings_ui() {
         return new ScreenshotAppletSettings(this.get_applet_settings(uuid));
     }
 
-    public override bool supports_settings()
-    {
+    public override bool supports_settings() {
         return true;
     }
 
@@ -254,7 +252,7 @@ public class ScreenshotApplet : Budgie.Applet
 
         this.cancellable = new Cancellable ();
         this.cancellable.cancelled.connect (() => {
-            mainloop.quit ();
+            mainloop.quit();
             spinner.stop();
             spinner.visible = false;
             img.visible = true;
@@ -266,19 +264,34 @@ public class ScreenshotApplet : Budgie.Applet
         spinner.start();
         spinner.visible = true;
 
-        if (provider_to_use == "imgur") {
-            this.link = upload_imgur();
-            
-        } else {
-            this.link = upload_ibin();
+        switch (provider_to_use) {
+            case "imgur":
+                this.link = upload_imgur();
+                break;
+            case "ibin":
+                this.link = upload_ibin();
+                break;
+            default:
+                break;
         }
+
         spinner.stop();
         spinner.visible = false;
         img.visible = true;
+
+        if (popover.visible) {
+            stack.set_visible_child(this.start_page);
+        } else {
+            img.get_style_context().add_class("alert");
+        }
+
         var display = this.get_display();
         var clipboard = Gtk.Clipboard.get_for_display(display, Gdk.SELECTION_CLIPBOARD);
-        clipboard.set_text(this.link, -1);
-        img.get_style_context().add_class("alert");
+
+        if (this.link != "") {
+            clipboard.set_text(this.link, -1);
+        }
+        
         mainloop.run();
     }
 
@@ -312,6 +325,10 @@ public class ScreenshotApplet : Budgie.Applet
                     "api_key", "f410b546502f28376747262f9773ee368abb31f0",
                     "image", encode.str
             );
+
+            this.cancellable.cancelled.connect (() => {
+                loop.quit();
+            });
 
             call.run_async((call, error, obj) => {
                 string payload = call.get_payload();
@@ -370,6 +387,7 @@ public class ScreenshotApplet : Budgie.Applet
                 "-F file=@/tmp/screenshot.png",
                 "https://imagebin.ca/upload.php",
         };
+
         command_output = run_command(spawn_args);
         string url = "";
         for (int i = 24; i < command_output.length; i++) {
@@ -386,6 +404,10 @@ public class ScreenshotApplet : Budgie.Applet
             string[] spawn_env = Environ.get();
             int standard_output;
             Pid child_pid;
+
+            this.cancellable.cancelled.connect (() => {
+                loop.quit();
+            });
 
             Process.spawn_async_with_pipes("/",
                 spawn_args,
