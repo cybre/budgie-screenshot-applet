@@ -280,7 +280,7 @@ public class ScreenshotApplet : Budgie.Applet
         img.visible = true;
 
         if (popover.visible) {
-            stack.set_visible_child(this.start_page);
+            stack.set_visible_child_name("done_box");
         } else {
             img.get_style_context().add_class("alert");
         }
