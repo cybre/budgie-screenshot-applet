@@ -113,7 +113,6 @@ public class ScreenshotApplet : Budgie.Applet
         popover = new Gtk.Popover.from_model(box, menu);
 
         stack = (Gtk.Stack) popover.get_child();
-        stack.set_transition_type(Gtk.StackTransitionType.NONE);
 
         var uploading_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         uploading_box.margin = 20;
@@ -130,13 +129,14 @@ public class ScreenshotApplet : Budgie.Applet
         var done_label = new Gtk.Label("<big>The link has been copied \nto your clipboard!</big>");
         done_label.set_justify(Gtk.Justification.CENTER);
         done_label.set_use_markup(true);
-        var done_button = new Gtk.Button.with_label("Upload another one");
-        var done_open_button = new Gtk.Button.with_label("Open link");
+        var done_button = new Gtk.Button.with_label("Back");
+        var done_open_button = new Gtk.Button.with_label("Open");
         var button_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
         button_box.get_style_context().add_class("linked");
-        button_box.add(done_button);
-        button_box.add(done_open_button);
+        button_box.pack_start(done_button, true, true, 0);
+        button_box.pack_start(done_open_button, true, true, 0);
         button_box.margin_top = 20;
+        // button_box.width_request = 100;
         done_box.pack_start(done_image, true, true, 0);
         done_box.pack_start(done_label, true, true, 0);
         done_box.pack_start(button_box, true, true, 0);
@@ -163,12 +163,15 @@ public class ScreenshotApplet : Budgie.Applet
             } else {
                 this.manager.show_popover(box);
                 if (img.get_style_context().has_class("alert")) {
+                    stack.set_transition_type(Gtk.StackTransitionType.NONE);
                     stack.set_visible_child_name("done_box");
                     img.get_style_context().remove_class("alert");
                 }
                 if (spinner.active) {
+                    stack.set_transition_type(Gtk.StackTransitionType.NONE);
                     stack.set_visible_child_name("uploading_box");
                 }
+                stack.set_transition_type(Gtk.StackTransitionType.SLIDE_RIGHT);
             }
             return Gdk.EVENT_STOP;
         });
