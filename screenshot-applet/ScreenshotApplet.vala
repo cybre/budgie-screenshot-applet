@@ -65,6 +65,8 @@ public class ScreenshotApplet : Budgie.Applet
     Gtk.Label label;
     Gtk.Spinner spinner;
     string provider_to_use;
+    string command_output;
+    private string link;
     Gtk.Stack stack;
     public int screenshot_delay { public set; public get; default = 2; }
     public string uuid { public set ; public get; }
@@ -110,6 +112,9 @@ public class ScreenshotApplet : Budgie.Applet
         menu.append("Select area to grab", "screenshot.area");
         popover = new Gtk.Popover.from_model(box, menu);
 
+        stack = (Gtk.Stack) popover.get_child();
+        stack.set_transition_type(Gtk.StackTransitionType.NONE);
+
         var uploading_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         uploading_box.margin = 20;
         var uploading_image = new Gtk.Image.from_icon_name("view-refresh-symbolic", Gtk.IconSize.DIALOG);
@@ -117,37 +122,39 @@ public class ScreenshotApplet : Budgie.Applet
         uploading_label.set_use_markup(true);
         uploading_box.pack_start(uploading_image, true, true, 0);
         uploading_box.pack_start(uploading_label, true, true, 0);
-        stack = (Gtk.Stack) popover.get_child();
         stack.add_named(uploading_box, "uploading_box");
-
-        stack.set_transition_type(Gtk.StackTransitionType.NONE);
 
         var done_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         done_box.margin = 20;
         var done_image = new Gtk.Image.from_icon_name("emblem-ok-symbolic", Gtk.IconSize.DIALOG);
-        var done_label = new Gtk.Label("<big>The link has been copied</big>");
-        var done_label2 = new Gtk.Label("<big>to your clipboard!</big>");
+        var done_label = new Gtk.Label("<big>The link has been copied \nto your clipboard!</big>");
+        done_label.set_justify(Gtk.Justification.CENTER);
         done_label.set_use_markup(true);
-        done_label2.set_use_markup(true);
-        done_label2.xalign = 0.5f;
-        var done_button = new Gtk.Button.with_label("Upload another one!");
-        done_button.margin_top = 20;
+        var done_button = new Gtk.Button.with_label("Upload another one");
+        var done_open_button = new Gtk.Button.with_label("Open link");
+        var button_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+        button_box.get_style_context().add_class("linked");
+        button_box.add(done_button);
+        button_box.add(done_open_button);
+        button_box.margin_top = 20;
         done_box.pack_start(done_image, true, true, 0);
         done_box.pack_start(done_label, true, true, 0);
-        done_box.pack_start(done_label2, true, true, 0);
-        done_box.pack_start(done_button, true, true, 0);
-        stack = (Gtk.Stack) popover.get_child();
+        done_box.pack_start(button_box, true, true, 0);
         stack.add_named(done_box, "done_box");
 
         var start = stack.get_visible_child();
 
-        done_button.clicked.connect(()=> {
+        done_button.clicked.connect(() => {
             stack.set_visible_child(start);
+        });
+
+        done_open_button.clicked.connect(() => {
+            Process.spawn_command_line_async("xdg-open %s".printf(this.link));
         });
 
         stack.show_all();
 
-        box.button_press_event.connect((e)=> {
+        box.button_press_event.connect((e) => {
             if (e.button != 1) {
                 return Gdk.EVENT_PROPAGATE;
             }
@@ -159,7 +166,6 @@ public class ScreenshotApplet : Budgie.Applet
                     stack.set_visible_child_name("done_box");
                     img.get_style_context().remove_class("alert");
                 }
-
                 if (spinner.active) {
                     stack.set_visible_child_name("uploading_box");
                 }
@@ -201,7 +207,7 @@ public class ScreenshotApplet : Budgie.Applet
             "-f",
             "/tmp/screenshot.png"
         };
-        var output = run_command(spawn_args);
+        command_output = run_command(spawn_args);
         upload(); 
     }
 
@@ -215,7 +221,7 @@ public class ScreenshotApplet : Budgie.Applet
             "-f",
             "/tmp/screenshot.png"
         };
-        var output = run_command(spawn_args);
+        command_output = run_command(spawn_args);
         upload(); 
     }
 
@@ -227,35 +233,33 @@ public class ScreenshotApplet : Budgie.Applet
             "-f",
             "/tmp/screenshot.png"
         };
-        var output = run_command(spawn_args);
+        command_output = run_command(spawn_args);
         upload(); 
     }
 
-    private async void upload()
+    private void upload()
     {
-        string link;
-        print("\nProvider: " + provider_to_use + "\n");
         stack.set_visible_child_name("uploading_box");
         img.visible = false;
         spinner.start();
         spinner.visible = true;
         if (provider_to_use == "imgur") {
-            link = upload_imgur();
+            this.link = upload_imgur();
         } else {
-            link = upload_ibin();
+            this.link = upload_ibin();
         }
         spinner.stop();
         spinner.visible = false;
         img.visible = true;
         var display = this.get_display();
         var clipboard = Gtk.Clipboard.get_for_display(display, Gdk.SELECTION_CLIPBOARD);
-        clipboard.set_text(link, -1);
+        clipboard.set_text(this.link, -1);
         img.get_style_context().add_class("alert");
     }
 
     private string upload_imgur()
     {
-        var link = "";
+        var url = "";
         try {
             Rest.Proxy proxy = new Rest.Proxy("https://api.imgur.com/3/", false);
             Rest.ProxyCall call = proxy.new_call();
@@ -265,14 +269,14 @@ public class ScreenshotApplet : Budgie.Applet
 
             StringBuilder encode = null;
             encode_file.begin(f, (obj, res) => {
-                    try {
-                        encode = encode_file.end(res);
-                    } catch (ThreadError e) {
-                        string msg = e.message;
-                        print(msg);
-                    }
-                    loop.quit();
-                });
+                try {
+                    encode = encode_file.end(res);
+                } catch (ThreadError e) {
+                    string msg = e.message;
+                    stderr.printf(msg);
+                }
+                loop.quit();
+            });
             loop.run();
 
             call.set_method("POST");
@@ -283,29 +287,26 @@ public class ScreenshotApplet : Budgie.Applet
                     "image", encode.str
             );
 
-            call.run_async((call, error, obj)=> {
+            call.run_async((call, error, obj) => {
                 string payload = call.get_payload();
                 int64 len = call.get_payload_length();
                 var parser = new Json.Parser();
                 parser.load_from_data(payload, (ssize_t) len);
                 unowned Json.Object node_obj = parser.get_root().get_object();
-                if (node_obj != null)
-                {
+                if (node_obj != null) {
                     node_obj = node_obj.get_object_member("data");
-                    if (node_obj != null)
-                    {
-                        link = node_obj.get_string_member("link");
+                    if (node_obj != null) {
+                        url = node_obj.get_string_member("link");
                     }
                 }
                 loop.quit();
             }, null);
             loop.run();
         } catch (Error e) {
-            stderr.puts(e.message);
-            stderr.putc('\n');
+            stderr.printf(e.message, "\n");
         }
-        print("\nLink imgur: " + link + "\n");
-        return link;
+
+        return url;
     }
 
     private async StringBuilder encode_file(GLib.File f) {
@@ -343,16 +344,13 @@ public class ScreenshotApplet : Budgie.Applet
                 "-F file=@/tmp/screenshot.png",
                 "https://imagebin.ca/upload.php",
         };
-        var output = run_command(spawn_args);
-        print("\nOutput ibin: " + output + "\n");
-        string link = "";
-        for (int i = 24; i < output.length; i++) {
-            link += ((char) output[i]).to_string();
+        command_output = run_command(spawn_args);
+        string url = "";
+        for (int i = 24; i < command_output.length; i++) {
+            url += ((char) command_output[i]).to_string();
         }
-
-        print("\nLink ibin: " + link + "\n");
         
-        return link;
+        return url;
     }
 
     private string run_command(string[] spawn_args)
@@ -374,12 +372,12 @@ public class ScreenshotApplet : Budgie.Applet
 
             IOChannel output = new IOChannel.unix_new(standard_output);
             string line = "";
-            output.add_watch(IOCondition.IN | IOCondition.HUP, (channel, condition)=> {
+            output.add_watch(IOCondition.IN | IOCondition.HUP, (channel, condition) => {
                 channel.read_to_end(out line, null);
                 return false;
             });
 
-            ChildWatch.add(child_pid, (pid, status)=> {
+            ChildWatch.add(child_pid, (pid, status) => {
                 Process.close_pid(pid);
                 loop.quit();
             });
@@ -387,7 +385,7 @@ public class ScreenshotApplet : Budgie.Applet
             loop.run();
             return line;
         } catch (SpawnError e) {
-            stdout.printf("Error: %s\n", e.message);
+            stderr.printf("Error: %s\n", e.message);
         }
 
         return "";
