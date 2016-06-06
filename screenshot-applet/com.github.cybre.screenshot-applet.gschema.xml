@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="budgie">
+  <schema id="com.github.cybre.screenshot-applet">
+    <key type="b" name="enable-label">
+      <default>false</default>
+      <summary>Enable applet label</summary>
+      <description>Simply show the label on the applet button</description>
+    </key>
+
+    <key type="i" name="delay">
+      <default>2</default>
+      <summary>Screenshot delay</summary>
+      <description>The amount of seconds to wait before taking the screenshot</description>
+    </key>
+
+    <key type="s" name="provider">
+      <default>'imgur'</default>
+      <summary>The upload provider</summary>
+      <description>The provider to use for image uploads.</description>
+    </key>
+  </schema>
+</schemalist>  
