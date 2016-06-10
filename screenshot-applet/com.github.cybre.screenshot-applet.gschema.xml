@@ -16,7 +16,19 @@
     <key type="s" name="provider">
       <default>'imgur'</default>
       <summary>The upload provider</summary>
-      <description>The provider to use for image uploads.</description>
+      <description>The provider to use for image uploads</description>
+    </key>
+
+    <key type="as" name="history">
+      <default>[]</default>
+      <summary>History</summary>
+      <description>List of uploaded images.</description>
+    </key>
+
+    <key type="b" name="enable-history">
+      <default>true</default>
+      <summary>Enable/Disable history</summary>
+      <description>Enable/Disable history</description>
     </key>
   </schema>
 </schemalist>  
