@@ -31,6 +31,10 @@ screenshotapplet_LTLIBRARIES = \
 
 libscreenshotapplet_la_SOURCES = \
 	ScreenshotApplet.vala \
+	UploadingView.vala \
+	UploadDoneView.vala \
+	ErrorView.vala \
+	HistoryView.vala \
 	plugin-resources.h \
 	plugin-resources.c
 
