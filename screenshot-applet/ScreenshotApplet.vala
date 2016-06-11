@@ -23,13 +23,19 @@ public class ScreenshotAppletSettings : Gtk.Grid
     private Gtk.Switch? switch_label;
 
     [GtkChild]
-    private Gtk.SpinButton spinbutton_delay;
-
-    [GtkChild]
     private Gtk.ComboBox? combobox_provider;
 
     [GtkChild]
     private Gtk.Switch? switch_history;
+
+    [GtkChild]
+    private Gtk.SpinButton spinbutton_delay;
+
+    [GtkChild]
+    private Gtk.Switch? switch_border;
+
+    [GtkChild]
+    private Gtk.ComboBox? combobox_effect;
 
     private Settings? settings;
 
@@ -43,18 +49,39 @@ public class ScreenshotAppletSettings : Gtk.Grid
         providers.append(out iter);
         providers.set(iter, 0, "ibin", 1, "Ibin.co");
         combobox_provider.set_model(providers);
+
         Gtk.CellRendererText renderer = new Gtk.CellRendererText();
         combobox_provider.pack_start(renderer, true);
         combobox_provider.add_attribute(renderer, "text", 1);
         combobox_provider.active = 0;
         combobox_provider.set_id_column(0);
 
+
+        Gtk.ListStore effects = new Gtk.ListStore(2, typeof(string), typeof(string));
+
+        effects.append(out iter);
+        effects.set(iter, 0, "none", 1, "None");
+        effects.append(out iter);
+        effects.set(iter, 0, "shadow", 1, "Drop shadow");
+        effects.append(out iter);
+        effects.set(iter, 0, "border", 1, "Border");
+        effects.append(out iter);
+        effects.set(iter, 0, "vintage", 1, "Vintage");
+
+        combobox_effect.set_model(effects);
+        Gtk.CellRendererText renderer1 = new Gtk.CellRendererText();
+        combobox_effect.pack_start(renderer1, true);
+        combobox_effect.add_attribute(renderer1, "text", 1);
+        combobox_effect.active = 0;
+        combobox_effect.set_id_column(0);
+
         this.settings = settings;
         settings.bind("enable-label", switch_label, "active", SettingsBindFlags.DEFAULT);
-        settings.bind("delay", spinbutton_delay, "value", SettingsBindFlags.DEFAULT);
-        settings.bind("provider", combobox_provider, "active_id", SettingsBindFlags.DEFAULT);
         settings.bind("provider", combobox_provider, "active_id", SettingsBindFlags.DEFAULT);
         settings.bind("enable-history", switch_history, "active", SettingsBindFlags.DEFAULT);
+        settings.bind("delay", spinbutton_delay, "value", SettingsBindFlags.DEFAULT);
+        settings.bind("include-border", switch_border, "active", SettingsBindFlags.DEFAULT);
+        settings.bind("window-effect", combobox_effect, "active_id", SettingsBindFlags.DEFAULT);
     }
 }
 
@@ -73,10 +100,12 @@ namespace ScreenshotApplet {
         private Gtk.Button history_button;
         private Gdk.Display display;
         private GLib.Cancellable cancellable;
-        private string link { set; get; }
-        private string provider_to_use { set; get; }
+        private string link;
+        private string provider_to_use { set; get; default = "imgur"; }
+        private string window_effect { set; get; default = "none"; }
         private int screenshot_delay { set; get; default = 2; }
-        private bool remember_history;
+        private bool remember_history { set; get; default = true; }
+        private bool include_border { set; get; default = true; }
         private bool error;
         private UploadingView uploading_view;
         private UploadDoneView upload_done_view;
@@ -264,16 +293,19 @@ namespace ScreenshotApplet {
 
             spinner.visible = false;
 
-            on_settings_changed("provider");
-            on_settings_changed("delay");
             on_settings_changed("enable-label");
+            on_settings_changed("provider");
             on_settings_changed("enable-history");
+            on_settings_changed("delay");
+            on_settings_changed("include-border");
+            on_settings_changed("window-effect");
         }
 
         void take_screen_screenshot()
         {
             string command_output;
             popover.hide();
+
             string[] spawn_args = {
                 "gnome-screenshot",
                 "-d",
@@ -281,22 +313,30 @@ namespace ScreenshotApplet {
                 "-f",
                 "/tmp/screenshot.png"
             };
+
             command_output = run_command(spawn_args);
-            upload(); 
+            upload();
         }
 
         void take_window_screenshot()
         {
             string command_output;
             popover.hide();
+
             string[] spawn_args = {
                 "gnome-screenshot",
                 "-w",
                 "-d",
                 this.screenshot_delay.to_string(),
+                "-e",
+                this.window_effect,
                 "-f",
                 "/tmp/screenshot.png"
             };
+
+            if (this.include_border) spawn_args += "-b";
+                else spawn_args += "-B";
+
             command_output = run_command(spawn_args);
             upload(); 
         }
@@ -542,21 +582,27 @@ namespace ScreenshotApplet {
         {
             switch (key)
             {
-                case "provider":
-                    this.provider_to_use = settings.get_string(key);
-                    break;
-                case "delay":
-                    this.screenshot_delay = settings.get_int(key);
-                    break;
                 case "enable-label":
                     label.visible = settings.get_boolean(key);
+                    break;
+                case "provider":
+                    this.provider_to_use = settings.get_string(key);
                     break;
                 case "enable-history":
                     this.remember_history = settings.get_boolean(key);
                     this.history_button.visible = settings.get_boolean(key);
-                    if (settings.get_boolean(key) == false) {
+                    if (!settings.get_boolean(key)) {
                         history_view.clear_all();
                     }
+                    break;
+                case "delay":
+                    this.screenshot_delay = settings.get_int(key);
+                    break;
+                case "include-border":
+                    this.include_border = settings.get_boolean(key);
+                    break;
+                case "window-effect":
+                    this.window_effect = settings.get_string(key);
                     break;
                 default:
                     break;

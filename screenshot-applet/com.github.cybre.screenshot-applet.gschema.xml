@@ -7,16 +7,16 @@
       <description>Simply show the label on the applet button</description>
     </key>
 
-    <key type="i" name="delay">
-      <default>2</default>
-      <summary>Screenshot delay</summary>
-      <description>The amount of seconds to wait before taking the screenshot</description>
-    </key>
-
     <key type="s" name="provider">
       <default>'imgur'</default>
       <summary>The upload provider</summary>
       <description>The provider to use for image uploads</description>
+    </key>
+
+    <key type="b" name="enable-history">
+      <default>true</default>
+      <summary>Enable/Disable history</summary>
+      <description>Enable/Disable history</description>
     </key>
 
     <key type="as" name="history">
@@ -25,10 +25,23 @@
       <description>List of uploaded images.</description>
     </key>
 
-    <key type="b" name="enable-history">
-      <default>true</default>
-      <summary>Enable/Disable history</summary>
-      <description>Enable/Disable history</description>
+    <key type="i" name="delay">
+      <default>2</default>
+      <summary>Screenshot delay</summary>
+      <description>The amount of seconds to wait before taking the screenshot</description>
     </key>
+
+    <key type="b" name="include-border">
+      <default>true</default>
+      <summary>Include window borders in screenshots</summary>
+      <description>Whether to include window borders in "grab window" mode</description>
+    </key>
+
+    <key type="s" name="window-effect">
+      <default>'none'</default>
+      <summary>The upload provider</summary>
+      <description>The provider to use for image uploads</description>
+    </key>
+
   </schema>
 </schemalist>  

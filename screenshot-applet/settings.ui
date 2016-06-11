@@ -17,7 +17,7 @@
     <property name="row_spacing">10</property>
     <property name="column_spacing">6</property>
     <child>
-      <object class="GtkLabel" id="label1">
+      <object class="GtkLabel" id="label_label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
@@ -42,7 +42,67 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label2">
+      <object class="GtkLabel" id="label_provider">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="hexpand">True</property>
+        <property name="label" translatable="yes">Upload Provider</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBox" id="combobox_provider">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">end</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_history">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="hexpand">True</property>
+        <property name="label" translatable="yes">Enable History</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSwitch" id="switch_history">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="halign">end</property>
+        <property name="hexpand">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSeparator" id="separator1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+        <property name="width">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_delay">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
@@ -51,7 +111,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
+        <property name="top_attach">4</property>
       </packing>
     </child>
     <child>
@@ -64,48 +124,24 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">1</property>
+        <property name="top_attach">4</property>
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label3">
+      <object class="GtkLabel" id="label_border">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="hexpand">True</property>
-        <property name="label" translatable="yes">Upload Provider</property>
+        <property name="label" translatable="yes">Include Window Border</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
+        <property name="top_attach">5</property>
       </packing>
     </child>
     <child>
-      <object class="GtkComboBox" id="combobox_provider">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">end</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label4">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="hexpand">True</property>
-        <property name="label" translatable="yes">Enable History</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkSwitch" id="switch_history">
+      <object class="GtkSwitch" id="switch_border">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="halign">end</property>
@@ -113,7 +149,31 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">3</property>
+        <property name="top_attach">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_effect">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="hexpand">True</property>
+        <property name="label" translatable="yes">Window Effect</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBox" id="combobox_effect">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">end</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">6</property>
       </packing>
     </child>
   </template>
