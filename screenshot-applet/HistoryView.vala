@@ -28,7 +28,7 @@ namespace ScreenshotApplet
         public HistoryView(GLib.Settings settings, Gtk.Clipboard clipboard)
         {
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
-            this.width_request = 300;
+            this.width_request = 330;
             this.height_request = 400;
 
             this.settings = settings;
@@ -116,13 +116,11 @@ namespace ScreenshotApplet
             date_label.get_style_context().add_class("dim-label");
 
             Gtk.LinkButton link_button = new Gtk.LinkButton(url);
-            ((Gtk.Label) link_button.get_child()).halign = Gtk.Align.START;
-            ((Gtk.Label) link_button.get_child()).max_width_chars = 24;
-            ((Gtk.Label) link_button.get_child()).ellipsize = Pango.EllipsizeMode.MIDDLE;
-            link_button.get_child().get_style_context().add_class("no-underline");
+            Gtk.Label link_button_label = (Gtk.Label) link_button.get_child();
+            link_button_label.halign = Gtk.Align.START;
+            link_button_label.get_style_context().add_class("no-underline");
 
-            Gtk.Button copy_button = new Gtk.Button.from_icon_name("edit-copy-symbolic", 
-                Gtk.IconSize.MENU);
+            Gtk.Button copy_button = new Gtk.Button.from_icon_name("edit-copy-symbolic", Gtk.IconSize.MENU);
             copy_button.relief = Gtk.ReliefStyle.NONE;
             copy_button.margin = 3;
 
@@ -130,12 +128,12 @@ namespace ScreenshotApplet
                 this.clipboard.set_text(url, -1);
             });
 
-            Gtk.Box copy_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            copy_box.pack_start(date_label, false, false, 0);
-            copy_box.pack_start(link_button, true, true, 0);
-            copy_box.pack_end(copy_button, false, false, 5);
+            Gtk.Box history_entry_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            history_entry_box.pack_start(date_label, false, false, 0);
+            history_entry_box.pack_start(link_button, true, true, 0);
+            history_entry_box.pack_end(copy_button, false, false, 5);
 
-            history_listbox.prepend(copy_box);
+            history_listbox.prepend(history_entry_box);
             history_listbox.show_all();
 
             update_child_count();
