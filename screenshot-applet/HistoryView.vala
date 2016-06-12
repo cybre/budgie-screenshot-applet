@@ -28,7 +28,7 @@ namespace ScreenshotApplet
         public HistoryView(GLib.Settings settings, Gtk.Clipboard clipboard)
         {
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
-            this.width_request = 330;
+            this.width_request = 340;
             this.height_request = 400;
 
             this.settings = settings;
@@ -58,6 +58,7 @@ namespace ScreenshotApplet
 
             history_listbox = new Gtk.ListBox();
             history_listbox.selection_mode = Gtk.SelectionMode.NONE;
+            history_listbox.set_header_func(list_header_setup);
             history_scroller = new Gtk.ScrolledWindow(null, null);
             history_scroller.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
             history_scroller.add(history_listbox);
@@ -80,6 +81,34 @@ namespace ScreenshotApplet
             placeholder_box.show_all();
 
             update_child_count();
+        }
+
+        protected void list_header_setup(Gtk.ListBoxRow? row, Gtk.ListBoxRow? before)
+        {
+            Gtk.Box? child = null;
+            string? current_date = null;
+            string? previous_date = null;
+
+            if (row != null) {
+                child = row.get_child() as Gtk.Box;
+                current_date = child.name;
+            }
+
+            if (before != null) {
+                child = before.get_child() as Gtk.Box;
+                previous_date = child.name;
+            }
+    
+            if (row == null || before == null || current_date != previous_date) {
+                var label = new Gtk.Label(Markup.printf_escaped("<big>%s</big>", current_date));
+                label.use_markup = true;
+                label.halign = Gtk.Align.START;
+                label.get_style_context().add_class("dim-label");
+                row.set_header(label);
+                label.margin = 3;
+            } else {
+                row.set_header(null);
+            }
         }
 
         private void update_child_count()
@@ -106,14 +135,17 @@ namespace ScreenshotApplet
         public void update_history(string? history_entry)
         {   
             string[] h_split = history_entry.split("|");
-            string time = h_split[0];
+
+            int64 timestamp = int64.parse(h_split[0]);
             string url = h_split[1];
 
-            Gtk.Label date_label = new Gtk.Label("<small>%s</small>".printf(time));
-            date_label.yalign = 0.60f;
-            date_label.margin = 5;
-            date_label.set_use_markup(true);
-            date_label.get_style_context().add_class("dim-label");
+            GLib.DateTime time = new DateTime.from_unix_local(timestamp);
+
+            Gtk.Label time_label = new Gtk.Label("<small>%s</small>".printf(time.format("%H:%M")));
+            time_label.yalign = 0.60f;
+            time_label.margin = 5;
+            time_label.set_use_markup(true);
+            time_label.get_style_context().add_class("dim-label");
 
             Gtk.LinkButton link_button = new Gtk.LinkButton(url);
             Gtk.Label link_button_label = (Gtk.Label) link_button.get_child();
@@ -129,7 +161,9 @@ namespace ScreenshotApplet
             });
 
             Gtk.Box history_entry_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            history_entry_box.pack_start(date_label, false, false, 0);
+            history_entry_box.margin_left = 5;
+            history_entry_box.name = time.format("%d %B %Y");
+            history_entry_box.pack_start(time_label, false, false, 0);
             history_entry_box.pack_start(link_button, true, true, 0);
             history_entry_box.pack_end(copy_button, false, false, 5);
 
@@ -144,8 +178,7 @@ namespace ScreenshotApplet
             string[] history_list = this.settings.get_strv("history");
             GLib.DateTime datetime = new GLib.DateTime.now_local();
             int64 timestamp = datetime.to_unix();
-            GLib.DateTime time = new GLib.DateTime.from_unix_local(timestamp);
-            history_list += time.format("%H:%M") + "|" + link;
+            history_list += "%lld".printf(timestamp) + "|" + link;
             this.settings.set_strv("history", history_list);
             update_history(history_list[history_list.length - 1]);
         }
