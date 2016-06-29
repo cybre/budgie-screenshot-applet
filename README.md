@@ -23,16 +23,22 @@ libjson-glib-devel libnotify-devel librest-devel
 You will also need Gnome Screenshot to be able to use this applet.  
 `sudo eopkg it gnome-screenshot`
 
-## Installing
+### Installing
 ```
 ./autogen.sh --prefix=/usr
 make
 sudo make install
 ```
+#### Solus
+A package will soon be available.
 
-The package can be installed on Arch using 
+#### Arch Linux
+The package can be installed on Arch using
 ```
-yaourt -S screenshot-applet
+yaourt -S haste-applet
 ```
 
-A package in the Solus repo will soon be available.
+---
+
+### Screenshot
+![Screenshot](screenshot.png)
