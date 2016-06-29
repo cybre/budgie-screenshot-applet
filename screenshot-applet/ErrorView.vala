@@ -1,32 +1,48 @@
+/*
+ * This file is part of screenshot-applet
+ * 
+ * Copyright (C) 2016 Stefan Ric <stfric369@gmail.com>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ */
+
 namespace ScreenshotApplet
 {
     public class ErrorView : Gtk.Box
     {
-        private Gtk.Image error_image;
-        private Gtk.Label error_label;
-        public Gtk.Button error_back_button;
+        private Gtk.Image image;
+        private Gtk.Label label;
+        private Gtk.Button back_button;
 
-        public ErrorView()
+        public ErrorView(Gtk.Stack stack)
         {
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
-            this.margin = 20;
-            this.width_request = 200;
-            this.height_request = 150;
+            margin = 20;
+            width_request = 200;
+            height_request = 150;
 
-            error_image = new Gtk.Image.from_icon_name("emblem-important-symbolic", Gtk.IconSize.DIALOG);
-            error_image.pixel_size = 64;
+            image = new Gtk.Image.from_icon_name("emblem-important-symbolic", Gtk.IconSize.DIALOG);
+            image.pixel_size = 64;
 
-            error_label = new Gtk.Label("<big>We couldn't upload your image</big>\nCheck your internet connection.");
-            error_label.margin_top = 10;
-            error_label.set_justify(Gtk.Justification.CENTER);
-            error_label.set_use_markup(true);
+            label = new Gtk.Label("<big>We couldn't upload your image</big>\nCheck your internet connection.");
+            label.margin_top = 10;
+            label.justify = Gtk.Justification.CENTER;
+            label.use_markup = true;
 
-            error_back_button = new Gtk.Button.with_label("Back");
-            error_back_button.margin_top = 20;
+            back_button = new Gtk.Button.with_label("Back");
+            back_button.margin_top = 20;
+            back_button.can_focus = false;
 
-            this.pack_start(error_image, true, true, 0);
-            this.pack_start(error_label, true, true, 0);
-            this.pack_start(error_back_button, true, true, 0);
+            back_button.clicked.connect(() => {
+                stack.set_visible_child_full("new_screenshot_view", Gtk.StackTransitionType.SLIDE_RIGHT);
+            });
+
+            pack_start(image, true, true, 0);
+            pack_start(label, true, true, 0);
+            pack_start(back_button, true, true, 0);
         }
     }
 }

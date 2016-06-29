@@ -19,7 +19,7 @@
       <description>Enable/Disable history</description>
     </key>
 
-    <key type="as" name="history">
+    <key type="a(xss)" name="history">
       <default>[]</default>
       <summary>History</summary>
       <description>List of uploaded images.</description>

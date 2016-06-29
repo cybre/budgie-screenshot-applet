@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+        <gresource prefix="/com/github/cybre/screenshot-applet/images">
+                <file>screen.png</file>
+                <file>window.png</file>
+                <file>selection.png</file>
+        </gresource>
+</gresources>
