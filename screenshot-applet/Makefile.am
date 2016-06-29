@@ -31,12 +31,17 @@ screenshotapplet_LTLIBRARIES = \
 
 libscreenshotapplet_la_SOURCES = \
 	ScreenshotApplet.vala \
+	NewScreenshotView.vala \
 	UploadingView.vala \
 	UploadDoneView.vala \
 	ErrorView.vala \
+	AutomaticScrollBox.vala \
 	HistoryView.vala \
+	HistoryViewItem.vala \
 	plugin-resources.h \
-	plugin-resources.c
+	plugin-resources.c \
+	../data/screenshot-applet-images.h \
+	../data/screenshot-applet-images.c
 
 libscreenshotapplet_la_CFLAGS = \
 	$(BUDGIE_PLUGIN_CFLAGS) \
@@ -64,6 +69,7 @@ libscreenshotapplet_la_VALAFLAGS = \
 	--pkg rest-0.7 \
 	--vapidir ../vapi \
 	--gresources=${srcdir}/plugin.gresource.xml \
+	--gresources=${top_srcdir}/data/screenshot-applet-images.gresource.xml \
 	--target-glib=2.38
 
 gsettings_SCHEMAS = \

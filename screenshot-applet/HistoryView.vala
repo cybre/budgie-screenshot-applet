@@ -13,64 +13,82 @@ namespace ScreenshotApplet
 {
     public class HistoryView : Gtk.Box
     {
+        private Gtk.Box history_header_sub_box;
         private Gtk.Box history_header_box;
-        private Gtk.ScrolledWindow history_scroller;
-        private Gtk.Image placeholder_image;
         private Gtk.Box placeholder_box;
+        private Gtk.Box clear_all_box;
         private Gtk.Label placeholder_label;
+        private Gtk.Label history_header_label;
+        private Gtk.Button history_back_button;
+        private Gtk.Button clear_all_button;
+        private Gtk.Image placeholder_image;
+        private Gtk.ListBox history_listbox;
         private GLib.Settings settings;
         private Gtk.Clipboard clipboard;
-        public Gtk.ListBox history_listbox;
-        public Gtk.Button history_clear_all_button;
-        public Gtk.Label history_header_label;
-        public Gtk.Button history_back_button;
+        private AutomaticScrollBox history_scroller;
+        private HistoryViewItem history_view_item;
 
-        public HistoryView(GLib.Settings settings, Gtk.Clipboard clipboard)
+        public HistoryView(GLib.Settings settings, Gtk.Clipboard clipboard, Gtk.Stack stack)
         {
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
-            this.width_request = 340;
-            this.height_request = 400;
+            width_request = 300;
+            height_request = -1;
 
             this.settings = settings;
             this.clipboard = clipboard;
 
-            history_back_button = new Gtk.Button.from_icon_name("go-previous-symbolic", Gtk.IconSize.MENU);
-            history_back_button.relief = Gtk.ReliefStyle.NONE;
+            history_back_button = new Gtk.Button.with_label("Back");
             history_back_button.tooltip_text = "Back";
-            history_back_button.margin = 3;
+            history_back_button.can_focus = false;
 
-            history_header_label = new Gtk.Label("Grab a screenshot :)");
-            history_header_label.set_line_wrap(true);
-            history_header_label.set_line_wrap_mode(Pango.WrapMode.WORD);
-            history_header_label.halign = Gtk.Align.CENTER;
+            history_back_button.clicked.connect(() => {
+                stack.set_visible_child_full("new_screenshot_view", Gtk.StackTransitionType.SLIDE_RIGHT);
+            });
 
-            history_clear_all_button = new Gtk.Button.from_icon_name("list-remove-all-symbolic", Gtk.IconSize.MENU);
-            history_clear_all_button.relief = Gtk.ReliefStyle.NONE;
-            history_clear_all_button.tooltip_text = "Clear All";
-            history_clear_all_button.margin = 3;
-            history_clear_all_button.clicked.connect(this.clear_all);
+            history_header_label = new Gtk.Label("<b>Recent Screenshots</b>");
+            history_header_label.use_markup = true;
+            history_header_label.halign = Gtk.Align.END;
 
-            history_header_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 3);
-            history_header_box.get_style_context().add_class("list");
-            history_header_box.pack_start(history_back_button, false, false, 0);
-            history_header_box.pack_start(history_header_label, true, true, 0);
-            history_header_box.pack_end(history_clear_all_button, false, false, 0);
+            Gtk.Separator separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+
+            history_header_sub_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            history_header_sub_box.margin = 10;
+            history_header_sub_box.pack_start(history_back_button, false, false, 0);
+            history_header_sub_box.pack_end(history_header_label, true, true, 0);
+
+            history_header_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            history_header_box.pack_start(history_header_sub_box, true, true, 0);
+            history_header_box.pack_start(separator, true, true, 0);
 
             history_listbox = new Gtk.ListBox();
             history_listbox.selection_mode = Gtk.SelectionMode.NONE;
-            history_listbox.set_header_func(list_header_setup);
-            history_scroller = new Gtk.ScrolledWindow(null, null);
+            history_scroller = new AutomaticScrollBox(null, null);
+            history_scroller.max_height = 265;
             history_scroller.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
             history_scroller.add(history_listbox);
 
-            this.pack_start(history_header_box, false, false, 0);
-            this.pack_start(history_scroller, true, true, 0);
+            clear_all_button = new Gtk.Button.with_label("Clear all Screenshots");
+            ((Gtk.Label) clear_all_button.get_child()).halign = Gtk.Align.START;
+            clear_all_button.get_style_context().add_class("flat");
+            clear_all_button.clicked.connect(clear_all);
+            clear_all_button.can_focus = false;
+            clear_all_button.relief = Gtk.ReliefStyle.NONE;
+            clear_all_button.margin_start = 2;
+            clear_all_button.margin_end = 2;
 
-            placeholder_image = new Gtk.Image.from_icon_name("action-unavailable-symbolic", Gtk.IconSize.DIALOG);
+            Gtk.Separator clear_all_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+
+            clear_all_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            clear_all_box.pack_start(clear_all_separator, false, false, 0);
+            clear_all_box.pack_end(clear_all_button, false, true, 2);
+
+            placeholder_image = new Gtk.Image.from_icon_name(
+                "action-unavailable-symbolic", Gtk.IconSize.DIALOG);
             placeholder_image.pixel_size = 64;
             placeholder_label = new Gtk.Label("<big>Nothing to see here</big>");
             placeholder_label.use_markup = true;
             placeholder_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
+            placeholder_box.margin = 40;
             placeholder_box.get_style_context().add_class("dim-label");
             placeholder_box.halign = Gtk.Align.CENTER;
             placeholder_box.valign = Gtk.Align.CENTER;
@@ -80,112 +98,114 @@ namespace ScreenshotApplet
             history_listbox.set_placeholder(placeholder_box);
             placeholder_box.show_all();
 
+            pack_start(history_header_box, false, false, 0);
+            pack_start(history_scroller, true, true, 0);
+            pack_start(clear_all_box, true, true, 0);
+            show_all();
+
             update_child_count();
         }
 
-        protected void list_header_setup(Gtk.ListBoxRow? row, Gtk.ListBoxRow? before)
-        {
-            Gtk.Box? child = null;
-            string? current_date = null;
-            string? previous_date = null;
-
-            if (row != null) {
-                child = row.get_child() as Gtk.Box;
-                current_date = child.name;
-            }
-
-            if (before != null) {
-                child = before.get_child() as Gtk.Box;
-                previous_date = child.name;
-            }
-    
-            if (row == null || before == null || current_date != previous_date) {
-                var label = new Gtk.Label(Markup.printf_escaped("<big>%s</big>", current_date));
-                label.use_markup = true;
-                label.halign = Gtk.Align.START;
-                label.get_style_context().add_class("dim-label");
-                row.set_header(label);
-                label.margin = 3;
-            } else {
-                row.set_header(null);
-            }
-        }
-
-        private void update_child_count()
+        public void update_child_count()
         {
             uint len = history_listbox.get_children().length();
 
-            string? text = null;
-            if (len > 1) {
-                text = "%u screenshots taken".printf(len);
-            } else if (len == 1) {
-                text = "1 screenshot taken";
-            } else {
-                text = "Grab a screenshot :)";
-            }    
-
-            history_header_label.set_text(text);
             if (len == 0) {
-                history_clear_all_button.sensitive = false;
+                clear_all_button.sensitive = false;
             } else {
-                history_clear_all_button.sensitive = true;
+                clear_all_button.sensitive = true;
             }
         }
 
-        public void update_history(string? history_entry)
-        {   
-            string[] h_split = history_entry.split("|");
+        public async void update_history(int n, bool startup)
+        {
+            Gtk.ListBoxRow? separator_item = null;
+            if (history_listbox.get_children().length() != 0) {
+                Gtk.Separator separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+                separator.can_focus = false;
+                separator_item = new Gtk.ListBoxRow();
+                separator_item.selectable = false;
+                separator_item.can_focus = false;
+                separator_item.activatable = false;
+                separator_item.add(separator);
+                history_listbox.prepend(separator_item);
+            }
 
-            int64 timestamp = int64.parse(h_split[0]);
-            string url = h_split[1];
+            history_view_item = new HistoryViewItem(n, settings);
+            history_listbox.prepend(history_view_item);
 
-            GLib.DateTime time = new DateTime.from_unix_local(timestamp);
+            Gtk.ListBoxRow parent = (Gtk.ListBoxRow) history_view_item.get_parent();
+            parent.selectable = false;
+            parent.can_focus = false;
+            parent.activatable = false;
 
-            Gtk.Label time_label = new Gtk.Label("<small>%s</small>".printf(time.format("%H:%M")));
-            time_label.yalign = 0.60f;
-            time_label.margin = 5;
-            time_label.set_use_markup(true);
-            time_label.get_style_context().add_class("dim-label");
+            history_listbox.show_all();
 
-            Gtk.LinkButton link_button = new Gtk.LinkButton(url);
-            Gtk.Label link_button_label = (Gtk.Label) link_button.get_child();
-            link_button_label.halign = Gtk.Align.START;
-            link_button_label.get_style_context().add_class("no-underline");
+            if (startup) {
+                history_view_item.reveal_child = true;
+            } else {
+                history_view_item.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+                GLib.Timeout.add(1, () => {
+                    history_view_item.reveal_child = true;
+                    return true;
+                });
+            }
 
-            Gtk.Button copy_button = new Gtk.Button.from_icon_name("edit-copy-symbolic", Gtk.IconSize.MENU);
-            copy_button.relief = Gtk.ReliefStyle.NONE;
-            copy_button.margin = 3;
-
-            copy_button.clicked.connect(() => {
-                this.clipboard.set_text(url, -1);
+            history_view_item.copy.connect((url) => {
+                clipboard.set_text(url, -1);
             });
 
-            Gtk.Box history_entry_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            history_entry_box.margin_left = 5;
-            history_entry_box.name = time.format("%d %B %Y");
-            history_entry_box.pack_start(time_label, false, false, 0);
-            history_entry_box.pack_start(link_button, true, true, 0);
-            history_entry_box.pack_end(copy_button, false, false, 5);
+            history_view_item.deletion.connect(() => {
+                int index = parent.get_index();
 
-            history_listbox.prepend(history_entry_box);
-            history_listbox.show_all();
+                if (history_listbox.get_children().length() == 1) {
+                    parent.destroy();
+                    return;
+                }
+
+                if (index == 0) {
+                    Gtk.Widget row_after = history_listbox.get_row_at_index(index + 1);
+                    if (row_after != null) row_after.destroy();
+                } else {
+                    Gtk.Widget row_before = history_listbox.get_row_at_index(index - 1);
+                    if (row_before != null) row_before.destroy();
+                }
+
+                update_child_count();
+            });
 
             update_child_count();
         }
 
-        public void add_to_history(string link)
+        public void add_to_history(string link, string title)
         {
-            string[] history_list = this.settings.get_strv("history");
+            GLib.Variant history_list = settings.get_value("history");
+
             GLib.DateTime datetime = new GLib.DateTime.now_local();
             int64 timestamp = datetime.to_unix();
-            history_list += "%lld".printf(timestamp) + "|" + link;
-            this.settings.set_strv("history", history_list);
-            update_history(history_list[history_list.length - 1]);
+            if (title == "") title = "Untitled";
+
+            GLib.Variant timestamp_variant = new GLib.Variant.int64(timestamp);
+            GLib.Variant title_variant = new GLib.Variant.string(title);
+            GLib.Variant link_variant = new GLib.Variant.string(link);
+
+            GLib.Variant[]? history_variant_list = null;
+            for (int i=0; i<history_list.n_children(); i++) {
+                GLib.Variant history_variant = history_list.get_child_value(i);
+                history_variant_list += history_variant;
+            }
+
+            GLib.Variant history_entry_tuple = new GLib.Variant.tuple(
+                {timestamp_variant, title_variant, link_variant});
+            history_variant_list += history_entry_tuple;
+            GLib.Variant history_entry_array = new GLib.Variant.array(null, history_variant_list);
+            settings.set_value("history", history_entry_array);
+            update_history(history_variant_list.length - 1, false);
         }
 
         public void clear_all()
         {
-            this.settings.reset("history");
+            settings.reset("history");
             foreach (Gtk.Widget child in history_listbox.get_children()) {
                 child.destroy();
             }

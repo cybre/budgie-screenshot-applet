@@ -13,30 +13,36 @@ namespace ScreenshotApplet
 {
     public class UploadingView : Gtk.Box
     {
-        private Gtk.Image uploading_image;
-        private Gtk.Label uploading_label;
-        public Gtk.Button uploading_cancel_button;
+        private Gtk.Image image;
+        private Gtk.Label label;
+        public Gtk.Button cancel_button;
+        public GLib.Cancellable cancellable;
 
         public UploadingView()
         {
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
-            this.margin = 20;
-            this.width_request = 200;
-            this.height_request = 150;
+            margin = 20;
+            width_request = 200;
+            height_request = 150;
 
-            uploading_image = new Gtk.Image.from_icon_name("software-update-available-symbolic", Gtk.IconSize.DIALOG);
-            uploading_image.pixel_size = 64;
+            image = new Gtk.Image.from_icon_name("software-update-available-symbolic", Gtk.IconSize.DIALOG);
+            image.pixel_size = 64;
 
-            uploading_label = new Gtk.Label("<big>Uploading...</big>");
-            uploading_label.set_use_markup(true);
-            uploading_label.margin_top = 10;
+            label = new Gtk.Label("<big>Uploading...</big>");
+            label.use_markup = true;
+            label.margin_top = 10;
 
-            uploading_cancel_button = new Gtk.Button.with_label("Cancel");
-            uploading_cancel_button.margin_top = 20;
+            cancel_button = new Gtk.Button.with_label("Cancel");
+            cancel_button.margin_top = 20;
+            cancel_button.can_focus = false;
 
-            this.pack_start(uploading_image, true, true, 0);
-            this.pack_start(uploading_label, true, true, 0);
-            this.pack_start(uploading_cancel_button, true, true, 0);
+            cancel_button.clicked.connect(() => {
+                cancellable.cancel();
+            });
+
+            pack_start(image, true, true, 0);
+            pack_start(label, true, true, 0);
+            pack_start(cancel_button, true, true, 0);
         }
     }
 }
