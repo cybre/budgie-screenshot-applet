@@ -120,7 +120,7 @@ namespace ScreenshotApplet
             url_label.ellipsize = Pango.EllipsizeMode.MIDDLE;
 
             url_event_box = new Gtk.EventBox();
-            url_event_box.tooltip_text = "Click to open the link in your browser";
+            url_event_box.tooltip_text = "Click to open this screenshot";
             url_event_box.add(url_label);
             url_event_box.button_press_event.connect(() => {
                 try {
