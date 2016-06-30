@@ -193,13 +193,24 @@ namespace ScreenshotApplet
                 string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
                 filepath = "%s/%s".printf(last_save_directory, filename);
             } else {
-                filepath = "file:///tmp/screenshot.png";
+                filepath = "file://%s/screenshot.png".printf(GLib.Environment.get_tmp_dir());
             }
         }
 
         private void upload()
         {
-            GLib.File screenshot_file = GLib.File.new_for_uri(filepath);
+            GLib.File? screenshot_file = null;
+            if (provider_to_use == "local") {
+                try {
+                    GLib.FileIOStream iostream;
+                    screenshot_file = GLib.File.new_tmp("screenshot.png", out iostream);
+                } catch (GLib.Error e) {
+                    stderr.printf(e.message, "\n");
+                }
+            } else {
+                screenshot_file = GLib.File.new_for_uri(filepath);
+            }
+
             if (screenshot_file.query_exists()) {
                 GLib.MainLoop mainloop = new GLib.MainLoop();
 
