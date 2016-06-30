@@ -202,8 +202,7 @@ namespace ScreenshotApplet
             GLib.File? screenshot_file = null;
             if (provider_to_use == "local") {
                 try {
-                    GLib.FileIOStream iostream;
-                    screenshot_file = GLib.File.new_tmp("screenshot.png", out iostream);
+                    screenshot_file = GLib.File.new_tmp("screenshot.png", null);
                 } catch (GLib.Error e) {
                     stderr.printf(e.message, "\n");
                 }
