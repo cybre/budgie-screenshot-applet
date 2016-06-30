@@ -125,13 +125,7 @@ namespace ScreenshotApplet
             string command_output;
             popover.visible = false;
 
-            if (provider_to_use == "local") {
-                GLib.DateTime datetime = new GLib.DateTime.now_local();
-                string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
-                filepath = "%s/%s".printf(last_save_directory, filename);
-            } else {
-                filepath = "file:///tmp/screenshot.png";
-            }
+            set_filepath();
 
             string[] spawn_args = {
                 "gnome-screenshot",
@@ -154,13 +148,7 @@ namespace ScreenshotApplet
                 old_window.focus(0);
             }
 
-            if (provider_to_use == "local") {
-                GLib.DateTime datetime = new GLib.DateTime.now_local();
-                string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
-                filepath = "%s/%s".printf(last_save_directory, filename);
-            } else {
-                filepath = "file:///tmp/screenshot.png";
-            }
+            set_filepath();
 
             string[] spawn_args = {
                 "gnome-screenshot",
@@ -185,13 +173,7 @@ namespace ScreenshotApplet
             string command_output;
             popover.visible = false;
 
-            if (provider_to_use == "local") {
-                GLib.DateTime datetime = new GLib.DateTime.now_local();
-                string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
-                filepath = "%s/%s".printf(last_save_directory, filename);
-            } else {
-                filepath = "file:///tmp/screenshot.png";
-            }
+            set_filepath();
 
             string[] spawn_args = {
                 "gnome-screenshot",
@@ -202,6 +184,17 @@ namespace ScreenshotApplet
 
             command_output = run_command(spawn_args);
             upload();
+        }
+
+        private void set_filepath()
+        {
+            if (provider_to_use == "local") {
+                GLib.DateTime datetime = new GLib.DateTime.now_local();
+                string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
+                filepath = "%s/%s".printf(last_save_directory, filename);
+            } else {
+                filepath = "file:///tmp/screenshot.png";
+            }
         }
 
         private void upload()
