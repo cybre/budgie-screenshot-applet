@@ -35,7 +35,7 @@ A package will soon be available.
 #### Arch Linux
 The package can be installed on Arch using
 ```
-yaourt -S haste-applet
+yaourt -S screenshot-applet
 ```
 
 ---
