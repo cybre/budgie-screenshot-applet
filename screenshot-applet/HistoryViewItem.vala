@@ -124,7 +124,7 @@ namespace ScreenshotApplet
             url_event_box.add(url_label);
             url_event_box.button_press_event.connect(() => {
                 try {
-                    GLib.Process.spawn_command_line_async("xdg-open %s".printf(url));
+                    GLib.Process.spawn_command_line_async("xdg-open \"%s\"".printf(url));
                 } catch (GLib.SpawnError e) {
                     stderr.printf(e.message);
                 }

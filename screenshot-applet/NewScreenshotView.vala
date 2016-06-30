@@ -47,7 +47,10 @@ namespace ScreenshotApplet
         private Gtk.Button history_button;
         private Gtk.Popover popover;
         private string link;
+        private string last_save_directory;
+        private string filepath;
         private GLib.Cancellable cancellable;
+        private GLib.Settings gnome_screenshot_settings;
         public string provider_to_use { set; get; default = "imgur"; }
         public string window_effect { set; get; default = "none"; }
         public int screenshot_delay { set; get; default = 2; }
@@ -55,7 +58,7 @@ namespace ScreenshotApplet
         public Gdk.Window old_window;
 
         public signal void upload_started(GLib.MainLoop mainloop, GLib.Cancellable cancellable);
-        public signal void upload_finished(string link, Gtk.Entry title_entry, GLib.Cancellable cancellable);
+        public signal void upload_finished(string link, string provider_to_use, Gtk.Entry title_entry, GLib.Cancellable cancellable);
         public signal void error_happened(Gtk.Entry title_entry);
 
         public NewScreenshotView(Gtk.Stack stack, Gtk.Popover popover)
@@ -103,6 +106,15 @@ namespace ScreenshotApplet
                 stack.set_visible_child_full("history_view", Gtk.StackTransitionType.SLIDE_LEFT);
             });
 
+            gnome_screenshot_settings = new GLib.Settings("org.gnome.gnome-screenshot");
+            last_save_directory = gnome_screenshot_settings.get_string("last-save-directory");
+
+            gnome_screenshot_settings.changed.connect((key) => {
+                if (key == "last-save-directory") {
+                    last_save_directory = gnome_screenshot_settings.get_string(key);
+                }
+            });
+
             attach(title_entry, 0, 0, 1, 1);
             attach(mode_selection, 0, 2, 1, 1);
             attach(history_button, 0, 4, 1, 1);
@@ -113,12 +125,20 @@ namespace ScreenshotApplet
             string command_output;
             popover.visible = false;
 
+            if (provider_to_use == "local") {
+                GLib.DateTime datetime = new GLib.DateTime.now_local();
+                string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
+                filepath = "%s/%s".printf(last_save_directory, filename);
+            } else {
+                filepath = "file:///tmp/screenshot.png";
+            }
+
             string[] spawn_args = {
                 "gnome-screenshot",
                 "-d",
                 screenshot_delay.to_string(),
                 "-f",
-                "/tmp/screenshot.png"
+                filepath
             };
 
             command_output = run_command(spawn_args);
@@ -134,6 +154,14 @@ namespace ScreenshotApplet
                 old_window.focus(0);
             }
 
+            if (provider_to_use == "local") {
+                GLib.DateTime datetime = new GLib.DateTime.now_local();
+                string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
+                filepath = "%s/%s".printf(last_save_directory, filename);
+            } else {
+                filepath = "file:///tmp/screenshot.png";
+            }
+
             string[] spawn_args = {
                 "gnome-screenshot",
                 "-w",
@@ -142,34 +170,43 @@ namespace ScreenshotApplet
                 "-e",
                 window_effect,
                 "-f",
-                "/tmp/screenshot.png"
+                filepath
             };
 
             if (include_border) spawn_args += "-b";
                 else spawn_args += "-B";
 
             command_output = run_command(spawn_args);
-            upload(); 
+            upload();
         }
 
         private void take_area_screenshot()
         {
             string command_output;
             popover.visible = false;
+
+            if (provider_to_use == "local") {
+                GLib.DateTime datetime = new GLib.DateTime.now_local();
+                string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
+                filepath = "%s/%s".printf(last_save_directory, filename);
+            } else {
+                filepath = "file:///tmp/screenshot.png";
+            }
+
             string[] spawn_args = {
                 "gnome-screenshot",
                 "-a",
                 "-f",
-                "/tmp/screenshot.png"
+                filepath
             };
-            command_output = run_command(spawn_args);
 
-            upload(); 
+            command_output = run_command(spawn_args);
+            upload();
         }
 
         private void upload()
         {
-            GLib.File screenshot_file = GLib.File.new_for_path ("/tmp/screenshot.png");
+            GLib.File screenshot_file = GLib.File.new_for_uri(filepath);
             if (screenshot_file.query_exists()) {
                 GLib.MainLoop mainloop = new GLib.MainLoop();
 
@@ -184,18 +221,23 @@ namespace ScreenshotApplet
                     case "ibin":
                         link = upload_ibin();
                         break;
+                    case "local":
+                        link = filepath;
+                        break;
                     default:
                         break;
                 }
 
                 link = link.strip();
 
-                upload_finished(link, title_entry, cancellable);
+                upload_finished(link, provider_to_use, title_entry, cancellable);
 
-                try {
-                    screenshot_file.delete();
-                } catch (GLib.Error e) {
-                    stderr.printf(e.message, "\n");
+                if (provider_to_use != "local") {
+                    try {
+                        screenshot_file.delete();
+                    } catch (GLib.Error e) {
+                        stderr.printf(e.message, "\n");
+                    }
                 }
 
                 mainloop.run();
@@ -276,7 +318,7 @@ namespace ScreenshotApplet
                 size_t read_bytes;
                 int state = 0;
                 int save = 0;
-               
+
                 read_bytes = yield input.read_async(buffer);
                 while (read_bytes != 0) {
                     buffer.length = (int) read_bytes;
@@ -312,7 +354,7 @@ namespace ScreenshotApplet
             for (int i = 24; i < command_output.length; i++) {
                 url += ((char) command_output[i]).to_string();
             }
-            
+
             return url;
         }
 

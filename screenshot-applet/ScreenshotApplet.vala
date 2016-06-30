@@ -42,6 +42,8 @@ public class ScreenshotAppletSettings : Gtk.Grid
         Gtk.TreeIter iter;
 
         providers.append(out iter);
+        providers.set(iter, 0, "local", 1, "Local");
+        providers.append(out iter);
         providers.set(iter, 0, "imgur", 1, "Imgur.com");
         providers.append(out iter);
         providers.set(iter, 0, "ibin", 1, "Ibin.co");
@@ -50,7 +52,7 @@ public class ScreenshotAppletSettings : Gtk.Grid
         Gtk.CellRendererText renderer = new Gtk.CellRendererText();
         combobox_provider.pack_start(renderer, true);
         combobox_provider.add_attribute(renderer, "text", 1);
-        combobox_provider.active = 0;
+        combobox_provider.active = 1;
         combobox_provider.set_id_column(0);
 
         Gtk.ListStore effects = new Gtk.ListStore(2, typeof(string), typeof(string));
@@ -162,7 +164,7 @@ namespace ScreenshotApplet {
                 spinner.visible = true;
             });
 
-            new_screenshot_view.upload_finished.connect((link, title_entry, cancellable) => {
+            new_screenshot_view.upload_finished.connect((link, provider_to_use, title_entry, cancellable) => {
                 upload_done_view.link = link;
                 spinner.active = false;
                 spinner.visible = false;
@@ -283,6 +285,12 @@ namespace ScreenshotApplet {
                     break;
                 case "provider":
                     new_screenshot_view.provider_to_use = settings.get_string(key);
+                    if (settings.get_string(key) == "local") {
+                        upload_done_view.set_label(
+                            "<big>The screenshot has been saved</big>");
+                    } else {
+                        upload_done_view.set_label("<big>The link has been copied \nto your clipboard!</big>");
+                    }
                     break;
                 case "delay":
                     new_screenshot_view.screenshot_delay = settings.get_int(key);

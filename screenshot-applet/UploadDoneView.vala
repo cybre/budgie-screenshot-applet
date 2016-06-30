@@ -63,5 +63,10 @@ namespace ScreenshotApplet
             pack_start(label, true, true, 0);
             pack_start(button_box, true, true, 0);
         }
+
+        public void set_label(string text)
+        {
+            label.label = text;
+        }
     }
 }
