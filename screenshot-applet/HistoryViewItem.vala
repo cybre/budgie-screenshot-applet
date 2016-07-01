@@ -136,7 +136,7 @@ namespace ScreenshotApplet
                         action_stack.visible_child_name = "copy_button";
                         string old_url = url;
                         url = link;
-                        url_label.set_text(link);
+                        url_label.set_text(link.split("://")[1]);
                         apply_changes(settings, old_url);
                     } else {
                         action_stack.visible_child_name = "upload_button";
