@@ -51,6 +51,7 @@ namespace ScreenshotApplet
         private string filepath;
         private GLib.Cancellable cancellable;
         private GLib.Settings gnome_screenshot_settings;
+        private GLib.File screenshot_file;
         public string provider_to_use { set; get; default = "imgur"; }
         public string window_effect { set; get; default = "none"; }
         public int screenshot_delay { set; get; default = 2; }
@@ -192,24 +193,20 @@ namespace ScreenshotApplet
                 GLib.DateTime datetime = new GLib.DateTime.now_local();
                 string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
                 filepath = "%s/%s".printf(last_save_directory, filename);
+                screenshot_file = GLib.File.new_for_uri(filepath);
             } else {
-                filepath = "file://%s/screenshot.png".printf(GLib.Environment.get_tmp_dir());
+                try {
+                    GLib.FileIOStream iostream;
+                    screenshot_file = GLib.File.new_tmp("screenshot-XXXXXX.png", out iostream);
+                    filepath = screenshot_file.get_uri();
+                } catch (GLib.Error e) {
+                    stderr.printf(e.message, "\n");
+                }
             }
         }
 
         private void upload()
         {
-            GLib.File? screenshot_file = null;
-            if (provider_to_use == "local") {
-                try {
-                    screenshot_file = GLib.File.new_tmp("screenshot.png", null);
-                } catch (GLib.Error e) {
-                    stderr.printf(e.message, "\n");
-                }
-            } else {
-                screenshot_file = GLib.File.new_for_uri(filepath);
-            }
-
             if (screenshot_file.query_exists()) {
                 GLib.MainLoop mainloop = new GLib.MainLoop();
 
@@ -257,11 +254,8 @@ namespace ScreenshotApplet
                 Rest.Proxy proxy = new Rest.Proxy("https://api.imgur.com/3/", false);
                 Rest.ProxyCall call = proxy.new_call();
 
-                string uri = "file:///tmp/screenshot.png";
-                GLib.File f = GLib.File.new_for_uri(uri);
-
                 StringBuilder encode = null;
-                encode_file.begin(f, (obj, res) => {
+                encode_file.begin(screenshot_file, (obj, res) => {
                     try {
                         encode = encode_file.end(res);
                     } catch (GLib.ThreadError e) {
@@ -348,7 +342,7 @@ namespace ScreenshotApplet
                     "curl",
                     "-sS",
                     "-F key=uRj7fbCFkTPiFYOJK5ETYzVdjkgTrqBP",
-                    "-F file=@/tmp/screenshot.png",
+                    "-F file=@%s".printf(filepath.split("://")[1]),
                     "https://imagebin.ca/upload.php",
             };
 
