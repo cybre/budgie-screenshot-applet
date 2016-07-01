@@ -288,7 +288,7 @@ namespace ScreenshotApplet
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             transition_duration = 150;
 
-            /* The revealer close animation never gets triggered for 
+            /* The revealer close animation never gets triggered for
                the first item in the list for some reason
                so this will destroy the parent without the close animation.
                Might be a GTK+ bug. */
@@ -299,7 +299,7 @@ namespace ScreenshotApplet
             reveal_child = false;
         }
 
-        private void apply_changes(GLib.Settings settings, string url)
+        private void apply_changes(GLib.Settings settings, string current_url)
         {
             if (title_entry.text == "") {
                 title = "Untitled";
@@ -319,7 +319,7 @@ namespace ScreenshotApplet
                 history_entry_curr = history_list.get_child_value(i);
                 string? entry_url = null;
                 history_entry_curr.get("(xss)", null, null, out entry_url);
-                if (entry_url == url) {
+                if (entry_url == current_url) {
                     GLib.Variant entry_timestamp_variant = new GLib.Variant.int64(timestamp);
                     GLib.Variant entry_title_variant = new GLib.Variant.string(title);
                     GLib.Variant entry_url_variant = new GLib.Variant.string(url);

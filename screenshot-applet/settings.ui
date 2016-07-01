@@ -42,6 +42,31 @@
       </packing>
     </child>
     <child>
+      <object class="GtkLabel" id="label_local">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="hexpand">True</property>
+        <property name="label" translatable="yes">Local Screenshots</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSwitch" id="switch_local">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="halign">end</property>
+        <property name="hexpand">True</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
       <object class="GtkLabel" id="label_provider">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -51,7 +76,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
+        <property name="top_attach">2</property>
       </packing>
     </child>
     <child>
@@ -59,31 +84,6 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">end</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label_history">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="hexpand">True</property>
-        <property name="label" translatable="yes">Enable History</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkSwitch" id="switch_history">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="halign">end</property>
-        <property name="hexpand">True</property>
       </object>
       <packing>
         <property name="left_attach">1</property>

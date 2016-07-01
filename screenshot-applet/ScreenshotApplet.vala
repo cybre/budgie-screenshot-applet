@@ -23,6 +23,9 @@ public class ScreenshotAppletSettings : Gtk.Grid
     private Gtk.Switch? switch_label;
 
     [GtkChild]
+    private Gtk.Switch? switch_local;
+
+    [GtkChild]
     private Gtk.ComboBox? combobox_provider;
 
     [GtkChild]
@@ -42,8 +45,6 @@ public class ScreenshotAppletSettings : Gtk.Grid
         Gtk.TreeIter iter;
 
         providers.append(out iter);
-        providers.set(iter, 0, "local", 1, "Local");
-        providers.append(out iter);
         providers.set(iter, 0, "imgur", 1, "Imgur.com");
         providers.append(out iter);
         providers.set(iter, 0, "ibin", 1, "Ibin.co");
@@ -52,7 +53,7 @@ public class ScreenshotAppletSettings : Gtk.Grid
         Gtk.CellRendererText renderer = new Gtk.CellRendererText();
         combobox_provider.pack_start(renderer, true);
         combobox_provider.add_attribute(renderer, "text", 1);
-        combobox_provider.active = 1;
+        combobox_provider.active = 0;
         combobox_provider.set_id_column(0);
 
         Gtk.ListStore effects = new Gtk.ListStore(2, typeof(string), typeof(string));
@@ -76,6 +77,7 @@ public class ScreenshotAppletSettings : Gtk.Grid
         this.settings = settings;
 
         settings.bind("enable-label", switch_label, "active", SettingsBindFlags.DEFAULT);
+        settings.bind("enable-local", switch_local, "active", SettingsBindFlags.DEFAULT);
         settings.bind("provider", combobox_provider, "active_id", SettingsBindFlags.DEFAULT);
         settings.bind("delay", spinbutton_delay, "value", SettingsBindFlags.DEFAULT);
         settings.bind("include-border", switch_border, "active", SettingsBindFlags.DEFAULT);
@@ -265,7 +267,7 @@ namespace ScreenshotApplet {
 
         private async void popover_map_event()
         {
-            /* This makes sure the window that was focused before opening 
+            /* This makes sure the window that was focused before opening
                the popover gets focused when taking a screenshot because
                budgie-panel grabs the focus when the popover gets closed. */
             if (Gdk.Screen.get_default().get_active_window().get_toplevel() != box.get_window().get_toplevel()) {
@@ -292,6 +294,9 @@ namespace ScreenshotApplet {
             {
                 case "enable-label":
                     label.visible = settings.get_boolean(key);
+                    break;
+                case "enable-local":
+                    new_screenshot_view.local_screenshots = settings.get_boolean(key);
                     break;
                 case "provider":
                     new_screenshot_view.provider_to_use = settings.get_string(key);

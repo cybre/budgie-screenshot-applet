@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="budgie">
   <schema id="com.github.cybre.screenshot-applet">
+
     <key type="b" name="enable-label">
       <default>false</default>
       <summary>Enable applet label</summary>
       <description>Simply show the label on the applet button</description>
     </key>
 
+    <key type="b" name="enable-local">
+      <default>false</default>
+      <summary>Enable local screenshots</summary>
+      <description>Save files to the disk without uploading them</description>
+    </key>
+
     <key type="s" name="provider">
       <default>'imgur'</default>
       <summary>The upload provider</summary>
       <description>The provider to use for image uploads</description>
-    </key>
-
-    <key type="b" name="enable-history">
-      <default>true</default>
-      <summary>Enable/Disable history</summary>
-      <description>Enable/Disable history</description>
-    </key>
-
-    <key type="a(xss)" name="history">
-      <default>[]</default>
-      <summary>History</summary>
-      <description>List of uploaded images.</description>
     </key>
 
     <key type="i" name="delay">
@@ -43,5 +38,11 @@
       <description>The provider to use for image uploads</description>
     </key>
 
+    <key type="a(xss)" name="history">
+      <default>[]</default>
+      <summary>History</summary>
+      <description>List of uploaded images.</description>
+    </key>
+
   </schema>
-</schemalist>  
+</schemalist>

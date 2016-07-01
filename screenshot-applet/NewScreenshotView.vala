@@ -1,8 +1,8 @@
 /*
  * This file is part of screenshot-applet
- * 
+ *
  * Copyright (C) 2016 Stefan Ric <stfric369@gmail.com>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -47,15 +47,14 @@ namespace ScreenshotApplet
         private Gtk.Button history_button;
         private Gtk.Popover popover;
         private string link;
-        private string last_save_directory;
         private string filepath;
         private GLib.Cancellable cancellable;
-        private GLib.Settings gnome_screenshot_settings;
         private GLib.File screenshot_file;
         public string provider_to_use { set; get; default = "imgur"; }
         public string window_effect { set; get; default = "none"; }
         public int screenshot_delay { set; get; default = 2; }
         public bool include_border { set; get; default = true; }
+        public bool local_screenshots { set; get; default = false; }
         public Gdk.Window old_window;
 
         public signal void upload_started(GLib.MainLoop mainloop, GLib.Cancellable cancellable);
@@ -108,15 +107,6 @@ namespace ScreenshotApplet
 
             history_button.clicked.connect(() => {
                 stack.set_visible_child_full("history_view", Gtk.StackTransitionType.SLIDE_LEFT);
-            });
-
-            gnome_screenshot_settings = new GLib.Settings("org.gnome.gnome-screenshot");
-            last_save_directory = gnome_screenshot_settings.get_string("last-save-directory");
-
-            gnome_screenshot_settings.changed.connect((key) => {
-                if (key == "last-save-directory") {
-                    last_save_directory = gnome_screenshot_settings.get_string(key);
-                }
             });
 
             attach(title_entry, 0, 0, 1, 1);
@@ -192,11 +182,16 @@ namespace ScreenshotApplet
 
         private void set_filepath()
         {
-            if (provider_to_use == "local") {
+            if (local_screenshots) {
                 GLib.DateTime datetime = new GLib.DateTime.now_local();
                 string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
-                filepath = "%s/%s".printf(last_save_directory, filename);
+                filepath = "%s/%s".printf("file://%s/Screenshots".printf(GLib.Environment.get_user_special_dir(GLib.UserDirectory.PICTURES)), filename);
                 screenshot_file = GLib.File.new_for_uri(filepath);
+                try {
+                    screenshot_file.get_parent().make_directory();
+                } catch (GLib.Error e) {
+                    stderr.printf(e.message, "\n");
+                }
             } else {
                 try {
                     GLib.FileIOStream iostream;
@@ -217,19 +212,15 @@ namespace ScreenshotApplet
             if (screenshot_file.query_exists()) {
                 local_upload_started();
 
-                if (provider_to_use == "local") {
-                    link = upload_imgur();
-                } else {
-                    switch (provider_to_use) {
-                        case "imgur":
-                            link = upload_imgur();
-                            break;
-                        case "ibin":
-                            link = upload_ibin();
-                            break;
-                        default:
-                            break;
-                    }
+                switch (provider_to_use) {
+                    case "imgur":
+                        link = upload_imgur();
+                        break;
+                    case "ibin":
+                        link = upload_ibin();
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -245,25 +236,26 @@ namespace ScreenshotApplet
 
                 upload_started(mainloop, cancellable);
 
-                switch (provider_to_use) {
-                    case "imgur":
-                        link = upload_imgur();
-                        break;
-                    case "ibin":
-                        link = upload_ibin();
-                        break;
-                    case "local":
-                        link = filepath;
-                        break;
-                    default:
-                        break;
+                if (!local_screenshots) {
+                    switch (provider_to_use) {
+                        case "imgur":
+                            link = upload_imgur();
+                            break;
+                        case "ibin":
+                            link = upload_ibin();
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    link = filepath;
                 }
 
                 link = link.strip();
 
                 upload_finished(link, provider_to_use, title_entry, cancellable);
 
-                if (provider_to_use != "local") {
+                if (!local_screenshots) {
                     try {
                         screenshot_file.delete();
                     } catch (GLib.Error e) {
