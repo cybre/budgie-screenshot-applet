@@ -103,7 +103,7 @@ namespace ScreenshotApplet
 
             string start = url.slice(0, 4);
             Gtk.Stack? action_stack = null;
-            if (start != "http") {
+            if (start == "file") {
                 Gtk.Button upload_button = new Gtk.Button.from_icon_name(
                     "go-up-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
                 upload_button.relief = Gtk.ReliefStyle.NONE;
