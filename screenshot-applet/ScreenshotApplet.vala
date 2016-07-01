@@ -175,7 +175,13 @@ namespace ScreenshotApplet {
 
                 if (link != "") {
                     history_view.add_to_history(link, title_entry.text);
-                    clipboard.set_text(link, -1);
+
+                    if (provider_to_use == "local") {
+                        Gdk.Pixbuf pb = new Gdk.Pixbuf.from_file(link.split("://")[1]);
+                        clipboard.set_image(pb);
+                    } else {
+                        clipboard.set_text(link, -1);
+                    }
                     if (popover.visible && !cancellable.is_cancelled()) {
                         stack.visible_child_name = "upload_done_view";
                     }
