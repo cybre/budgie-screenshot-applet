@@ -52,7 +52,7 @@ namespace ScreenshotApplet
 
             open_button.clicked.connect(() => {
                 try {
-                    GLib.Process.spawn_command_line_async("xdg-open %s".printf(link));
+                    GLib.Process.spawn_command_line_async("xdg-open \"%s\"".printf(link));
                     popover.hide();
                 } catch (GLib.SpawnError e) {
                     stderr.printf(e.message);
