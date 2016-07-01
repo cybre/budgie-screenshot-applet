@@ -57,6 +57,7 @@ namespace ScreenshotApplet
                 } catch (GLib.SpawnError e) {
                     stderr.printf(e.message);
                 }
+                stack.set_visible_child_full("new_screenshot_view", Gtk.StackTransitionType.SLIDE_RIGHT);
             });
 
             pack_start(image, true, true, 0);
