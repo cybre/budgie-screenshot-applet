@@ -62,7 +62,10 @@ namespace ScreenshotApplet
         public signal void upload_finished(string link, string provider_to_use, Gtk.Entry title_entry, GLib.Cancellable cancellable);
         public signal void error_happened(Gtk.Entry title_entry);
 
-        public NewScreenshotView(Gtk.Stack stack, Gtk.Popover popover)
+        public signal void local_upload_started();
+        public signal void local_upload_finished(string link);
+
+        public NewScreenshotView(Gtk.Stack? stack, Gtk.Popover? popover)
         {
             this.popover = popover;
 
@@ -203,6 +206,34 @@ namespace ScreenshotApplet
                     stderr.printf(e.message, "\n");
                 }
             }
+        }
+
+        public void upload_local(string filepath)
+        {
+            screenshot_file = GLib.File.new_for_uri(filepath);
+
+            link = "";
+
+            if (screenshot_file.query_exists()) {
+                local_upload_started();
+
+                if (provider_to_use == "local") {
+                    link = upload_imgur();
+                } else {
+                    switch (provider_to_use) {
+                        case "imgur":
+                            link = upload_imgur();
+                            break;
+                        case "ibin":
+                            link = upload_ibin();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            local_upload_finished(link);
         }
 
         private void upload()

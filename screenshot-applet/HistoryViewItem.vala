@@ -101,6 +101,50 @@ namespace ScreenshotApplet
             copy_button.can_focus = false;
             copy_button.tooltip_text = "Copy Screenshot URL";
 
+            string start = url.slice(0, 4);
+            Gtk.Stack? action_stack = null;
+            if (start != "http") {
+                Gtk.Button upload_button = new Gtk.Button.from_icon_name(
+                    "go-up-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+                upload_button.relief = Gtk.ReliefStyle.NONE;
+                upload_button.can_focus = false;
+                upload_button.tooltip_text = "Upload screenshot";
+
+                Gtk.Spinner upload_spinner = new Gtk.Spinner();
+                action_stack = new Gtk.Stack();
+                action_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
+                action_stack.add_named(upload_button, "upload_button");
+                action_stack.add_named(upload_spinner, "upload_spinner");
+                action_stack.add_named(copy_button, "copy_button");
+                action_stack.show_all();
+                action_stack.visible_child_name = "upload_button";
+
+                NewScreenshotView new_screenshot_view = new NewScreenshotView(null, null);
+
+                upload_button.clicked.connect(() => {
+                    new_screenshot_view.upload_local(url);
+                });
+
+                new_screenshot_view.local_upload_started.connect(() => {
+                    action_stack.visible_child_name = "upload_spinner";
+                    upload_spinner.active = true;
+                });
+
+                new_screenshot_view.local_upload_finished.connect((link) => {
+                    upload_spinner.active = false;
+                    if (link != "") {
+                        action_stack.visible_child_name = "copy_button";
+                        string old_url = url;
+                        url = link;
+                        url_label.set_text(link);
+                        apply_changes(settings, old_url);
+                    } else {
+                        action_stack.visible_child_name = "upload_button";
+                        upload_button.get_style_context().add_class("alert");
+                    }
+                });
+            }
+
             delete_button = new Gtk.Button.from_icon_name(
                 "list-remove-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             delete_button.relief = Gtk.ReliefStyle.NONE;
@@ -110,7 +154,12 @@ namespace ScreenshotApplet
             title_main_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             title_main_box.pack_start(title_stack, true, true, 0);
             title_main_box.pack_end(delete_button, false, false, 0);
-            title_main_box.pack_end(copy_button, false, false, 0);
+
+            if (start == "http") {
+                title_main_box.pack_end(copy_button, false, false, 0);
+            } else {
+                title_main_box.pack_end(action_stack, false, false, 0);
+            }
 
             string[] url_split = url.split("://");
             url_label = new Gtk.Label(url_split[1]);
@@ -171,15 +220,15 @@ namespace ScreenshotApplet
 
             title_apply_button.clicked.connect(() => {
                 if (title_entry.text != title) {
-                    apply_changes(settings);
-                    title_stack.visible_child_name = "title_box";
-                } else {
-                    title_stack.visible_child_name = "title_box";
+                    apply_changes(settings, url);
                 }
+                title_stack.visible_child_name = "title_box";
             });
 
             title_entry.activate.connect(() => {
-                apply_changes(settings);
+                if (title_entry.text != title) {
+                    apply_changes(settings, url);
+                }
                 title_stack.visible_child_name = "title_box";
             });
 
@@ -250,7 +299,7 @@ namespace ScreenshotApplet
             reveal_child = false;
         }
 
-        private void apply_changes(GLib.Settings settings)
+        private void apply_changes(GLib.Settings settings, string url)
         {
             if (title_entry.text == "") {
                 title = "Untitled";
