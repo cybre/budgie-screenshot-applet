@@ -177,8 +177,12 @@ namespace ScreenshotApplet {
                     history_view.add_to_history(link, title_entry.text);
 
                     if (provider_to_use == "local") {
-                        Gdk.Pixbuf pb = new Gdk.Pixbuf.from_file(link.split("://")[1]);
-                        clipboard.set_image(pb);
+                        try {
+                            Gdk.Pixbuf pb = new Gdk.Pixbuf.from_file(link.split("://")[1]);
+                            clipboard.set_image(pb);
+                        } catch (GLib.Error e) {
+                            stderr.printf(e.message, "\n");
+                        }
                     } else {
                         clipboard.set_text(link, -1);
                     }
