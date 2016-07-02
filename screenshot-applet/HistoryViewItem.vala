@@ -120,6 +120,13 @@ namespace ScreenshotApplet
                 action_stack.visible_child_name = "upload_button";
 
                 NewScreenshotView new_screenshot_view = new NewScreenshotView(null, null);
+                new_screenshot_view.provider_to_use = settings.get_string("provider");
+
+                settings.changed.connect((key) => {
+                    if (key == "provider") {
+                        new_screenshot_view.provider_to_use = settings.get_string(key);
+                    }
+                });
 
                 upload_button.clicked.connect(() => {
                     new_screenshot_view.upload_local(url);
@@ -162,7 +169,7 @@ namespace ScreenshotApplet
             }
 
             string[] url_split = url.split("://");
-            url_label = new Gtk.Label(url_split[1]);
+            url_label = new Gtk.Label(url_split[1].strip());
             url_label.halign = Gtk.Align.START;
             url_label.get_style_context().add_class("dim-label");
             url_label.max_width_chars = 23;

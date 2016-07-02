@@ -166,7 +166,7 @@ namespace ScreenshotApplet {
                 spinner.visible = true;
             });
 
-            new_screenshot_view.upload_finished.connect((link, provider_to_use, title_entry, cancellable) => {
+            new_screenshot_view.upload_finished.connect((link, local_screenshots, title_entry, cancellable) => {
                 upload_done_view.link = link;
                 spinner.active = false;
                 spinner.visible = false;
@@ -178,7 +178,7 @@ namespace ScreenshotApplet {
                 if (link != "") {
                     history_view.add_to_history(link, title_entry.text);
 
-                    if (provider_to_use == "local") {
+                    if (local_screenshots) {
                         try {
                             Gdk.Pixbuf pb = new Gdk.Pixbuf.from_file(link.split("://")[1]);
                             clipboard.set_image(pb);
@@ -193,6 +193,7 @@ namespace ScreenshotApplet {
                     }
                     error = false;
                 } else if (!cancellable.is_cancelled()) {
+                    error_view.set_label("<big>We couldn't upload your image</big>\nCheck your internet connection.");
                     if (popover.visible) {
                         stack.visible_child_name = "error_view";
                     }
@@ -202,6 +203,7 @@ namespace ScreenshotApplet {
             });
 
             new_screenshot_view.error_happened.connect((title_entry) => {
+                error_view.set_label("<big>Couldn't open file</big>\nFile is missing or not an image.");
                 title_entry.text = "";
                 icon.get_style_context().add_class("alert");
                 error = true;
@@ -259,6 +261,7 @@ namespace ScreenshotApplet {
             spinner.visible = false;
 
             on_settings_changed("enable-label");
+            on_settings_changed("enable-local");
             on_settings_changed("provider");
             on_settings_changed("delay");
             on_settings_changed("include-border");
@@ -297,15 +300,14 @@ namespace ScreenshotApplet {
                     break;
                 case "enable-local":
                     new_screenshot_view.local_screenshots = settings.get_boolean(key);
-                    break;
-                case "provider":
-                    new_screenshot_view.provider_to_use = settings.get_string(key);
-                    if (settings.get_string(key) == "local") {
-                        upload_done_view.set_label(
-                            "<big>The screenshot has been saved</big>");
+                    if (settings.get_boolean(key)) {
+                        upload_done_view.set_label("<big>The screenshot has been saved</big>");
                     } else {
                         upload_done_view.set_label("<big>The link has been copied \nto your clipboard!</big>");
                     }
+                    break;
+                case "provider":
+                    new_screenshot_view.provider_to_use = settings.get_string(key);
                     break;
                 case "delay":
                     new_screenshot_view.screenshot_delay = settings.get_int(key);

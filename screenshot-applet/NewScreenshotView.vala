@@ -58,7 +58,7 @@ namespace ScreenshotApplet
         public Gdk.Window old_window;
 
         public signal void upload_started(GLib.MainLoop mainloop, GLib.Cancellable cancellable);
-        public signal void upload_finished(string link, string provider_to_use, Gtk.Entry title_entry, GLib.Cancellable cancellable);
+        public signal void upload_finished(string link, bool local_screenshots, Gtk.Entry title_entry, GLib.Cancellable cancellable);
         public signal void error_happened(Gtk.Entry title_entry);
 
         public signal void local_upload_started();
@@ -187,10 +187,12 @@ namespace ScreenshotApplet
                 string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
                 filepath = "%s/%s".printf("file://%s/Screenshots".printf(GLib.Environment.get_user_special_dir(GLib.UserDirectory.PICTURES)), filename);
                 screenshot_file = GLib.File.new_for_uri(filepath);
-                try {
-                    screenshot_file.get_parent().make_directory();
-                } catch (GLib.Error e) {
-                    stderr.printf(e.message, "\n");
+                if (!screenshot_file.get_parent().query_exists()) {
+                    try {
+                        screenshot_file.get_parent().make_directory();
+                    } catch (GLib.Error e) {
+                        stderr.printf(e.message, "\n");
+                    }
                 }
             } else {
                 try {
@@ -203,9 +205,10 @@ namespace ScreenshotApplet
             }
         }
 
-        public void upload_local(string filepath)
+        public void upload_local(string filep)
         {
-            screenshot_file = GLib.File.new_for_uri(filepath);
+            screenshot_file = GLib.File.new_for_uri(filep);
+            filepath = filep;
 
             link = "";
 
@@ -224,46 +227,55 @@ namespace ScreenshotApplet
                 }
             }
 
+            link = link.strip();
+
             local_upload_finished(link);
         }
 
         private void upload()
         {
             if (screenshot_file.query_exists()) {
-                GLib.MainLoop mainloop = new GLib.MainLoop();
+                try {
+                    GLib.FileInfo file_info = screenshot_file.query_info("standard::content-type", 0, null);
+                    if (file_info.get_content_type() == "image/png") {
+                        GLib.MainLoop mainloop = new GLib.MainLoop();
 
-                cancellable = new GLib.Cancellable ();
+                        cancellable = new GLib.Cancellable ();
 
-                upload_started(mainloop, cancellable);
+                        upload_started(mainloop, cancellable);
 
-                if (!local_screenshots) {
-                    switch (provider_to_use) {
-                        case "imgur":
-                            link = upload_imgur();
-                            break;
-                        case "ibin":
-                            link = upload_ibin();
-                            break;
-                        default:
-                            break;
+                        if (!local_screenshots) {
+                            switch (provider_to_use) {
+                                case "imgur":
+                                    link = upload_imgur();
+                                    break;
+                                case "ibin":
+                                    link = upload_ibin();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } else {
+                            link = filepath;
+                        }
+
+                        link = link.strip();
+
+                        upload_finished(link, local_screenshots, title_entry, cancellable);
+
+                        if (!local_screenshots) {
+                            try {
+                                screenshot_file.delete();
+                            } catch (GLib.Error e) {
+                                stderr.printf(e.message, "\n");
+                            }
+                        }
+
+                        mainloop.run();
                     }
-                } else {
-                    link = filepath;
+                } catch (GLib.Error e) {
+                    stderr.printf(e.message, "\n");
                 }
-
-                link = link.strip();
-
-                upload_finished(link, provider_to_use, title_entry, cancellable);
-
-                if (!local_screenshots) {
-                    try {
-                        screenshot_file.delete();
-                    } catch (GLib.Error e) {
-                        stderr.printf(e.message, "\n");
-                    }
-                }
-
-                mainloop.run();
             } else {
                 error_happened(title_entry);
             }
