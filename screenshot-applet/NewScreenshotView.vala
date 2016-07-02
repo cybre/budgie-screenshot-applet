@@ -52,7 +52,7 @@ namespace ScreenshotApplet
         private GLib.File screenshot_file;
         public string provider_to_use { set; get; default = "imgur"; }
         public string window_effect { set; get; default = "none"; }
-        public int screenshot_delay { set; get; default = 2; }
+        public int screenshot_delay { set; get; default = 1; }
         public bool include_border { set; get; default = true; }
         public bool local_screenshots { set; get; default = false; }
         public Gdk.Window old_window;

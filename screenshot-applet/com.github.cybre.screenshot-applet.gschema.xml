@@ -21,7 +21,7 @@
     </key>
 
     <key type="i" name="delay">
-      <default>2</default>
+      <default>1</default>
       <summary>Screenshot delay</summary>
       <description>The amount of seconds to wait before taking the screenshot</description>
     </key>
