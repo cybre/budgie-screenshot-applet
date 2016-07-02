@@ -272,6 +272,8 @@ namespace ScreenshotApplet
                         }
 
                         mainloop.run();
+                    } else {
+                        error_happened(title_entry);
                     }
                 } catch (GLib.Error e) {
                     stderr.printf(e.message, "\n");
