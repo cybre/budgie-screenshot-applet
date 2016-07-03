@@ -16,6 +16,7 @@ namespace ScreenshotApplet
         private Gtk.Image image;
         private Gtk.Label label;
         private Gtk.Button back_button;
+        private Gtk.Button history_button;
         private Gtk.Button open_button;
         private Gtk.Box button_box;
         public string link;
@@ -37,6 +38,8 @@ namespace ScreenshotApplet
 
             back_button = new Gtk.Button.with_label("Back");
             back_button.can_focus = false;
+            history_button = new Gtk.Button.with_label("History");
+            history_button.can_focus = false;
             open_button = new Gtk.Button.with_label("Open");
             open_button.can_focus = false;
 
@@ -44,10 +47,15 @@ namespace ScreenshotApplet
             button_box.get_style_context().add_class("linked");
             button_box.margin_top = 20;
             button_box.pack_start(back_button, true, true, 0);
+            button_box.pack_start(history_button, true, true, 0);
             button_box.pack_start(open_button, true, true, 0);
 
             back_button.clicked.connect(() => {
                 stack.set_visible_child_full("new_screenshot_view", Gtk.StackTransitionType.SLIDE_RIGHT);
+            });
+
+            history_button.clicked.connect(() => {
+                stack.set_visible_child_full("history_view", Gtk.StackTransitionType.SLIDE_RIGHT);
             });
 
             open_button.clicked.connect(() => {
