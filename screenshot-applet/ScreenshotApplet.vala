@@ -16,75 +16,6 @@ public class Screenshot : GLib.Object, Budgie.Plugin
     }
 }
 
-[GtkTemplate (ui = "/com/github/cybre/screenshot-applet/settings.ui")]
-public class ScreenshotAppletSettings : Gtk.Grid
-{
-    [GtkChild]
-    private Gtk.Switch? switch_label;
-
-    [GtkChild]
-    private Gtk.Switch? switch_local;
-
-    [GtkChild]
-    private Gtk.ComboBox? combobox_provider;
-
-    [GtkChild]
-    private Gtk.SpinButton spinbutton_delay;
-
-    [GtkChild]
-    private Gtk.Switch? switch_border;
-
-    [GtkChild]
-    private Gtk.ComboBox? combobox_effect;
-
-    private Settings? settings;
-
-    public ScreenshotAppletSettings(Settings? settings)
-    {
-        Gtk.ListStore providers = new Gtk.ListStore(2, typeof(string), typeof(string));
-        Gtk.TreeIter iter;
-
-        providers.append(out iter);
-        providers.set(iter, 0, "imgur", 1, "Imgur.com");
-        providers.append(out iter);
-        providers.set(iter, 0, "ibin", 1, "Ibin.co");
-        combobox_provider.set_model(providers);
-
-        Gtk.CellRendererText renderer = new Gtk.CellRendererText();
-        combobox_provider.pack_start(renderer, true);
-        combobox_provider.add_attribute(renderer, "text", 1);
-        combobox_provider.active = 0;
-        combobox_provider.set_id_column(0);
-
-        Gtk.ListStore effects = new Gtk.ListStore(2, typeof(string), typeof(string));
-
-        effects.append(out iter);
-        effects.set(iter, 0, "none", 1, "None");
-        effects.append(out iter);
-        effects.set(iter, 0, "shadow", 1, "Drop shadow");
-        effects.append(out iter);
-        effects.set(iter, 0, "border", 1, "Border");
-        effects.append(out iter);
-        effects.set(iter, 0, "vintage", 1, "Vintage");
-
-        combobox_effect.set_model(effects);
-        Gtk.CellRendererText renderer1 = new Gtk.CellRendererText();
-        combobox_effect.pack_start(renderer1, true);
-        combobox_effect.add_attribute(renderer1, "text", 1);
-        combobox_effect.active = 0;
-        combobox_effect.set_id_column(0);
-
-        this.settings = settings;
-
-        settings.bind("enable-label", switch_label, "active", SettingsBindFlags.DEFAULT);
-        settings.bind("enable-local", switch_local, "active", SettingsBindFlags.DEFAULT);
-        settings.bind("provider", combobox_provider, "active_id", SettingsBindFlags.DEFAULT);
-        settings.bind("delay", spinbutton_delay, "value", SettingsBindFlags.DEFAULT);
-        settings.bind("include-border", switch_border, "active", SettingsBindFlags.DEFAULT);
-        settings.bind("window-effect", combobox_effect, "active_id", SettingsBindFlags.DEFAULT);
-    }
-}
-
 namespace ScreenshotApplet {
     public class ScreenshotApplet : Budgie.Applet
     {
@@ -103,15 +34,12 @@ namespace ScreenshotApplet {
         private UploadDoneView upload_done_view;
         private ErrorView error_view;
         private HistoryView history_view;
+        private SettingsView settings_view;
         private bool error;
         public string uuid { public set ; public get; }
 
-        public override Gtk.Widget? get_settings_ui() {
-            return new ScreenshotAppletSettings(this.get_applet_settings(uuid));
-        }
-
         public override bool supports_settings() {
-            return true;
+            return false;
         }
 
         public ScreenshotApplet(string uuid)
@@ -149,6 +77,7 @@ namespace ScreenshotApplet {
             upload_done_view = new UploadDoneView(stack, popover);
             error_view = new ErrorView(stack);
             history_view = new HistoryView(settings, clipboard, stack);
+            settings_view = new SettingsView(settings, stack);
 
             new_screenshot_view.upload_started.connect((mainloop, cancellable) => {
                 uploading_view.cancellable = cancellable;
@@ -214,6 +143,7 @@ namespace ScreenshotApplet {
             stack.add_named(upload_done_view, "upload_done_view");
             stack.add_named(history_view, "history_view");
             stack.add_named(error_view, "error_view");
+            stack.add_named(settings_view, "settings_view");
             stack.homogeneous = false;
             stack.show_all();
             stack.visible_child_name = "new_screenshot_view";
@@ -270,9 +200,6 @@ namespace ScreenshotApplet {
 
         private async void popover_map_event()
         {
-            /* This makes sure the window that was focused before opening
-               the popover gets focused when taking a screenshot because
-               budgie-panel grabs the focus when the popover gets closed. */
             if (Gdk.Screen.get_default().get_active_window().get_toplevel() != box.get_window().get_toplevel()) {
                 new_screenshot_view.old_window = Gdk.Screen.get_default().get_active_window();
             }

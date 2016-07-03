@@ -38,6 +38,7 @@ libscreenshotapplet_la_SOURCES = \
 	AutomaticScrollBox.vala \
 	HistoryView.vala \
 	HistoryViewItem.vala \
+	SettingsView.vala \
 	plugin-resources.h \
 	plugin-resources.c \
 	../data/screenshot-applet-images.h \

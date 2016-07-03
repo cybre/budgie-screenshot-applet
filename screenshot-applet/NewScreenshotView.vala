@@ -38,18 +38,20 @@ namespace ScreenshotApplet
 
     public class NewScreenshotView : Gtk.Grid
     {
-        public Gtk.Entry title_entry;
         private ScreenshotModeButton screenshot_screen_button;
         private ScreenshotModeButton screenshot_window_button;
         private ScreenshotModeButton screenshot_area_button;
         private Gtk.Grid mode_selection;
         private Gtk.Box mode_selection_box;
+        private Gtk.Box top_box;
         private Gtk.Button history_button;
+        private Gtk.Button settings_button;
         private Gtk.Popover popover;
         private string link;
         private string filepath;
         private GLib.Cancellable cancellable;
         private GLib.File screenshot_file;
+        public Gtk.Entry title_entry;
         public string provider_to_use { set; get; default = "imgur"; }
         public string window_effect { set; get; default = "none"; }
         public int screenshot_delay { set; get; default = 1; }
@@ -70,7 +72,6 @@ namespace ScreenshotApplet
 
             title_entry = new Gtk.Entry();
             title_entry.placeholder_text = "Title (Optional)";
-            title_entry.margin = 5;
             title_entry.max_length = 50;
             title_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "edit-clear-symbolic");
             title_entry.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, "Clear");
@@ -78,6 +79,20 @@ namespace ScreenshotApplet
             title_entry.icon_press.connect(() => {
                 title_entry.text = "";
             });
+
+            settings_button = new Gtk.Button.from_icon_name("emblem-system-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            settings_button.relief = Gtk.ReliefStyle.NONE;
+            settings_button.can_focus = false;
+            settings_button.tooltip_text = "Settings";
+
+            settings_button.clicked.connect(() => {
+                stack.set_visible_child_full("settings_view", Gtk.StackTransitionType.SLIDE_LEFT);
+            });
+
+            top_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
+            top_box.margin = 5;
+            top_box.pack_start(title_entry, true, true, 0);
+            top_box.pack_end(settings_button, false, false, 0);
 
             screenshot_screen_button = new ScreenshotModeButton("screen.png", "Screen");
             screenshot_screen_button.tooltip_text = "Grab the whole screen";
@@ -109,7 +124,7 @@ namespace ScreenshotApplet
                 stack.set_visible_child_full("history_view", Gtk.StackTransitionType.SLIDE_LEFT);
             });
 
-            attach(title_entry, 0, 0, 1, 1);
+            attach(top_box, 0, 0, 1, 1);
             attach(mode_selection, 0, 2, 1, 1);
             attach(history_button, 0, 4, 1, 1);
         }
@@ -138,6 +153,9 @@ namespace ScreenshotApplet
             string command_output;
             popover.visible = false;
 
+            /* This makes sure the window that was focused before opening
+               the popover gets focused when taking a screenshot because
+               budgie-panel grabs the focus when the popover gets closed. */
             if (old_window != null) {
                 old_window.focus(0);
             }
