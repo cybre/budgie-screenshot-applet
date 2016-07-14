@@ -111,6 +111,7 @@ namespace ScreenshotApplet
                 upload_button.tooltip_text = "Upload screenshot";
 
                 Gtk.Spinner upload_spinner = new Gtk.Spinner();
+
                 action_stack = new Gtk.Stack();
                 action_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
                 action_stack.add_named(upload_button, "upload_button");
@@ -147,8 +148,11 @@ namespace ScreenshotApplet
                         url_label.set_text(link.split("://")[1]);
                         apply_changes(settings, old_url);
                     } else {
+                        Gtk.Image error_image = new Gtk.Image.from_icon_name(
+                            "action-unavailable-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+                        upload_button.image = error_image;
+                        upload_button.tooltip_text = "Upload failed! Click to try again.";
                         action_stack.visible_child_name = "upload_button";
-                        upload_button.get_style_context().add_class("alert");
                     }
                 });
             }
