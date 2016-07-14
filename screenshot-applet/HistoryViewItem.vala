@@ -139,7 +139,7 @@ namespace ScreenshotApplet
 
                 new_screenshot_view.local_upload_finished.connect((link) => {
                     upload_spinner.active = false;
-                    var link_start = link.slice(0, 4);
+                    string link_start = link.slice(0, 4);
                     if (link != "" && link_start == "http") {
                         action_stack.visible_child_name = "copy_button";
                         string old_url = url;
