@@ -104,7 +104,9 @@ namespace ScreenshotApplet {
                     icon.get_style_context().add_class("alert");
                 }
 
-                if (link != "") {
+                string link_start = link.slice(0, 4);
+
+                if (link != "" && (link_start == "file" || link_start == "http")) {
                     history_view.add_to_history(link, title_entry.text);
 
                     if (local_screenshots) {
