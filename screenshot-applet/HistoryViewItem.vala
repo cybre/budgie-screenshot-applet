@@ -27,11 +27,13 @@ namespace ScreenshotApplet
         private Gtk.Button delete_button;
         private Gtk.EventBox url_event_box;
         private Gtk.Stack title_stack;
+        private Gtk.Stack copy_stack;
         private Gtk.Entry title_entry;
         private GLib.Settings gnome_settings;
         private GLib.DateTime time;
         private GLib.Variant history_list;
         private GLib.Variant history_entry;
+        private Gtk.Image copy_ok_image;
         private string title;
         private string url;
         private int64 timestamp;
@@ -101,6 +103,14 @@ namespace ScreenshotApplet
             copy_button.can_focus = false;
             copy_button.tooltip_text = "Copy Screenshot URL";
 
+            copy_ok_image = new Gtk.Image.from_icon_name(
+                "emblem-ok-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+
+            copy_stack = new Gtk.Stack();
+            copy_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
+            copy_stack.add_named(copy_button, "copy_button");
+            copy_stack.add_named(copy_ok_image, "copy_ok_image");
+
             string start = url.slice(0, 4);
             Gtk.Stack? action_stack = null;
             if (start == "file") {
@@ -116,7 +126,7 @@ namespace ScreenshotApplet
                 action_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
                 action_stack.add_named(upload_button, "upload_button");
                 action_stack.add_named(upload_spinner, "upload_spinner");
-                action_stack.add_named(copy_button, "copy_button");
+                action_stack.add_named(copy_stack, "copy_stack");
                 action_stack.show_all();
                 action_stack.visible_child_name = "upload_button";
 
@@ -142,7 +152,7 @@ namespace ScreenshotApplet
                     upload_spinner.active = false;
                     string link_start = link.slice(0, 4);
                     if (link != "" && link_start == "http") {
-                        action_stack.visible_child_name = "copy_button";
+                        action_stack.visible_child_name = "copy_stack";
                         string old_url = url;
                         url = link;
                         url_label.set_text(link.split("://")[1]);
@@ -168,7 +178,7 @@ namespace ScreenshotApplet
             title_main_box.pack_end(delete_button, false, false, 0);
 
             if (start == "http") {
-                title_main_box.pack_end(copy_button, false, false, 0);
+                title_main_box.pack_end(copy_stack, false, false, 0);
             } else {
                 title_main_box.pack_end(action_stack, false, false, 0);
             }
@@ -253,7 +263,12 @@ namespace ScreenshotApplet
             });
 
             copy_button.clicked.connect(() => {
+                copy_stack.visible_child_name = "copy_ok_image";
                 copy(url);
+                GLib.Timeout.add(500, () => {
+                    copy_stack.set_visible_child_full("copy_button", Gtk.StackTransitionType.SLIDE_RIGHT);
+                    return false;
+                });
             });
 
             delete_button.clicked.connect(() => {
