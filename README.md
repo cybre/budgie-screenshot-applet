@@ -30,7 +30,10 @@ make
 sudo make install
 ```
 #### Solus
-A package will soon be available.
+The package can be installed on Solus using
+```
+sudo eopkg it screenshot-applet
+```
 
 #### Arch Linux
 The package can be installed on Arch using
