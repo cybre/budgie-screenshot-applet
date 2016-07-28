@@ -68,7 +68,7 @@ libscreenshotapplet_la_VALAFLAGS = \
 	--pkg budgie-1.0 \
 	--pkg json-glib-1.0 \
 	--pkg rest-0.7 \
-    --thread \
+	--thread \
 	--gresources=${srcdir}/plugin.gresource.xml \
 	--gresources=${top_srcdir}/data/screenshot-applet-images.gresource.xml \
 	--target-glib=2.38
