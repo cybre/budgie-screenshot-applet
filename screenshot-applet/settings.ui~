@@ -102,52 +102,27 @@
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label_border">
+      <object class="GtkLabel" id="label_display">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="hexpand">True</property>
-        <property name="label" translatable="yes">Include Window Border</property>
+        <property name="label" translatable="yes">Display</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">8</property>
+        <property name="top_attach">4</property>
       </packing>
     </child>
     <child>
-      <object class="GtkSwitch" id="switch_border">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="halign">end</property>
-        <property name="hexpand">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">8</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label_effect">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="hexpand">True</property>
-        <property name="label" translatable="yes">Window Effect</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">7</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkComboBox" id="combobox_effect">
+      <object class="GtkComboBox" id="combobox_display">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">end</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">7</property>
+        <property name="top_attach">4</property>
       </packing>
     </child>
     <child>
@@ -160,7 +135,7 @@
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">6</property>
+        <property name="top_attach">5</property>
       </packing>
     </child>
     <child>
@@ -173,24 +148,48 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">6</property>
+        <property name="top_attach">5</property>
       </packing>
     </child>
     <child>
-      <object class="GtkLabel" id="label_primary_monitor">
+      <object class="GtkLabel" id="label_effect">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="hexpand">True</property>
-        <property name="label" translatable="yes">Use primary monitor</property>
+        <property name="label" translatable="yes">Window Effect</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
+        <property name="top_attach">6</property>
       </packing>
     </child>
     <child>
-      <object class="GtkSwitch" id="switch_primary_monitor">
+      <object class="GtkComboBox" id="combobox_effect">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">end</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_border">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="hexpand">True</property>
+        <property name="label" translatable="yes">Include Window Border</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSwitch" id="switch_border">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="halign">end</property>
@@ -198,48 +197,7 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">4</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkRevealer" id="revealer_monitor">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <child>
-          <object class="GtkGrid" id="grid_monitor">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkLabel" id="label_monitor">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="hexpand">True</property>
-                <property name="label" translatable="yes">Select monitor</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBox" id="combobox_monitor">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-          </object>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">5</property>
-        <property name="width">2</property>
+        <property name="top_attach">7</property>
       </packing>
     </child>
   </template>

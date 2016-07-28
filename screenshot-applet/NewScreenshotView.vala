@@ -54,7 +54,9 @@ namespace ScreenshotApplet
         public Gtk.Entry title_entry;
         public string provider_to_use { set; get; default = "imgur"; }
         public string window_effect { set; get; default = "none"; }
+        public string monitor_to_use { set; get; default = "0"; }
         public int screenshot_delay { set; get; default = 1; }
+        public bool use_primary_monitor { set; get; default = true; }
         public bool include_border { set; get; default = true; }
         public bool local_screenshots { set; get; default = false; }
         public Gdk.Window old_window;
@@ -141,7 +143,8 @@ namespace ScreenshotApplet
                 "-d",
                 screenshot_delay.to_string(),
                 "-f",
-                filepath
+                filepath,
+                "--display=:%i".printf(use_monitor())
             };
 
             command_output = run_command(spawn_args);
@@ -170,7 +173,8 @@ namespace ScreenshotApplet
                 "-e",
                 window_effect,
                 "-f",
-                filepath
+                filepath,
+                "--display=:%i".printf(use_monitor())
             };
 
             if (include_border) spawn_args += "-b";
@@ -191,7 +195,8 @@ namespace ScreenshotApplet
                 "gnome-screenshot",
                 "-a",
                 "-f",
-                filepath
+                filepath,
+                "--display=:%i".printf(use_monitor())
             };
 
             command_output = run_command(spawn_args);
@@ -221,6 +226,15 @@ namespace ScreenshotApplet
                     stderr.printf(e.message, "\n");
                 }
             }
+        }
+
+        private int use_monitor()
+        {
+            if (use_primary_monitor) {
+                Gdk.Screen screen = get_screen();
+                return screen.get_primary_monitor();
+            }
+            return int.parse(monitor_to_use);
         }
 
         public void upload_local(string filep)

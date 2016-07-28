@@ -4,44 +4,38 @@
 
     <key type="b" name="enable-label">
       <default>false</default>
-      <summary>Enable applet label</summary>
-      <description>Simply show the label on the applet button</description>
     </key>
 
     <key type="b" name="enable-local">
       <default>false</default>
-      <summary>Enable local screenshots</summary>
-      <description>Save files to the disk without uploading them</description>
     </key>
 
     <key type="s" name="provider">
       <default>'imgur'</default>
-      <summary>The upload provider</summary>
-      <description>The provider to use for image uploads</description>
+    </key>
+
+    <key type="b" name="use-primary-monitor">
+      <default>true</default>
+    </key>
+
+    <key type="s" name="monitor-to-use">
+        <default>'0'</default>
     </key>
 
     <key type="i" name="delay">
       <default>1</default>
-      <summary>Screenshot delay</summary>
-      <description>The amount of seconds to wait before taking the screenshot</description>
     </key>
 
     <key type="b" name="include-border">
       <default>true</default>
-      <summary>Include window borders in screenshots</summary>
-      <description>Whether to include window borders in "grab window" mode</description>
     </key>
 
     <key type="s" name="window-effect">
       <default>'none'</default>
-      <summary>The upload provider</summary>
-      <description>The provider to use for image uploads</description>
     </key>
 
     <key type="a(xss)" name="history">
       <default>[]</default>
-      <summary>History</summary>
-      <description>List of uploaded images.</description>
     </key>
 
   </schema>

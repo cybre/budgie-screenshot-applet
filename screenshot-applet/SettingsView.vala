@@ -24,6 +24,15 @@ namespace ScreenshotApplet
         private Gtk.ComboBox? combobox_provider;
 
         [GtkChild]
+        private Gtk.Switch? switch_primary_monitor;
+
+        [GtkChild]
+        private Gtk.Revealer revealer_monitor;
+
+        [GtkChild]
+        private Gtk.ComboBox? combobox_monitor;
+
+        [GtkChild]
         private Gtk.SpinButton spinbutton_delay;
 
         [GtkChild]
@@ -34,6 +43,7 @@ namespace ScreenshotApplet
 
         public ActualSettings(GLib.Settings? settings)
         {
+            //providers
             Gtk.ListStore providers = new Gtk.ListStore(2, typeof(string), typeof(string));
             Gtk.TreeIter iter;
 
@@ -49,6 +59,34 @@ namespace ScreenshotApplet
             combobox_provider.active = 0;
             combobox_provider.set_id_column(0);
 
+
+            //monitors
+            switch_primary_monitor.state_set.connect((state) => {
+                revealer_monitor.reveal_child = !state;
+                return false;
+            });
+            revealer_monitor.reveal_child = !switch_primary_monitor.active;
+
+            Gtk.ListStore monitors = new Gtk.ListStore(2, typeof(string), typeof(string));
+
+            Gdk.Screen screen = get_screen();
+            int n_monitors = screen.get_n_monitors();
+            for (int i = 0; i < n_monitors; i++) {
+                string name = screen.get_monitor_plug_name(i) ?? "PLUG_MONITOR_%i".printf(i);
+                monitors.append(out iter);
+                monitors.set(iter, 0, (string) i, 1, name);
+            }
+
+            combobox_monitor.set_model(monitors);
+
+            Gtk.CellRendererText monitor_renderer = new Gtk.CellRendererText();
+            combobox_monitor.pack_start(monitor_renderer, true);
+            combobox_monitor.add_attribute(monitor_renderer, "text", 1);
+            combobox_monitor.set_id_column(0);
+            combobox_monitor.active = 0;
+
+
+            // effects
             Gtk.ListStore effects = new Gtk.ListStore(2, typeof(string), typeof(string));
 
             effects.append(out iter);
@@ -67,9 +105,12 @@ namespace ScreenshotApplet
             combobox_effect.active = 0;
             combobox_effect.set_id_column(0);
 
+            // binds
             settings.bind("enable-label", switch_label, "active", SettingsBindFlags.DEFAULT);
             settings.bind("enable-local", switch_local, "active", SettingsBindFlags.DEFAULT);
             settings.bind("provider", combobox_provider, "active_id", SettingsBindFlags.DEFAULT);
+            settings.bind("use-primary-monitor", switch_primary_monitor, "active", SettingsBindFlags.DEFAULT);
+            settings.bind("monitor-to-use", combobox_monitor, "active_id", SettingsBindFlags.DEFAULT);
             settings.bind("delay", spinbutton_delay, "value", SettingsBindFlags.DEFAULT);
             settings.bind("include-border", switch_border, "active", SettingsBindFlags.DEFAULT);
             settings.bind("window-effect", combobox_effect, "active_id", SettingsBindFlags.DEFAULT);

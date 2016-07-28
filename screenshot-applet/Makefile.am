@@ -68,12 +68,12 @@ libscreenshotapplet_la_VALAFLAGS = \
 	--pkg budgie-1.0 \
 	--pkg json-glib-1.0 \
 	--pkg rest-0.7 \
-	--vapidir ../vapi \
+    --thread \
 	--gresources=${srcdir}/plugin.gresource.xml \
 	--gresources=${top_srcdir}/data/screenshot-applet-images.gresource.xml \
 	--target-glib=2.38
 
 gsettings_SCHEMAS = \
 	com.github.cybre.screenshot-applet.gschema.xml
-	
+
 @GSETTINGS_RULES@
