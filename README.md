@@ -30,7 +30,7 @@ make
 sudo make install
 ```
 #### Solus
-The package can be installed on Solus using
+The package can be installed on Solus via the software centre or using
 ```
 sudo eopkg it screenshot-applet
 ```
