@@ -13,9 +13,6 @@ namespace ScreenshotApplet
 {
     public class UploadingView : Gtk.Box
     {
-        private Gtk.Image image;
-        private Gtk.Label label;
-        public Gtk.Button cancel_button;
         public GLib.Cancellable cancellable;
 
         private static GLib.Once<UploadingView> _instance;
@@ -27,14 +24,14 @@ namespace ScreenshotApplet
             width_request = 200;
             height_request = 150;
 
-            image = new Gtk.Image.from_icon_name("software-update-available-symbolic", Gtk.IconSize.DIALOG);
+            Gtk.Image image = new Gtk.Image.from_icon_name("software-update-available-symbolic", Gtk.IconSize.DIALOG);
             image.pixel_size = 64;
 
-            label = new Gtk.Label("<big>Uploading...</big>");
+            Gtk.Label label = new Gtk.Label("<big>Uploading...</big>");
             label.use_markup = true;
             label.margin_top = 10;
 
-            cancel_button = new Gtk.Button.with_label("Cancel");
+            Gtk.Button cancel_button = new Gtk.Button.with_label("Cancel");
             cancel_button.margin_top = 20;
             cancel_button.can_focus = false;
 

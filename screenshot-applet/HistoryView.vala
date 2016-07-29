@@ -13,15 +13,7 @@ namespace ScreenshotApplet
 {
     public class HistoryView : Gtk.Box
     {
-        private Gtk.Box history_header_sub_box;
-        private Gtk.Box history_header_box;
-        private Gtk.Box placeholder_box;
-        private Gtk.Box clear_all_box;
-        private Gtk.Label placeholder_label;
-        private Gtk.Label history_header_label;
-        private Gtk.Button history_back_button;
         private Gtk.Button clear_all_button;
-        private Gtk.Image placeholder_image;
         private Gtk.ListBox history_listbox;
         private GLib.Settings settings;
         private Gtk.Clipboard clipboard;
@@ -39,7 +31,7 @@ namespace ScreenshotApplet
             this.settings = settings;
             this.clipboard = clipboard;
 
-            history_back_button = new Gtk.Button.with_label("Back");
+            Gtk.Button history_back_button = new Gtk.Button.with_label("Back");
             history_back_button.tooltip_text = "Back";
             history_back_button.can_focus = false;
 
@@ -47,18 +39,18 @@ namespace ScreenshotApplet
                 stack.visible_child_name = "new_screenshot_view";
             });
 
-            history_header_label = new Gtk.Label("<b>Recent Screenshots</b>");
+            Gtk.Label history_header_label = new Gtk.Label("<b>Recent Screenshots</b>");
             history_header_label.use_markup = true;
             history_header_label.halign = Gtk.Align.END;
 
             Gtk.Separator separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
 
-            history_header_sub_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            Gtk.Box history_header_sub_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             history_header_sub_box.margin = 10;
             history_header_sub_box.pack_start(history_back_button, false, false, 0);
             history_header_sub_box.pack_end(history_header_label, true, true, 0);
 
-            history_header_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            Gtk.Box history_header_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             history_header_box.pack_start(history_header_sub_box, true, true, 0);
             history_header_box.pack_start(separator, true, true, 0);
 
@@ -80,16 +72,16 @@ namespace ScreenshotApplet
 
             Gtk.Separator clear_all_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
 
-            clear_all_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            Gtk.Box clear_all_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             clear_all_box.pack_start(clear_all_separator, false, false, 0);
             clear_all_box.pack_end(clear_all_button, false, true, 2);
 
-            placeholder_image = new Gtk.Image.from_icon_name(
+            Gtk.Image placeholder_image = new Gtk.Image.from_icon_name(
                 "action-unavailable-symbolic", Gtk.IconSize.DIALOG);
             placeholder_image.pixel_size = 64;
-            placeholder_label = new Gtk.Label("<big>Nothing to see here</big>");
+            Gtk.Label placeholder_label = new Gtk.Label("<big>Nothing to see here</big>");
             placeholder_label.use_markup = true;
-            placeholder_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
+            Gtk.Box placeholder_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
             placeholder_box.margin = 40;
             placeholder_box.get_style_context().add_class("dim-label");
             placeholder_box.halign = Gtk.Align.CENTER;

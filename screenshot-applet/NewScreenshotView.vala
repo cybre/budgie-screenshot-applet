@@ -13,19 +13,15 @@ namespace ScreenshotApplet
 {
     private class ScreenshotModeButton : Gtk.ToolButton
     {
-        private Gtk.Image mode_image;
-        private Gtk.Label mode_label;
-        private Gtk.Box button_box;
-
         public ScreenshotModeButton(string image, string label)
         {
-            mode_image = new Gtk.Image.from_resource("/com/github/cybre/screenshot-applet/images/%s".printf(image));
+            Gtk.Image mode_image = new Gtk.Image.from_resource("/com/github/cybre/screenshot-applet/images/%s".printf(image));
             mode_image.pixel_size = 64;
 
-            mode_label = new Gtk.Label(label);
+            Gtk.Label mode_label = new Gtk.Label(label);
             mode_label.halign = Gtk.Align.CENTER;
 
-            button_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 5);
+            Gtk.Box button_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 5);
             button_box.set_size_request(80, 100);
             button_box.add(mode_image);
             button_box.add(mode_label);
@@ -38,20 +34,11 @@ namespace ScreenshotApplet
 
     public class NewScreenshotView : Gtk.Grid
     {
-        private ScreenshotModeButton screenshot_screen_button;
-        private ScreenshotModeButton screenshot_window_button;
-        private ScreenshotModeButton screenshot_area_button;
-        private Gtk.Grid mode_selection;
-        private Gtk.Box mode_selection_box;
-        private Gtk.Box top_box;
-        private Gtk.Button history_button;
-        private Gtk.Button settings_button;
         private Gtk.Popover popover;
-        private string link;
-        private string filepath;
         private GLib.Cancellable cancellable;
         private GLib.File screenshot_file;
-        public Gtk.Entry title_entry;
+        private string link;
+        private string filepath;
         public string provider_to_use { set; get; default = "imgur"; }
         public string window_effect { set; get; default = "none"; }
         public string monitor_to_use { set; get; default = "0"; }
@@ -59,6 +46,7 @@ namespace ScreenshotApplet
         public bool use_primary_monitor { set; get; default = true; }
         public bool include_border { set; get; default = true; }
         public bool local_screenshots { set; get; default = false; }
+        public Gtk.Entry title_entry;
         public Gdk.Window old_window;
 
         private static GLib.Once<NewScreenshotView> _instance;
@@ -84,7 +72,7 @@ namespace ScreenshotApplet
                 title_entry.text = "";
             });
 
-            settings_button = new Gtk.Button.from_icon_name("emblem-system-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            Gtk.Button settings_button = new Gtk.Button.from_icon_name("emblem-system-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             settings_button.relief = Gtk.ReliefStyle.NONE;
             settings_button.can_focus = false;
             settings_button.tooltip_text = "Settings";
@@ -93,25 +81,25 @@ namespace ScreenshotApplet
                 stack.visible_child_name = "settings_view";
             });
 
-            top_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
+            Gtk.Box top_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
             top_box.margin = 5;
             top_box.pack_start(title_entry, true, true, 0);
             top_box.pack_end(settings_button, false, false, 0);
 
-            screenshot_screen_button = new ScreenshotModeButton("screen.png", "Screen");
+            ScreenshotModeButton screenshot_screen_button = new ScreenshotModeButton("screen.png", "Screen");
             screenshot_screen_button.tooltip_text = "Grab the whole screen";
-            screenshot_window_button = new ScreenshotModeButton("window.png", "Window");
+            ScreenshotModeButton screenshot_window_button = new ScreenshotModeButton("window.png", "Window");
             screenshot_window_button.tooltip_text = "Grab the current window";
-            screenshot_area_button = new ScreenshotModeButton("selection.png", "Selection");
+            ScreenshotModeButton screenshot_area_button = new ScreenshotModeButton("selection.png", "Selection");
             screenshot_area_button.tooltip_text = "Select area to grab";
 
             screenshot_screen_button.clicked.connect(take_screen_screenshot);
             screenshot_window_button.clicked.connect(take_window_screenshot);
             screenshot_area_button.clicked.connect(take_area_screenshot);
 
-            mode_selection = new Gtk.Grid();
+            Gtk.Grid mode_selection = new Gtk.Grid();
             mode_selection.attach(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), 0, 0, 1, 1);
-            mode_selection_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            Gtk.Box mode_selection_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             mode_selection_box.add(screenshot_screen_button);
             mode_selection_box.add(new Gtk.Separator(Gtk.Orientation.VERTICAL));
             mode_selection_box.add(screenshot_window_button);
@@ -120,7 +108,7 @@ namespace ScreenshotApplet
             mode_selection.attach(mode_selection_box, 0, 1, 1, 1);
             mode_selection.attach(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), 0, 2, 1, 1);
 
-            history_button = new Gtk.Button.with_label("History");
+            Gtk.Button history_button = new Gtk.Button.with_label("History");
             history_button.relief = Gtk.ReliefStyle.NONE;
             history_button.can_focus = false;
 

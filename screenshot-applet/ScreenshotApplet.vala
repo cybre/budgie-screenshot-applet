@@ -28,7 +28,6 @@ namespace ScreenshotApplet {
         private Gtk.Label label;
         private Gtk.Stack stack;
         private Gtk.Clipboard clipboard;
-        private Gdk.Display display;
         private NewScreenshotView new_screenshot_view;
         private UploadingView uploading_view;
         private UploadDoneView upload_done_view;
@@ -53,17 +52,17 @@ namespace ScreenshotApplet {
 
             settings.changed.connect(on_settings_changed);
 
-            display = get_display();
+            Gdk.Display display = get_display();
             clipboard = Gtk.Clipboard.get_for_display(display, Gdk.SELECTION_CLIPBOARD);
 
             box = new Gtk.EventBox();
             spinner = new Gtk.Spinner();
             icon = new Gtk.Image.from_icon_name("image-x-generic-symbolic", Gtk.IconSize.MENU);
+            label = new Gtk.Label("Screenshot");
+            label.halign = Gtk.Align.START;
             Gtk.Box layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             layout.pack_start(spinner, false, false, 3);
             layout.pack_start(icon, false, false, 3);
-            label = new Gtk.Label("Screenshot");
-            label.halign = Gtk.Align.START;
             layout.pack_start(label, true, true, 3);
             box.add(layout);
 

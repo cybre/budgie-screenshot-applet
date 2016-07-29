@@ -13,27 +13,11 @@ namespace ScreenshotApplet
 {
     public class HistoryViewItem : Gtk.Revealer
     {
-        private Gtk.Box history_view_item_box;
-        private Gtk.Box title_box;
-        private Gtk.Box title_edit_box;
-        private Gtk.Box title_main_box;
-        private Gtk.Box url_main_box;
-        private Gtk.Label title_label;
-        private Gtk.Label url_label;
-        private Gtk.Label time_label;
-        private Gtk.Button title_edit_button;
-        private Gtk.Button title_apply_button;
-        private Gtk.Button copy_button;
-        private Gtk.Button delete_button;
-        private Gtk.EventBox url_event_box;
-        private Gtk.Stack title_stack;
-        private Gtk.Stack copy_stack;
-        private Gtk.Entry title_entry;
         private GLib.Settings gnome_settings;
         private GLib.DateTime time;
-        private GLib.Variant history_list;
-        private GLib.Variant history_entry;
-        private Gtk.Image copy_ok_image;
+        private Gtk.Label url_label;
+        private Gtk.Entry title_entry;
+        private Gtk.Label title_label;
         private string title;
         private string url;
         private int64 timestamp;
@@ -47,8 +31,8 @@ namespace ScreenshotApplet
             transition_type = Gtk.RevealerTransitionType.NONE;
             transition_duration = 500;
 
-            history_list = settings.get_value("history");
-            history_entry = history_list.get_child_value(n);
+            GLib.Variant history_list = settings.get_value("history");
+            GLib.Variant history_entry = history_list.get_child_value(n);
             history_entry.get("(xss)", out timestamp, out title, out url);
 
             time = new GLib.DateTime.from_unix_local(timestamp);
@@ -60,13 +44,13 @@ namespace ScreenshotApplet
             title_label.max_width_chars = 23;
             title_label.ellipsize = Pango.EllipsizeMode.END;
 
-            title_edit_button = new Gtk.Button.from_icon_name(
+            Gtk.Button title_edit_button = new Gtk.Button.from_icon_name(
                 "accessories-text-editor-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             title_edit_button.relief = Gtk.ReliefStyle.NONE;
             title_edit_button.can_focus = false;
             title_edit_button.tooltip_text = "Edit Title";
 
-            title_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            Gtk.Box title_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             title_box.pack_start(title_label, true, true, 0);
             title_box.pack_end(title_edit_button, false, false, 0);
 
@@ -82,31 +66,31 @@ namespace ScreenshotApplet
                 title_entry.text = "";
             });
 
-            title_apply_button = new Gtk.Button.from_icon_name(
+            Gtk.Button title_apply_button = new Gtk.Button.from_icon_name(
                 "emblem-ok-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             title_apply_button.relief = Gtk.ReliefStyle.NONE;
             title_apply_button.can_focus = false;
             title_apply_button.tooltip_text = "Apply Changes";
 
-            title_edit_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            Gtk.Box title_edit_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             title_edit_box.pack_start(title_entry, true, true, 0);
             title_edit_box.pack_end(title_apply_button, false, false, 0);
 
-            title_stack = new Gtk.Stack();
+            Gtk.Stack title_stack = new Gtk.Stack();
             title_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
             title_stack.add_named(title_box, "title_box");
             title_stack.add_named(title_edit_box, "title_edit_box");
 
-            copy_button = new Gtk.Button.from_icon_name(
+            Gtk.Button copy_button = new Gtk.Button.from_icon_name(
                 "edit-copy-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             copy_button.relief = Gtk.ReliefStyle.NONE;
             copy_button.can_focus = false;
             copy_button.tooltip_text = "Copy Screenshot URL";
 
-            copy_ok_image = new Gtk.Image.from_icon_name(
+            Gtk.Image copy_ok_image = new Gtk.Image.from_icon_name(
                 "emblem-ok-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
 
-            copy_stack = new Gtk.Stack();
+            Gtk.Stack copy_stack = new Gtk.Stack();
             copy_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             copy_stack.add_named(copy_button, "copy_button");
             copy_stack.add_named(copy_ok_image, "copy_ok_image");
@@ -167,13 +151,13 @@ namespace ScreenshotApplet
                 });
             }
 
-            delete_button = new Gtk.Button.from_icon_name(
+            Gtk.Button delete_button = new Gtk.Button.from_icon_name(
                 "list-remove-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             delete_button.relief = Gtk.ReliefStyle.NONE;
             delete_button.can_focus = false;
             delete_button.tooltip_text = "Delete Screenshot";
 
-            title_main_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            Gtk.Box title_main_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             title_main_box.pack_start(title_stack, true, true, 0);
             title_main_box.pack_end(delete_button, false, false, 0);
 
@@ -190,7 +174,7 @@ namespace ScreenshotApplet
             url_label.max_width_chars = 23;
             url_label.ellipsize = Pango.EllipsizeMode.MIDDLE;
 
-            url_event_box = new Gtk.EventBox();
+            Gtk.EventBox url_event_box = new Gtk.EventBox();
             url_event_box.tooltip_text = "Click to open this screenshot";
             url_event_box.add(url_label);
             url_event_box.button_press_event.connect(() => {
@@ -213,7 +197,7 @@ namespace ScreenshotApplet
                 time_text = time.format("%l:%M %p");
             }
 
-            time_label = new Gtk.Label(time_text);
+            Gtk.Label time_label = new Gtk.Label(time_text);
             time_label.tooltip_text = time.format("%d %B %Y");
             time_label.valign = Gtk.Align.CENTER;
             time_label.get_style_context().add_class("dim-label");
@@ -230,7 +214,7 @@ namespace ScreenshotApplet
                 }
             });
 
-            url_main_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            Gtk.Box url_main_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             url_main_box.pack_start(url_event_box, true, true, 0);
             url_main_box.pack_end(time_label, false, false, 0);
 
@@ -275,7 +259,7 @@ namespace ScreenshotApplet
                 delete_item(settings);
             });
 
-            history_view_item_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            Gtk.Box history_view_item_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             history_view_item_box.margin_top = 5;
             history_view_item_box.margin_bottom = 5;
             history_view_item_box.margin_start = 10;
@@ -290,7 +274,7 @@ namespace ScreenshotApplet
 
         private void delete_item(GLib.Settings settings)
         {
-            history_list = settings.get_value("history");
+            GLib.Variant history_list = settings.get_value("history");
             GLib.Variant[]? history_l = null;
             GLib.Variant? history_entry_curr = null;
 
@@ -337,7 +321,7 @@ namespace ScreenshotApplet
             title_label.set_text("<b>%s</b>".printf(title));
             title_label.use_markup = true;
 
-            history_list = settings.get_value("history");
+            GLib.Variant history_list = settings.get_value("history");
             GLib.Variant[]? history_variant_list = null;
             GLib.Variant? history_entry_curr = null;
             GLib.Variant? history_entry_new = null;

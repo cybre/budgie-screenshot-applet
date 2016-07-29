@@ -124,11 +124,6 @@ namespace ScreenshotApplet
 
     public class SettingsView : Gtk.Box
     {
-        private Gtk.Button back_button;
-        private Gtk.Label back_label;
-        private Gtk.Box back_box;
-        private ActualSettings actual_settings;
-
         private static GLib.Once<SettingsView> _instance;
 
         public SettingsView(GLib.Settings? settings, Gtk.Stack stack)
@@ -136,7 +131,7 @@ namespace ScreenshotApplet
 
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
 
-            back_button = new Gtk.Button.from_icon_name("go-previous-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            Gtk.Button back_button = new Gtk.Button.from_icon_name("go-previous-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             back_button.relief = Gtk.ReliefStyle.NONE;
             back_button.can_focus = false;
             back_button.tooltip_text = "Go back";
@@ -145,16 +140,16 @@ namespace ScreenshotApplet
                 stack.visible_child_name = "new_screenshot_view";
             });
 
-            back_label = new Gtk.Label("<big>Settings</big>");
+            Gtk.Label back_label = new Gtk.Label("<big>Settings</big>");
             back_label.halign = Gtk.Align.END;
             back_label.use_markup = true;
             back_label.get_style_context().add_class("dim-label");
 
-            back_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            Gtk.Box back_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             back_box.pack_start(back_button, false, false, 0);
             back_box.pack_end(back_label, true, true, 10);
 
-            actual_settings = new ActualSettings(settings);
+            ActualSettings actual_settings = ActualSettings.instance(settings);
 
             pack_start(back_box, false, false, 0);
             pack_start(actual_settings, true, true, 10);

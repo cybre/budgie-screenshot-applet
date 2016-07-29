@@ -13,12 +13,7 @@ namespace ScreenshotApplet
 {
     public class UploadDoneView : Gtk.Box
     {
-        private Gtk.Image image;
         private Gtk.Label label;
-        private Gtk.Button back_button;
-        private Gtk.Button history_button;
-        private Gtk.Button open_button;
-        private Gtk.Box button_box;
         public string link;
 
         private static GLib.Once<UploadDoneView> _instance;
@@ -30,7 +25,7 @@ namespace ScreenshotApplet
             width_request = 200;
             height_request = 150;
 
-            image = new Gtk.Image.from_icon_name("emblem-ok-symbolic", Gtk.IconSize.DIALOG);
+            Gtk.Image image = new Gtk.Image.from_icon_name("emblem-ok-symbolic", Gtk.IconSize.DIALOG);
             image.pixel_size = 64;
 
             label = new Gtk.Label("<big>The link has been copied \nto your clipboard!</big>");
@@ -38,14 +33,14 @@ namespace ScreenshotApplet
             label.justify = Gtk.Justification.CENTER;
             label.use_markup = true;
 
-            back_button = new Gtk.Button.with_label("Back");
+            Gtk.Button back_button = new Gtk.Button.with_label("Back");
             back_button.can_focus = false;
-            history_button = new Gtk.Button.with_label("History");
+            Gtk.Button history_button = new Gtk.Button.with_label("History");
             history_button.can_focus = false;
-            open_button = new Gtk.Button.with_label("Open");
+            Gtk.Button open_button = new Gtk.Button.with_label("Open");
             open_button.can_focus = false;
 
-            button_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            Gtk.Box button_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             button_box.get_style_context().add_class("linked");
             button_box.margin_top = 20;
             button_box.pack_start(back_button, true, true, 0);
