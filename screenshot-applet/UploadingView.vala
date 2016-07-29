@@ -18,6 +18,8 @@ namespace ScreenshotApplet
         public Gtk.Button cancel_button;
         public GLib.Cancellable cancellable;
 
+        private static GLib.Once<UploadingView> _instance;
+
         public UploadingView()
         {
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
@@ -43,6 +45,10 @@ namespace ScreenshotApplet
             pack_start(image, true, true, 0);
             pack_start(label, true, true, 0);
             pack_start(cancel_button, true, true, 0);
+        }
+
+        public static unowned UploadingView instance() {
+            return _instance.once(() => { return new UploadingView(); });
         }
     }
 }

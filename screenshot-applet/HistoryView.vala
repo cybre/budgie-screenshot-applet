@@ -28,6 +28,8 @@ namespace ScreenshotApplet
         private AutomaticScrollBox history_scroller;
         private HistoryViewItem history_view_item;
 
+        private static GLib.Once<HistoryView> _instance;
+
         public HistoryView(GLib.Settings settings, Gtk.Clipboard clipboard, Gtk.Stack stack)
         {
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
@@ -211,6 +213,10 @@ namespace ScreenshotApplet
                 child.destroy();
             }
             update_child_count();
+        }
+
+        public static unowned HistoryView instance(GLib.Settings settings, Gtk.Clipboard clipboard, Gtk.Stack stack) {
+            return _instance.once(() => { return new HistoryView(settings, clipboard, stack); });
         }
     }
 }

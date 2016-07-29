@@ -41,6 +41,8 @@ namespace ScreenshotApplet
         [GtkChild]
         private Gtk.Switch? switch_border;
 
+        private static GLib.Once<ActualSettings> _instance;
+
         public ActualSettings(GLib.Settings? settings)
         {
             //providers
@@ -76,7 +78,6 @@ namespace ScreenshotApplet
                 monitors.append(out iter);
                 monitors.set(iter, 0, (string) i, 1, name);
             }
-
             combobox_monitor.set_model(monitors);
 
             Gtk.CellRendererText monitor_renderer = new Gtk.CellRendererText();
@@ -115,6 +116,10 @@ namespace ScreenshotApplet
             settings.bind("include-border", switch_border, "active", SettingsBindFlags.DEFAULT);
             settings.bind("window-effect", combobox_effect, "active_id", SettingsBindFlags.DEFAULT);
         }
+
+        public static unowned ActualSettings instance(GLib.Settings? settings) {
+            return _instance.once(() => { return new ActualSettings(settings); });
+        }
     }
 
     public class SettingsView : Gtk.Box
@@ -123,6 +128,8 @@ namespace ScreenshotApplet
         private Gtk.Label back_label;
         private Gtk.Box back_box;
         private ActualSettings actual_settings;
+
+        private static GLib.Once<SettingsView> _instance;
 
         public SettingsView(GLib.Settings? settings, Gtk.Stack stack)
         {
@@ -151,6 +158,10 @@ namespace ScreenshotApplet
 
             pack_start(back_box, false, false, 0);
             pack_start(actual_settings, true, true, 10);
+        }
+
+        public static unowned SettingsView instance(GLib.Settings? settings, Gtk.Stack stack) {
+            return _instance.once(() => { return new SettingsView(settings, stack); });
         }
     }
 }

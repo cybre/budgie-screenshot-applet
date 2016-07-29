@@ -17,6 +17,8 @@ namespace ScreenshotApplet
         private Gtk.Label label;
         private Gtk.Button back_button;
 
+        private static GLib.Once<ErrorView> _instance;
+
         public ErrorView(Gtk.Stack stack)
         {
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
@@ -48,6 +50,10 @@ namespace ScreenshotApplet
         public void set_label(string text)
         {
             label.label = text;
+        }
+
+        public static unowned ErrorView instance(Gtk.Stack stack) {
+            return _instance.once(() => { return new ErrorView(stack); });
         }
     }
 }

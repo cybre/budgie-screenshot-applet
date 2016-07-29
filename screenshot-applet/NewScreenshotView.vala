@@ -61,6 +61,8 @@ namespace ScreenshotApplet
         public bool local_screenshots { set; get; default = false; }
         public Gdk.Window old_window;
 
+        private static GLib.Once<NewScreenshotView> _instance;
+
         public signal void upload_started(GLib.MainLoop mainloop, GLib.Cancellable cancellable);
         public signal void upload_finished(string link, bool local_screenshots, Gtk.Entry title_entry, GLib.Cancellable cancellable);
         public signal void error_happened(Gtk.Entry title_entry);
@@ -144,7 +146,7 @@ namespace ScreenshotApplet
                 screenshot_delay.to_string(),
                 "-f",
                 filepath,
-                "--display=:%i".printf(use_monitor())
+                "--display=:%i".printf(monitor_num())
             };
 
             command_output = run_command(spawn_args);
@@ -174,7 +176,7 @@ namespace ScreenshotApplet
                 window_effect,
                 "-f",
                 filepath,
-                "--display=:%i".printf(use_monitor())
+                "--display=:%i".printf(monitor_num())
             };
 
             if (include_border) spawn_args += "-b";
@@ -196,7 +198,7 @@ namespace ScreenshotApplet
                 "-a",
                 "-f",
                 filepath,
-                "--display=:%i".printf(use_monitor())
+                "--display=:%i".printf(monitor_num())
             };
 
             command_output = run_command(spawn_args);
@@ -228,12 +230,19 @@ namespace ScreenshotApplet
             }
         }
 
-        private int use_monitor()
+        private int monitor_num()
         {
+            Gdk.Screen screen = get_screen();
+            stdout.printf("\n\nUsing primary monitor = %s\n".printf((use_primary_monitor) ? "True" : "False"));
+
             if (use_primary_monitor) {
-                Gdk.Screen screen = get_screen();
+                stdout.printf("Using monitor: %i (Primary)\n\n".printf(screen.get_primary_monitor()));
                 return screen.get_primary_monitor();
             }
+
+            string primary = (int.parse(monitor_to_use) == screen.get_primary_monitor()) ? "Primary" : "Secondary";
+            stdout.printf("Using monitor: %s (%s)\n\n".printf(monitor_to_use, primary));
+
             return int.parse(monitor_to_use);
         }
 
@@ -469,6 +478,10 @@ namespace ScreenshotApplet
             }
 
             return "";
+        }
+
+        public static unowned NewScreenshotView instance(Gtk.Stack? stack, Gtk.Popover? popover) {
+            return _instance.once(() => { return new NewScreenshotView(stack, popover); });
         }
     }
 }

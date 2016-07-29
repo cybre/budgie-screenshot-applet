@@ -21,6 +21,8 @@ namespace ScreenshotApplet
         private Gtk.Box button_box;
         public string link;
 
+        private static GLib.Once<UploadDoneView> _instance;
+
         public UploadDoneView(Gtk.Stack stack, Gtk.Popover popover)
         {
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
@@ -76,6 +78,10 @@ namespace ScreenshotApplet
         public void set_label(string text)
         {
             label.label = text;
+        }
+
+        public static unowned UploadDoneView instance(Gtk.Stack stack, Gtk.Popover popover) {
+            return _instance.once(() => { return new UploadDoneView(stack, popover); });
         }
     }
 }

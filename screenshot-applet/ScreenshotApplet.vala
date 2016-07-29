@@ -72,12 +72,12 @@ namespace ScreenshotApplet {
 
             popover.map.connect(popover_map_event);
 
-            new_screenshot_view = new NewScreenshotView(stack, popover);
-            uploading_view = new UploadingView();
-            upload_done_view = new UploadDoneView(stack, popover);
-            error_view = new ErrorView(stack);
-            history_view = new HistoryView(settings, clipboard, stack);
-            settings_view = new SettingsView(settings, stack);
+            new_screenshot_view = NewScreenshotView.instance(stack, popover);
+            uploading_view = UploadingView.instance();
+            upload_done_view = UploadDoneView.instance(stack, popover);
+            error_view = ErrorView.instance(stack);
+            history_view = HistoryView.instance(settings, clipboard, stack);
+            settings_view = SettingsView.instance(settings, stack);
 
             new_screenshot_view.upload_started.connect((mainloop, cancellable) => {
                 uploading_view.cancellable = cancellable;
@@ -102,6 +102,10 @@ namespace ScreenshotApplet {
                 icon.visible = true;
                 if (popover.visible == false && !cancellable.is_cancelled()) {
                     icon.get_style_context().add_class("alert");
+                }
+
+                if (link == null || link == "") {
+                    return;
                 }
 
                 string link_start = link.slice(0, 4);
@@ -195,6 +199,8 @@ namespace ScreenshotApplet {
             on_settings_changed("enable-label");
             on_settings_changed("enable-local");
             on_settings_changed("provider");
+            on_settings_changed("use-primary-monitor");
+            on_settings_changed("monitor-to-use");
             on_settings_changed("delay");
             on_settings_changed("include-border");
             on_settings_changed("window-effect");
