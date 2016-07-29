@@ -90,7 +90,7 @@ namespace ScreenshotApplet
             settings_button.tooltip_text = "Settings";
 
             settings_button.clicked.connect(() => {
-                stack.set_visible_child_full("settings_view", Gtk.StackTransitionType.SLIDE_LEFT);
+                stack.visible_child_name = "settings_view";
             });
 
             top_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
@@ -125,7 +125,7 @@ namespace ScreenshotApplet
             history_button.can_focus = false;
 
             history_button.clicked.connect(() => {
-                stack.set_visible_child_full("history_view", Gtk.StackTransitionType.SLIDE_LEFT);
+                stack.visible_child_name = "history_view";
             });
 
             attach(top_box, 0, 0, 1, 1);

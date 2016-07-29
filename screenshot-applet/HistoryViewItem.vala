@@ -107,7 +107,7 @@ namespace ScreenshotApplet
                 "emblem-ok-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
 
             copy_stack = new Gtk.Stack();
-            copy_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
+            copy_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             copy_stack.add_named(copy_button, "copy_button");
             copy_stack.add_named(copy_ok_image, "copy_ok_image");
 
@@ -266,7 +266,7 @@ namespace ScreenshotApplet
                 copy_stack.visible_child_name = "copy_ok_image";
                 copy(url);
                 GLib.Timeout.add(500, () => {
-                    copy_stack.set_visible_child_full("copy_button", Gtk.StackTransitionType.SLIDE_RIGHT);
+                    copy_stack.visible_child_name = "copy_button";
                     return false;
                 });
             });

@@ -44,7 +44,7 @@ namespace ScreenshotApplet
             history_back_button.can_focus = false;
 
             history_back_button.clicked.connect(() => {
-                stack.set_visible_child_full("new_screenshot_view", Gtk.StackTransitionType.SLIDE_RIGHT);
+                stack.visible_child_name = "new_screenshot_view";
             });
 
             history_header_label = new Gtk.Label("<b>Recent Screenshots</b>");

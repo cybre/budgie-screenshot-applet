@@ -69,6 +69,7 @@ namespace ScreenshotApplet {
 
             popover = new Gtk.Popover(box);
             stack = new Gtk.Stack();
+            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
             popover.map.connect(popover_map_event);
 
@@ -86,7 +87,7 @@ namespace ScreenshotApplet {
                     spinner.active = false;
                     spinner.visible = false;
                     icon.visible = true;
-                    stack.set_visible_child_full("new_screenshot_view", Gtk.StackTransitionType.SLIDE_RIGHT);
+                    stack.visible_child_name = "new_screenshot_view";
                 });
 
                 stack.visible_child_name = "uploading_view";
@@ -175,9 +176,9 @@ namespace ScreenshotApplet {
                         } else {
                             stack.visible_child_name = "new_screenshot_view";
                         }
-                        stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT;
+                        stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
                     } else if (e.button == 3) {
-                        stack.set_visible_child_full("history_view", Gtk.StackTransitionType.SLIDE_LEFT);
+                        stack.visible_child_name = "history_view";
                     } else {
                         return Gdk.EVENT_PROPAGATE;
                     }

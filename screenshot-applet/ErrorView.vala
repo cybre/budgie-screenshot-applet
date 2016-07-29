@@ -39,7 +39,7 @@ namespace ScreenshotApplet
             back_button.can_focus = false;
 
             back_button.clicked.connect(() => {
-                stack.set_visible_child_full("new_screenshot_view", Gtk.StackTransitionType.SLIDE_RIGHT);
+                stack.visible_child_name = "new_screenshot_view";
             });
 
             pack_start(image, true, true, 0);
