@@ -61,7 +61,6 @@ namespace ScreenshotApplet
 
             switch_main_display.state_set.connect((state) => {
                 revealer_monitors.reveal_child = !state;
-                populate_monitors(screen, settings);
                 return false;
             });
             revealer_monitors.reveal_child = !switch_main_display.active;
