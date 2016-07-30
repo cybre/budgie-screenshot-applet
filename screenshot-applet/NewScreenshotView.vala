@@ -140,22 +140,33 @@ namespace ScreenshotApplet
                 };
                 command_output = run_command(spawn_args);
             } else {
-                Gdk.Rectangle monitor_rectangle;
-                Gdk.Screen screen = get_screen();
-                screen.get_monitor_geometry(monitor_num(), out monitor_rectangle);
-
-                Gdk.Window root = screen.get_root_window();
-                Gdk.Pixbuf screenshot = Gdk.pixbuf_get_from_window (root,
-                                monitor_rectangle.x, monitor_rectangle.y,
-                                monitor_rectangle.width, monitor_rectangle.height);
-
-                try {
-                    screenshot.save(filepath.split("://")[1], "png");
-                } catch (GLib.Error e) {
-                    stderr.printf(e.message, "\n");
-                }
+                GLib.MainLoop loop = new GLib.MainLoop();
+                GLib.Timeout.add_seconds(screenshot_delay, () => {
+                    take_monitor_screenshot();
+                    loop.quit();
+                    return false;
+                });
+                loop.run();
             }
             upload();
+        }
+
+        private async void take_monitor_screenshot()
+        {
+            Gdk.Rectangle monitor_rectangle;
+            Gdk.Screen screen = get_screen();
+            screen.get_monitor_geometry(monitor_num(), out monitor_rectangle);
+
+            Gdk.Window root = screen.get_root_window();
+            Gdk.Pixbuf screenshot = Gdk.pixbuf_get_from_window (root,
+                            monitor_rectangle.x, monitor_rectangle.y,
+                            monitor_rectangle.width, monitor_rectangle.height);
+
+            try {
+                screenshot.save(filepath.split("://")[1], "png");
+            } catch (GLib.Error e) {
+                stderr.printf(e.message, "\n");
+            }
         }
 
         private void take_window_screenshot()
