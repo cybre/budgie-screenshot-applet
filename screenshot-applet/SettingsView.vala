@@ -54,13 +54,14 @@ namespace ScreenshotApplet
             //monitors
             box_display.no_show_all = true;
             Gdk.Screen screen = get_screen();
-            populate_monitors(screen);
+            populate_monitors(screen, settings);
             screen.monitors_changed.connect(() => {
-                populate_monitors(screen);
+                populate_monitors(screen, settings);
             });
 
             switch_main_display.state_set.connect((state) => {
                 revealer_monitors.reveal_child = !state;
+                populate_monitors(screen, settings);
                 return false;
             });
             revealer_monitors.reveal_child = !switch_main_display.active;
@@ -97,11 +98,11 @@ namespace ScreenshotApplet
             combobox_provider.set_id_column(0);
         }
 
-        private void populate_monitors(Gdk.Screen screen)
+        private void populate_monitors(Gdk.Screen screen, GLib.Settings settings)
         {
             Gtk.ListStore monitors = new Gtk.ListStore(1, typeof(string));
             Gtk.TreeIter iter;
-            int n_monitors = screen.get_n_monitors();
+            int n_monitors = screen.get_n_monitors() + 3;
 
             for (int i = 0; i < n_monitors; i++) {
                 string name = screen.get_monitor_plug_name(i) ?? "PLUG_MONITOR_%i".printf(i);
@@ -109,12 +110,14 @@ namespace ScreenshotApplet
                 monitors.set(iter, 0, name);
             }
 
-            combobox_monitors.set_model(monitors);
+            if (combobox_monitors.get_model() == null) {
+                Gtk.CellRendererText monitor_renderer = new Gtk.CellRendererText();
+                combobox_monitors.pack_start(monitor_renderer, true);
+                combobox_monitors.add_attribute(monitor_renderer, "text", 0);
+            }
 
-            Gtk.CellRendererText monitor_renderer = new Gtk.CellRendererText();
-            combobox_monitors.pack_start(monitor_renderer, true);
-            combobox_monitors.add_attribute(monitor_renderer, "text", 0);
-            combobox_monitors.active = 0;
+            combobox_monitors.set_model(monitors);
+            combobox_monitors.active = settings.get_int("monitor-to-use");
 
             box_display.visible = (n_monitors > 1);
         }
