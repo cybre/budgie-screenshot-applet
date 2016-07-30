@@ -130,6 +130,7 @@ namespace ScreenshotApplet
             set_filepath();
 
             if (use_main_display) {
+                print("lolol");
                 string command_output;
                 string[] spawn_args = {
                     "gnome-screenshot",

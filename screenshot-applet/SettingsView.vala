@@ -24,13 +24,13 @@ namespace ScreenshotApplet
         private Gtk.ComboBox? combobox_provider;
 
         [GtkChild]
-        private Gtk.Box? box_display;
+        private Gtk.Grid? grid_displays;
+
+        [GtkChild]
+        private Gtk.Grid? grid_monitors;
 
         [GtkChild]
         private Gtk.Switch? switch_main_display;
-
-        [GtkChild]
-        private Gtk.Revealer revealer_monitors;
 
         [GtkChild]
         private Gtk.ComboBox? combobox_monitors;
@@ -52,7 +52,7 @@ namespace ScreenshotApplet
             populate_providers();
 
             //monitors
-            box_display.no_show_all = true;
+            grid_displays.no_show_all = true;
             Gdk.Screen screen = get_screen();
             populate_monitors(screen, settings);
             screen.monitors_changed.connect(() => {
@@ -60,10 +60,10 @@ namespace ScreenshotApplet
             });
 
             switch_main_display.state_set.connect((state) => {
-                revealer_monitors.reveal_child = !state;
+                grid_monitors.sensitive = !state;
                 return false;
             });
-            revealer_monitors.reveal_child = !switch_main_display.active;
+            grid_monitors.sensitive = !switch_main_display.active;
 
             // effects
             populate_effects();
@@ -101,7 +101,7 @@ namespace ScreenshotApplet
         {
             Gtk.ListStore monitors = new Gtk.ListStore(1, typeof(string));
             Gtk.TreeIter iter;
-            int n_monitors = screen.get_n_monitors() + 3;
+            int n_monitors = screen.get_n_monitors();
 
             for (int i = 0; i < n_monitors; i++) {
                 string name = screen.get_monitor_plug_name(i) ?? "PLUG_MONITOR_%i".printf(i);
@@ -116,9 +116,17 @@ namespace ScreenshotApplet
             }
 
             combobox_monitors.set_model(monitors);
-            combobox_monitors.active = settings.get_int("monitor-to-use");
+            int monitor = settings.get_int("monitor-to-use");
+            if (n_monitors > 1 && monitor <= n_monitors) {
+                combobox_monitors.active = monitor;
+            } else {
+                switch_main_display.active = true;
+                combobox_monitors.active = 0;
+                settings.set_int("monitor-to-use", 0);
+                settings.set_boolean("use-main-display", true);
+            }
 
-            box_display.visible = (n_monitors > 1);
+            grid_displays.visible = (n_monitors > 1);
         }
 
         private void populate_effects()
