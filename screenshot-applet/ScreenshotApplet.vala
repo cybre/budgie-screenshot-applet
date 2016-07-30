@@ -199,7 +199,7 @@ namespace ScreenshotApplet {
             on_settings_changed("enable-label");
             on_settings_changed("enable-local");
             on_settings_changed("provider");
-            on_settings_changed("use-primary-monitor");
+            on_settings_changed("use-main-display");
             on_settings_changed("monitor-to-use");
             on_settings_changed("delay");
             on_settings_changed("include-border");
@@ -244,11 +244,11 @@ namespace ScreenshotApplet {
                 case "provider":
                     new_screenshot_view.provider_to_use = settings.get_string(key);
                     break;
-                case "use-primary-monitor":
-                    new_screenshot_view.use_primary_monitor = settings.get_boolean(key);
+                case "use-main-display":
+                    new_screenshot_view.use_main_display = settings.get_boolean(key);
                     break;
                 case "monitor-to-use":
-                    new_screenshot_view.monitor_to_use = settings.get_string(key);
+                    new_screenshot_view.monitor_to_use = settings.get_int(key);
                     break;
                 case "delay":
                     new_screenshot_view.screenshot_delay = settings.get_int(key);

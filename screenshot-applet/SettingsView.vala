@@ -24,13 +24,16 @@ namespace ScreenshotApplet
         private Gtk.ComboBox? combobox_provider;
 
         [GtkChild]
-        private Gtk.Switch? switch_primary_monitor;
+        private Gtk.Box? box_display;
 
         [GtkChild]
-        private Gtk.Revealer revealer_monitor;
+        private Gtk.Switch? switch_main_display;
 
         [GtkChild]
-        private Gtk.ComboBox? combobox_monitor;
+        private Gtk.Revealer revealer_monitors;
+
+        [GtkChild]
+        private Gtk.ComboBox? combobox_monitors;
 
         [GtkChild]
         private Gtk.SpinButton spinbutton_delay;
@@ -46,6 +49,38 @@ namespace ScreenshotApplet
         public ActualSettings(GLib.Settings? settings)
         {
             //providers
+            populate_providers();
+
+            //monitors
+            box_display.no_show_all = true;
+            Gdk.Screen screen = get_screen();
+            populate_monitors(screen);
+            screen.monitors_changed.connect(() => {
+                populate_monitors(screen);
+            });
+
+            switch_main_display.state_set.connect((state) => {
+                revealer_monitors.reveal_child = !state;
+                return false;
+            });
+            revealer_monitors.reveal_child = !switch_main_display.active;
+
+            // effects
+            populate_effects();
+
+            // binds
+            settings.bind("enable-label", switch_label, "active", SettingsBindFlags.DEFAULT);
+            settings.bind("enable-local", switch_local, "active", SettingsBindFlags.DEFAULT);
+            settings.bind("provider", combobox_provider, "active_id", SettingsBindFlags.DEFAULT);
+            settings.bind("use-main-display", switch_main_display, "active", SettingsBindFlags.DEFAULT);
+            settings.bind("monitor-to-use", combobox_monitors, "active", SettingsBindFlags.DEFAULT);
+            settings.bind("delay", spinbutton_delay, "value", SettingsBindFlags.DEFAULT);
+            settings.bind("include-border", switch_border, "active", SettingsBindFlags.DEFAULT);
+            settings.bind("window-effect", combobox_effect, "active_id", SettingsBindFlags.DEFAULT);
+        }
+
+        private void populate_providers()
+        {
             Gtk.ListStore providers = new Gtk.ListStore(2, typeof(string), typeof(string));
             Gtk.TreeIter iter;
 
@@ -60,35 +95,34 @@ namespace ScreenshotApplet
             combobox_provider.add_attribute(renderer, "text", 1);
             combobox_provider.active = 0;
             combobox_provider.set_id_column(0);
+        }
 
+        private void populate_monitors(Gdk.Screen screen)
+        {
+            Gtk.ListStore monitors = new Gtk.ListStore(1, typeof(string));
+            Gtk.TreeIter iter;
+            int n_monitors = screen.get_n_monitors() + 2;
 
-            //monitors
-            switch_primary_monitor.state_set.connect((state) => {
-                revealer_monitor.reveal_child = !state;
-                return false;
-            });
-            revealer_monitor.reveal_child = !switch_primary_monitor.active;
-
-            Gtk.ListStore monitors = new Gtk.ListStore(2, typeof(string), typeof(string));
-
-            Gdk.Screen screen = get_screen();
-            int n_monitors = screen.get_n_monitors();
             for (int i = 0; i < n_monitors; i++) {
                 string name = screen.get_monitor_plug_name(i) ?? "PLUG_MONITOR_%i".printf(i);
                 monitors.append(out iter);
-                monitors.set(iter, 0, i.to_string(), 1, name);
+                monitors.set(iter, 0, name);
             }
-            combobox_monitor.set_model(monitors);
+
+            combobox_monitors.set_model(monitors);
 
             Gtk.CellRendererText monitor_renderer = new Gtk.CellRendererText();
-            combobox_monitor.pack_start(monitor_renderer, true);
-            combobox_monitor.add_attribute(monitor_renderer, "text", 1);
-            combobox_monitor.set_id_column(0);
-            combobox_monitor.active = 0;
+            combobox_monitors.pack_start(monitor_renderer, true);
+            combobox_monitors.add_attribute(monitor_renderer, "text", 0);
+            combobox_monitors.active = 0;
 
+            box_display.visible = (n_monitors > 1);
+        }
 
-            // effects
+        private void populate_effects()
+        {
             Gtk.ListStore effects = new Gtk.ListStore(2, typeof(string), typeof(string));
+            Gtk.TreeIter iter;
 
             effects.append(out iter);
             effects.set(iter, 0, "none", 1, "None");
@@ -105,16 +139,6 @@ namespace ScreenshotApplet
             combobox_effect.add_attribute(renderer1, "text", 1);
             combobox_effect.active = 0;
             combobox_effect.set_id_column(0);
-
-            // binds
-            settings.bind("enable-label", switch_label, "active", SettingsBindFlags.DEFAULT);
-            settings.bind("enable-local", switch_local, "active", SettingsBindFlags.DEFAULT);
-            settings.bind("provider", combobox_provider, "active_id", SettingsBindFlags.DEFAULT);
-            settings.bind("use-primary-monitor", switch_primary_monitor, "active", SettingsBindFlags.DEFAULT);
-            settings.bind("monitor-to-use", combobox_monitor, "active_id", SettingsBindFlags.DEFAULT);
-            settings.bind("delay", spinbutton_delay, "value", SettingsBindFlags.DEFAULT);
-            settings.bind("include-border", switch_border, "active", SettingsBindFlags.DEFAULT);
-            settings.bind("window-effect", combobox_effect, "active_id", SettingsBindFlags.DEFAULT);
         }
 
         public static unowned ActualSettings instance(GLib.Settings? settings) {

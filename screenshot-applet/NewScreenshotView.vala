@@ -41,9 +41,9 @@ namespace ScreenshotApplet
         private string filepath;
         public string provider_to_use { set; get; default = "imgur"; }
         public string window_effect { set; get; default = "none"; }
-        public string monitor_to_use { set; get; default = "0"; }
+        public int monitor_to_use { set; get; default = 0; }
         public int screenshot_delay { set; get; default = 1; }
-        public bool use_primary_monitor { set; get; default = true; }
+        public bool use_main_display { set; get; default = true; }
         public bool include_border { set; get; default = true; }
         public bool local_screenshots { set; get; default = false; }
         public Gtk.Entry title_entry;
@@ -123,21 +123,35 @@ namespace ScreenshotApplet
 
         private void take_screen_screenshot()
         {
-            string command_output;
             popover.visible = false;
-
             set_filepath();
 
-            string[] spawn_args = {
-                "gnome-screenshot",
-                "-d",
-                screenshot_delay.to_string(),
-                "-f",
-                filepath,
-                "--display=:%i".printf(monitor_num())
-            };
+            if (use_main_display) {
+                string command_output;
+                string[] spawn_args = {
+                    "gnome-screenshot",
+                    "-d",
+                    screenshot_delay.to_string(),
+                    "-f",
+                    filepath
+                };
+                command_output = run_command(spawn_args);
+            } else {
+                Gdk.Rectangle monitor_rectangle;
+                Gdk.Screen screen = get_screen();
+                screen.get_monitor_geometry(monitor_num(), out monitor_rectangle);
 
-            command_output = run_command(spawn_args);
+                Gdk.Window root = screen.get_root_window();
+                Gdk.Pixbuf screenshot = Gdk.pixbuf_get_from_window (root,
+                                monitor_rectangle.x, monitor_rectangle.y,
+                                monitor_rectangle.width, monitor_rectangle.height);
+
+                try {
+                    screenshot.save(filepath.split("://")[1], "png");
+                } catch (GLib.Error e) {
+                    stderr.printf(e.message, "\n");
+                }
+            }
             upload();
         }
 
@@ -163,8 +177,7 @@ namespace ScreenshotApplet
                 "-e",
                 window_effect,
                 "-f",
-                filepath,
-                "--display=:%i".printf(monitor_num())
+                filepath
             };
 
             if (include_border) spawn_args += "-b";
@@ -185,8 +198,7 @@ namespace ScreenshotApplet
                 "gnome-screenshot",
                 "-a",
                 "-f",
-                filepath,
-                "--display=:%i".printf(monitor_num())
+                filepath
             };
 
             command_output = run_command(spawn_args);
@@ -221,17 +233,11 @@ namespace ScreenshotApplet
         private int monitor_num()
         {
             Gdk.Screen screen = get_screen();
-            stdout.printf("\n\nUsing primary monitor = %s\n".printf((use_primary_monitor) ? "True" : "False"));
+            stdout.printf("\n\nUsing main_display = %s\n".printf((use_main_display) ? "True" : "False"));
+            string primary = (monitor_to_use == screen.get_primary_monitor()) ? "Primary" : "Secondary";
+            stdout.printf("Using monitor: %i (%s)\n\n".printf(monitor_to_use, primary));
 
-            if (use_primary_monitor) {
-                stdout.printf("Using monitor: %i (Primary)\n\n".printf(screen.get_primary_monitor()));
-                return screen.get_primary_monitor();
-            }
-
-            string primary = (int.parse(monitor_to_use) == screen.get_primary_monitor()) ? "Primary" : "Secondary";
-            stdout.printf("Using monitor: %s (%s)\n\n".printf(monitor_to_use, primary));
-
-            return int.parse(monitor_to_use);
+            return monitor_to_use;
         }
 
         public void upload_local(string filep)

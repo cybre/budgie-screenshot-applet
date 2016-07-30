@@ -91,7 +91,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkSeparator" id="separator">
+      <object class="GtkSeparator" id="separator1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
       </object>
@@ -102,118 +102,28 @@
       </packing>
     </child>
     <child>
-      <object class="GtkBox" id="box_display">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkGrid" id="grid_display">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkLabel" id="label_main_display">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="hexpand">True</property>
-                <property name="label" translatable="yes">Use main display</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSwitch" id="switch_main_display">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="halign">end</property>
-                <property name="hexpand">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkRevealer" id="revealer_monitors">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkGrid" id="grid_monitor">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkLabel" id="label_monitors">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="hexpand">True</property>
-                    <property name="label" translatable="yes">Select monitor</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBox" id="combobox_monitors">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">end</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label_delay">
+      <object class="GtkLabel" id="label_border">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
         <property name="hexpand">True</property>
-        <property name="label" translatable="yes">Screenshot Delay</property>
+        <property name="label" translatable="yes">Include Window Border</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
-        <property name="top_attach">5</property>
+        <property name="top_attach">8</property>
       </packing>
     </child>
     <child>
-      <object class="GtkSpinButton" id="spinbutton_delay">
+      <object class="GtkSwitch" id="switch_border">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="halign">end</property>
         <property name="hexpand">True</property>
-        <property name="adjustment">delay_adjustment</property>
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">5</property>
+        <property name="top_attach">8</property>
       </packing>
     </child>
     <child>
@@ -223,19 +133,6 @@
         <property name="halign">start</property>
         <property name="hexpand">True</property>
         <property name="label" translatable="yes">Window Effect</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">6</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkLabel" id="label_border">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="halign">start</property>
-        <property name="hexpand">True</property>
-        <property name="label" translatable="yes">Include Window Border</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -250,11 +147,50 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
+        <property name="top_attach">7</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_delay">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="hexpand">True</property>
+        <property name="label" translatable="yes">Screenshot Delay</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
         <property name="top_attach">6</property>
       </packing>
     </child>
     <child>
-      <object class="GtkSwitch" id="switch_border">
+      <object class="GtkSpinButton" id="spinbutton_delay">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="halign">end</property>
+        <property name="hexpand">True</property>
+        <property name="adjustment">delay_adjustment</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">6</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label_primary_monitor">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="hexpand">True</property>
+        <property name="label" translatable="yes">Use primary monitor</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSwitch" id="switch_primary_monitor">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="halign">end</property>
@@ -262,7 +198,48 @@
       </object>
       <packing>
         <property name="left_attach">1</property>
-        <property name="top_attach">7</property>
+        <property name="top_attach">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkRevealer" id="revealer_monitor">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <object class="GtkGrid" id="grid_monitor">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkLabel" id="label_monitor">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="hexpand">True</property>
+                <property name="label" translatable="yes">Select monitor</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="combobox_monitor">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">5</property>
+        <property name="width">2</property>
       </packing>
     </child>
   </template>
