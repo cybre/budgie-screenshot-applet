@@ -76,7 +76,7 @@ namespace ScreenshotApplet
             for (int i = 0; i < n_monitors; i++) {
                 string name = screen.get_monitor_plug_name(i) ?? "PLUG_MONITOR_%i".printf(i);
                 monitors.append(out iter);
-                monitors.set(iter, 0, (string) i, 1, name);
+                monitors.set(iter, 0, i.to_string(), 1, name);
             }
             combobox_monitor.set_model(monitors);
 
