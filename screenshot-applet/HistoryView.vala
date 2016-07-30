@@ -19,6 +19,7 @@ namespace ScreenshotApplet
         private Gtk.Clipboard clipboard;
         private AutomaticScrollBox history_scroller;
         private HistoryViewItem history_view_item;
+        public Gtk.Button history_button;
 
         private static GLib.Once<HistoryView> _instance;
 
@@ -106,8 +107,10 @@ namespace ScreenshotApplet
 
             if (len == 0) {
                 clear_all_button.sensitive = false;
+                history_button.visible = false;
             } else {
                 clear_all_button.sensitive = true;
+                history_button.visible = true;
             }
         }
 

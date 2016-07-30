@@ -48,6 +48,7 @@ namespace ScreenshotApplet
         public bool local_screenshots { set; get; default = false; }
         public Gtk.Entry title_entry;
         public Gdk.Window old_window;
+        public Gtk.Button history_button;
 
         private static GLib.Once<NewScreenshotView> _instance;
 
@@ -108,9 +109,11 @@ namespace ScreenshotApplet
             mode_selection.attach(mode_selection_box, 0, 1, 1, 1);
             mode_selection.attach(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), 0, 2, 1, 1);
 
-            Gtk.Button history_button = new Gtk.Button.with_label("History");
+            history_button = new Gtk.Button.with_label("History");
             history_button.relief = Gtk.ReliefStyle.NONE;
             history_button.can_focus = false;
+            history_button.no_show_all = true;
+            history_button.visible = false;
 
             history_button.clicked.connect(() => {
                 stack.visible_child_name = "history_view";

@@ -79,6 +79,8 @@ namespace ScreenshotApplet {
             history_view = HistoryView.instance(settings, clipboard, stack);
             settings_view = SettingsView.instance(settings, stack);
 
+            history_view.history_button = new_screenshot_view.history_button;
+
             new_screenshot_view.upload_started.connect((mainloop, cancellable) => {
                 uploading_view.cancellable = cancellable;
                 cancellable.cancelled.connect(() => {
