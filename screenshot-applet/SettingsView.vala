@@ -101,7 +101,7 @@ namespace ScreenshotApplet
         {
             Gtk.ListStore monitors = new Gtk.ListStore(1, typeof(string));
             Gtk.TreeIter iter;
-            int n_monitors = screen.get_n_monitors() + 2;
+            int n_monitors = screen.get_n_monitors();
 
             for (int i = 0; i < n_monitors; i++) {
                 string name = screen.get_monitor_plug_name(i) ?? "PLUG_MONITOR_%i".printf(i);
