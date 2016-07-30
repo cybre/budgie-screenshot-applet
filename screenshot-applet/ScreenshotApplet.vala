@@ -26,6 +26,9 @@ namespace ScreenshotApplet {
         private Gtk.Spinner spinner;
         private Gtk.Image icon;
         private Gtk.Label label;
+        private Gtk.Label countdown_label1;
+        private Gtk.Label countdown_label2;
+        private Gtk.Stack icon_stack;
         private Gtk.Stack stack;
         private Gtk.Clipboard clipboard;
         private NewScreenshotView new_screenshot_view;
@@ -58,11 +61,21 @@ namespace ScreenshotApplet {
             box = new Gtk.EventBox();
             spinner = new Gtk.Spinner();
             icon = new Gtk.Image.from_icon_name("image-x-generic-symbolic", Gtk.IconSize.MENU);
+            Gtk.Image icon_grab = new Gtk.Image.from_icon_name("camera-photo-symbolic", Gtk.IconSize.MENU);
+            icon_stack = new Gtk.Stack();
+            countdown_label1 = new Gtk.Label("0");
+            countdown_label2 = new Gtk.Label("0");
+            icon_stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
+            icon_stack.transition_duration = 300;
+            icon_stack.add_named(icon, "icon");
+            icon_stack.add_named(icon_grab, "icon_grab");
+            icon_stack.add_named(spinner, "spinner");
+            icon_stack.add_named(countdown_label1, "countdown1");
+            icon_stack.add_named(countdown_label2, "countdown2");
             label = new Gtk.Label("Screenshot");
             label.halign = Gtk.Align.START;
             Gtk.Box layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            layout.pack_start(spinner, false, false, 3);
-            layout.pack_start(icon, false, false, 3);
+            layout.pack_start(icon_stack, false, false, 3);
             layout.pack_start(label, true, true, 3);
             box.add(layout);
 
@@ -81,38 +94,75 @@ namespace ScreenshotApplet {
 
             history_view.history_button = new_screenshot_view.history_button;
 
+            new_screenshot_view.countdown.connect((delay) => {
+                int seconds = 1;
+                if (delay == 0 || delay == 1) {
+                    icon_stack.set_visible_child_full("icon_grab", Gtk.StackTransitionType.SLIDE_DOWN);
+                } else {
+                    icon_stack.set_visible_child_full("countdown1", Gtk.StackTransitionType.SLIDE_DOWN);
+                    GLib.Timeout.add_full(GLib.Priority.HIGH, 900, () => {
+                        if (icon_stack.visible_child_name == "countdown1") {
+                            icon_stack.set_visible_child_full("countdown2", Gtk.StackTransitionType.SLIDE_DOWN);
+                        } else {
+                            icon_stack.set_visible_child_full("countdown1", Gtk.StackTransitionType.SLIDE_DOWN);
+                        }
+
+                        countdown_label1.label = (delay - seconds).to_string();
+                        countdown_label2.label = (delay - seconds).to_string();
+
+                        if (delay == seconds) {
+                            icon_stack.set_visible_child_full("icon_grab", Gtk.StackTransitionType.SLIDE_DOWN);
+                            return false;
+                        }
+
+                        seconds++;
+
+                        return true;
+                    });
+                }
+
+                countdown_label1.label = delay.to_string();
+            });
+
             new_screenshot_view.upload_started.connect((mainloop, cancellable) => {
                 uploading_view.cancellable = cancellable;
                 cancellable.cancelled.connect(() => {
                     mainloop.quit();
                     spinner.active = false;
-                    spinner.visible = false;
-                    icon.visible = true;
+                    icon_stack.visible_child_name = "icon";
                     stack.visible_child_name = "new_screenshot_view";
                 });
 
                 stack.visible_child_name = "uploading_view";
-                icon.visible = false;
                 spinner.active = true;
-                spinner.visible = true;
+                icon_stack.visible_child_name = "spinner";
             });
 
             new_screenshot_view.upload_finished.connect((link, local_screenshots, title_entry, cancellable) => {
                 upload_done_view.link = link;
                 spinner.active = false;
-                spinner.visible = false;
-                icon.visible = true;
-                if (popover.visible == false && !cancellable.is_cancelled()) {
+                icon_stack.visible_child_name = "icon";
+
+                if (cancellable.is_cancelled()) {
+                    return;
+                }
+
+                if (!popover.visible) {
                     icon.get_style_context().add_class("alert");
                 }
 
-                if (link == null || link == "") {
+                if ((link == null || link == "")) {
+                    error_view.set_label("<big>We couldn't upload your image</big>\nCheck your internet connection.");
+                    if (popover.visible) {
+                        stack.visible_child_name = "error_view";
+                    }
+                    error = true;
                     return;
                 }
 
                 string link_start = link.slice(0, 4);
 
-                if (link != "" && (link_start == "file" || link_start == "http")) {
+                if (link_start == "file" || link_start == "http") {
                     history_view.add_to_history(link, title_entry.text);
 
                     if (local_screenshots) {
@@ -129,12 +179,6 @@ namespace ScreenshotApplet {
                         stack.visible_child_name = "upload_done_view";
                     }
                     error = false;
-                } else if (!cancellable.is_cancelled()) {
-                    error_view.set_label("<big>We couldn't upload your image</big>\nCheck your internet connection.");
-                    if (popover.visible) {
-                        stack.visible_child_name = "error_view";
-                    }
-                    error = true;
                 }
                 title_entry.text = "";
             });
@@ -196,8 +240,6 @@ namespace ScreenshotApplet {
             add(box);
             show_all();
 
-            spinner.visible = false;
-
             on_settings_changed("enable-label");
             on_settings_changed("enable-local");
             on_settings_changed("provider");
@@ -254,6 +296,7 @@ namespace ScreenshotApplet {
                     break;
                 case "delay":
                     new_screenshot_view.screenshot_delay = settings.get_int(key);
+                    countdown_label1.label = settings.get_int(key).to_string();
                     break;
                 case "include-border":
                     new_screenshot_view.include_border = settings.get_boolean(key);

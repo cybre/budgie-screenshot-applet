@@ -101,7 +101,7 @@ namespace ScreenshotApplet
         {
             Gtk.ListStore monitors = new Gtk.ListStore(1, typeof(string));
             Gtk.TreeIter iter;
-            int n_monitors = screen.get_n_monitors();
+            int n_monitors = screen.get_n_monitors() + 3;
 
             for (int i = 0; i < n_monitors; i++) {
                 string name = screen.get_monitor_plug_name(i) ?? "PLUG_MONITOR_%i".printf(i);
@@ -121,9 +121,9 @@ namespace ScreenshotApplet
                 combobox_monitors.active = monitor;
             } else {
                 switch_main_display.active = true;
+                settings.set_boolean("use-main-display", true);
                 combobox_monitors.active = 0;
                 settings.set_int("monitor-to-use", 0);
-                settings.set_boolean("use-main-display", true);
             }
 
             grid_displays.visible = (n_monitors > 1);

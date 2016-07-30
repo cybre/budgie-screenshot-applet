@@ -59,6 +59,8 @@ namespace ScreenshotApplet
         public signal void local_upload_started();
         public signal void local_upload_finished(string link);
 
+        public signal void countdown(int delay);
+
         public NewScreenshotView(Gtk.Stack? stack, Gtk.Popover? popover)
         {
             this.popover = popover;
@@ -129,8 +131,9 @@ namespace ScreenshotApplet
             popover.visible = false;
             set_filepath();
 
+            countdown(screenshot_delay);
+
             if (use_main_display) {
-                print("lolol");
                 string command_output;
                 string[] spawn_args = {
                     "gnome-screenshot",
@@ -183,6 +186,8 @@ namespace ScreenshotApplet
             }
 
             set_filepath();
+
+            countdown(screenshot_delay);
 
             string[] spawn_args = {
                 "gnome-screenshot",
@@ -377,7 +382,7 @@ namespace ScreenshotApplet
                     if (node_obj != null) {
                         node_obj = node_obj.get_object_member("data");
                         if (node_obj != null) {
-                            url = node_obj.get_string_member("link");
+                            url = node_obj.get_string_member("link") ?? "";
                         }
                     }
                     loop.quit();
