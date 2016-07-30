@@ -42,7 +42,7 @@ namespace ScreenshotApplet
         public string provider_to_use { set; get; default = "imgur"; }
         public string window_effect { set; get; default = "none"; }
         public int monitor_to_use { set; get; default = 0; }
-        public int screenshot_delay { set; get; default = 1; }
+        public int screenshot_delay { set; get; default = 3; }
         public bool use_main_display { set; get; default = true; }
         public bool include_border { set; get; default = true; }
         public bool local_screenshots { set; get; default = false; }

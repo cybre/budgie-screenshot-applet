@@ -3,19 +3,19 @@
   <schema id="com.github.cybre.screenshot-applet">
 
     <key type="b" name="enable-label">
-      <default>false</default>
+        <default>false</default>
     </key>
 
     <key type="b" name="enable-local">
-      <default>false</default>
+        <default>false</default>
     </key>
 
     <key type="s" name="provider">
-      <default>'imgur'</default>
+        <default>'imgur'</default>
     </key>
 
     <key type="b" name="use-main-display">
-      <default>true</default>
+        <default>true</default>
     </key>
 
     <key type="i" name="monitor-to-use">
@@ -23,19 +23,20 @@
     </key>
 
     <key type="i" name="delay">
-      <default>1</default>
+        <range min="0" max="60"/>
+        <default>3</default>
     </key>
 
     <key type="b" name="include-border">
-      <default>true</default>
+        <default>true</default>
     </key>
 
     <key type="s" name="window-effect">
-      <default>'none'</default>
+        <default>'none'</default>
     </key>
 
     <key type="a(xss)" name="history">
-      <default>[]</default>
+        <default>[]</default>
     </key>
 
   </schema>
