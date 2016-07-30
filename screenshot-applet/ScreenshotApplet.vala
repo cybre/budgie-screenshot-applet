@@ -23,12 +23,8 @@ namespace ScreenshotApplet {
         Gtk.EventBox? box = null;
         unowned Budgie.PopoverManager? manager = null;
         protected Settings settings;
-        private Gtk.Spinner spinner;
-        private Gtk.Image icon;
         private Gtk.Label label;
         private Gtk.Label countdown_label1;
-        private Gtk.Label countdown_label2;
-        private Gtk.Stack icon_stack;
         private Gtk.Stack stack;
         private Gtk.Clipboard clipboard;
         private NewScreenshotView new_screenshot_view;
@@ -58,13 +54,14 @@ namespace ScreenshotApplet {
             Gdk.Display display = get_display();
             clipboard = Gtk.Clipboard.get_for_display(display, Gdk.SELECTION_CLIPBOARD);
 
-            box = new Gtk.EventBox();
-            spinner = new Gtk.Spinner();
-            icon = new Gtk.Image.from_icon_name("image-x-generic-symbolic", Gtk.IconSize.MENU);
+
+            Gtk.Image icon = new Gtk.Image.from_icon_name("image-x-generic-symbolic", Gtk.IconSize.MENU);
             Gtk.Image icon_grab = new Gtk.Image.from_icon_name("camera-photo-symbolic", Gtk.IconSize.MENU);
-            icon_stack = new Gtk.Stack();
+            Gtk.Spinner spinner = new Gtk.Spinner();
             countdown_label1 = new Gtk.Label("0");
-            countdown_label2 = new Gtk.Label("0");
+            Gtk.Label countdown_label2 = new Gtk.Label("0");
+
+            Gtk.Stack icon_stack = new Gtk.Stack();
             icon_stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
             icon_stack.transition_duration = 300;
             icon_stack.add_named(icon, "icon");
@@ -72,12 +69,17 @@ namespace ScreenshotApplet {
             icon_stack.add_named(spinner, "spinner");
             icon_stack.add_named(countdown_label1, "countdown1");
             icon_stack.add_named(countdown_label2, "countdown2");
+
             label = new Gtk.Label("Screenshot");
             label.halign = Gtk.Align.START;
+
             Gtk.Box layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             layout.pack_start(icon_stack, false, false, 3);
             layout.pack_start(label, true, true, 3);
+
+            box = new Gtk.EventBox();
             box.add(layout);
+
 
             popover = new Gtk.Popover(box);
             stack = new Gtk.Stack();
@@ -184,6 +186,7 @@ namespace ScreenshotApplet {
             });
 
             new_screenshot_view.error_happened.connect((title_entry) => {
+                icon_stack.visible_child_name = "icon";
                 error_view.set_label("<big>Couldn't open file</big>\nFile is missing or not an image.");
                 title_entry.text = "";
                 icon.get_style_context().add_class("alert");

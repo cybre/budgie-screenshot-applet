@@ -166,6 +166,11 @@ namespace ScreenshotApplet
                             monitor_rectangle.x, monitor_rectangle.y,
                             monitor_rectangle.width, monitor_rectangle.height);
 
+            if (screenshot == null) {
+                error_happened(title_entry);
+                return;
+            }
+
             try {
                 screenshot.save(filepath.split("://")[1], "png");
             } catch (GLib.Error e) {
