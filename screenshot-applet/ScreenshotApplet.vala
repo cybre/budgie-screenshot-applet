@@ -295,7 +295,7 @@ namespace ScreenshotApplet {
                     new_screenshot_view.use_main_display = settings.get_boolean(key);
                     break;
                 case "monitor-to-use":
-                    new_screenshot_view.monitor_to_use = settings.get_int(key);
+                    new_screenshot_view.monitor_to_use = settings.get_string(key);
                     break;
                 case "delay":
                     new_screenshot_view.screenshot_delay = settings.get_int(key);

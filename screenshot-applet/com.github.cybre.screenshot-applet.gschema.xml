@@ -18,8 +18,8 @@
         <default>true</default>
     </key>
 
-    <key type="i" name="monitor-to-use">
-        <default>0</default>
+    <key type="s" name="monitor-to-use">
+        <default>""</default>
     </key>
 
     <key type="i" name="delay">

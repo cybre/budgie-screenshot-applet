@@ -53,10 +53,10 @@ namespace ScreenshotApplet
 
             //monitors
             grid_displays.no_show_all = true;
+            populate_monitors(settings);
             Gdk.Screen screen = get_screen();
-            populate_monitors(screen, settings);
             screen.monitors_changed.connect(() => {
-                populate_monitors(screen, settings);
+                populate_monitors(settings);
             });
 
             switch_main_display.state_set.connect((state) => {
@@ -73,7 +73,7 @@ namespace ScreenshotApplet
             settings.bind("enable-local", switch_local, "active", SettingsBindFlags.DEFAULT);
             settings.bind("provider", combobox_provider, "active_id", SettingsBindFlags.DEFAULT);
             settings.bind("use-main-display", switch_main_display, "active", SettingsBindFlags.DEFAULT);
-            settings.bind("monitor-to-use", combobox_monitors, "active", SettingsBindFlags.DEFAULT);
+            settings.bind("monitor-to-use", combobox_monitors, "active_id", SettingsBindFlags.DEFAULT);
             settings.bind("delay", spinbutton_delay, "value", SettingsBindFlags.DEFAULT);
             settings.bind("include-border", switch_border, "active", SettingsBindFlags.DEFAULT);
             settings.bind("window-effect", combobox_effect, "active_id", SettingsBindFlags.DEFAULT);
@@ -97,40 +97,52 @@ namespace ScreenshotApplet
             combobox_provider.set_id_column(0);
         }
 
-        private void populate_monitors(Gdk.Screen screen, GLib.Settings settings)
+        private void populate_monitors(GLib.Settings settings)
         {
-            Gtk.ListStore monitors = new Gtk.ListStore(1, typeof(string));
+            Gtk.ListStore monitors = new Gtk.ListStore(2, typeof(string), typeof(string));
             Gtk.TreeIter iter;
+            Gdk.Screen screen = get_screen();
             int n_monitors = screen.get_n_monitors();
 
             Gnome.RRScreen rr_screen = new Gnome.RRScreen(screen);
             Gnome.RRConfig rr_config = new Gnome.RRConfig.current(rr_screen);
 
+            int pos = 0;
+            int active = 0;
+
+            string[] ms = new string[n_monitors];
+            string monitor_to_use = settings.get_string("monitor-to-use");
+
             foreach (unowned Gnome.RROutputInfo output_info in rr_config.get_outputs()) {
-                string name = output_info.get_display_name();
-                stdout.printf("Display name: %s\n", name);
-                stdout.printf("Name: %s\n", output_info.get_name());
-                stdout.printf("ID: %u\n", rr_screen.get_output_by_name(output_info.get_name()).get_id());
+                string name = output_info.get_name();
+                string display_name = output_info.get_display_name();
+                ms[pos] = name;
+                if (monitor_to_use == name) {
+                    active = pos;
+                }
                 monitors.append(out iter);
-                monitors.set(iter, 0, name);
+                monitors.set(iter, 0, name, 1, display_name);
+                pos++;
             }
 
             if (combobox_monitors.get_model() == null) {
                 Gtk.CellRendererText monitor_renderer = new Gtk.CellRendererText();
                 combobox_monitors.pack_start(monitor_renderer, true);
-                combobox_monitors.add_attribute(monitor_renderer, "text", 0);
+                combobox_monitors.add_attribute(monitor_renderer, "text", 1);
             }
 
             combobox_monitors.set_model(monitors);
-            int monitor = settings.get_int("monitor-to-use");
-            if (n_monitors > 1 && monitor <= n_monitors) {
-                combobox_monitors.active = monitor;
+
+            if (n_monitors > 1 && active <= n_monitors) {
+                combobox_monitors.active = active;
             } else {
                 switch_main_display.active = true;
                 settings.set_boolean("use-main-display", true);
                 combobox_monitors.active = 0;
-                settings.set_int("monitor-to-use", 0);
+                settings.set_string("monitor-to-use", ms[0]);
             }
+
+            combobox_monitors.id_column = 0;
 
             // grid_displays.visible = (n_monitors > 1);
         }

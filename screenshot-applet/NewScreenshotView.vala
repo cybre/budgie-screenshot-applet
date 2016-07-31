@@ -41,7 +41,7 @@ namespace ScreenshotApplet
         private string filepath;
         public string provider_to_use { set; get; default = "imgur"; }
         public string window_effect { set; get; default = "none"; }
-        public int monitor_to_use { set; get; default = 0; }
+        public string monitor_to_use { set; get; default = ""; }
         public int screenshot_delay { set; get; default = 3; }
         public bool use_main_display { set; get; default = true; }
         public bool include_border { set; get; default = true; }
@@ -157,14 +157,23 @@ namespace ScreenshotApplet
 
         private async void take_monitor_screenshot()
         {
-            Gdk.Rectangle monitor_rectangle;
             Gdk.Screen screen = get_screen();
-            screen.get_monitor_geometry(monitor_num(), out monitor_rectangle);
+
+            Gnome.RRScreen rr_screen = new Gnome.RRScreen(screen);
+            Gnome.RRConfig rr_config = new Gnome.RRConfig.current(rr_screen);
+
+            int? x = null, y = null, width = null, height = null;
+
+            foreach (unowned Gnome.RROutputInfo output_info in rr_config.get_outputs()) {
+                string name = output_info.get_name();
+                if (monitor_to_use == name) {
+                    output_info.get_geometry(out x, out y, out width, out height);
+                    break;
+                }
+            }
 
             Gdk.Window root = screen.get_root_window();
-            Gdk.Pixbuf screenshot = Gdk.pixbuf_get_from_window (root,
-                            monitor_rectangle.x, monitor_rectangle.y,
-                            monitor_rectangle.width, monitor_rectangle.height);
+            Gdk.Pixbuf screenshot = Gdk.pixbuf_get_from_window (root, x, y, width, height);
 
             if (screenshot == null) {
                 error_happened(title_entry);
@@ -253,16 +262,6 @@ namespace ScreenshotApplet
                     stderr.printf(e.message, "\n");
                 }
             }
-        }
-
-        private int monitor_num()
-        {
-            Gdk.Screen screen = get_screen();
-            stdout.printf("\n\nUsing main_display = %s\n".printf((use_main_display) ? "True" : "False"));
-            string primary = (monitor_to_use == screen.get_primary_monitor()) ? "Primary" : "Secondary";
-            stdout.printf("Using monitor: %i (%s)\n\n".printf(monitor_to_use, primary));
-
-            return monitor_to_use;
         }
 
         public void upload_local(string filep)
