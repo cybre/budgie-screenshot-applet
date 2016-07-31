@@ -103,8 +103,11 @@ namespace ScreenshotApplet
             Gtk.TreeIter iter;
             int n_monitors = screen.get_n_monitors();
 
-            for (int i = 0; i < n_monitors; i++) {
-                string name = screen.get_monitor_plug_name(i) ?? "PLUG_MONITOR_%i".printf(i);
+            Gnome.RRScreen rr_screen = new Gnome.RRScreen(screen);
+            Gnome.RRConfig rr_config = new Gnome.RRConfig.current(rr_screen);
+
+            foreach (unowned Gnome.RROutputInfo output_info in rr_config.get_outputs()) {
+                string name = output_info.get_display_name();
                 monitors.append(out iter);
                 monitors.set(iter, 0, name);
             }

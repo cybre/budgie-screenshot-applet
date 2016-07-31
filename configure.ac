@@ -21,6 +21,10 @@ PKG_CHECK_MODULES(BUDGIE_PLUGIN,
         budgie-1.0 >= budgie_required_version
 )
 
+PKG_CHECK_MODULES(GNOME,
+        gnome-desktop-3.0 >= 3.18.0
+)
+
 PKG_CHECK_MODULES(JSON,
         json-glib-1.0 >= 1.0.0
 )
