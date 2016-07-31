@@ -154,7 +154,7 @@ namespace ScreenshotApplet
 
             combobox_monitors.id_column = 0;
 
-            // grid_displays.visible = (n_monitors > 1);
+            grid_displays.visible = (n_monitors > 1);
         }
 
         private void populate_effects()

@@ -180,6 +180,8 @@ namespace ScreenshotApplet
                 }
             }
 
+            if (x == null) return;
+
             Gdk.Window root = screen.get_root_window();
             Gdk.Pixbuf screenshot = Gdk.pixbuf_get_from_window (root, x, y, width, height);
 
