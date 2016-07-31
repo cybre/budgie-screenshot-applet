@@ -108,6 +108,9 @@ namespace ScreenshotApplet
 
             foreach (unowned Gnome.RROutputInfo output_info in rr_config.get_outputs()) {
                 string name = output_info.get_display_name();
+                stdout.printf("Display name: %s\n", name);
+                stdout.printf("Name: %s\n", output_info.get_name());
+                stdout.printf("ID: %u\n", rr_screen.get_output_by_name(output_info.get_name()).get_id());
                 monitors.append(out iter);
                 monitors.set(iter, 0, name);
             }
@@ -129,7 +132,7 @@ namespace ScreenshotApplet
                 settings.set_int("monitor-to-use", 0);
             }
 
-            grid_displays.visible = (n_monitors > 1);
+            // grid_displays.visible = (n_monitors > 1);
         }
 
         private void populate_effects()
