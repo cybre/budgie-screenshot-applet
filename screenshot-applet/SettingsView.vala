@@ -53,11 +53,13 @@ namespace ScreenshotApplet
 
             //monitors
             grid_displays.no_show_all = true;
+
+            Gnome.RRScreen rr_screen = new Gnome.RRScreen(get_screen());
             populate_monitors(settings);
-            Gdk.Screen screen = get_screen();
-            screen.monitors_changed.connect(() => {
-                populate_monitors(settings);
-            });
+
+            rr_screen.output_connected.connect (() => populate_monitors(settings));
+            rr_screen.output_disconnected.connect (() => populate_monitors(settings));
+            rr_screen.changed.connect (() => populate_monitors(settings));
 
             switch_main_display.state_set.connect((state) => {
                 grid_monitors.sensitive = !state;
@@ -104,8 +106,16 @@ namespace ScreenshotApplet
             Gdk.Screen screen = get_screen();
             int n_monitors = screen.get_n_monitors();
 
-            Gnome.RRScreen rr_screen = new Gnome.RRScreen(screen);
-            Gnome.RRConfig rr_config = new Gnome.RRConfig.current(rr_screen);
+            Gnome.RRScreen rr_screen;
+            Gnome.RRConfig rr_config;
+
+            try {
+                rr_screen = new Gnome.RRScreen(screen);
+                rr_config = new Gnome.RRConfig.current(rr_screen);
+            } catch (GLib.Error e) {
+                stderr.printf(e.message, "\n");
+                return;
+            }
 
             int pos = 0;
             int active = 0;

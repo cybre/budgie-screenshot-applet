@@ -159,8 +159,16 @@ namespace ScreenshotApplet
         {
             Gdk.Screen screen = get_screen();
 
-            Gnome.RRScreen rr_screen = new Gnome.RRScreen(screen);
-            Gnome.RRConfig rr_config = new Gnome.RRConfig.current(rr_screen);
+            Gnome.RRScreen rr_screen;
+            Gnome.RRConfig rr_config;
+
+            try {
+                rr_screen = new Gnome.RRScreen(screen);
+                rr_config = new Gnome.RRConfig.current(rr_screen);
+            } catch (GLib.Error e) {
+                stderr.printf(e.message, "\n");
+                return;
+            }
 
             int? x = null, y = null, width = null, height = null;
 
