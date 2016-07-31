@@ -116,29 +116,24 @@ namespace ScreenshotApplet
                 return;
             }
 
-            Gee.HashMap<string, string> names = new Gee.HashMap<string, string>();
-
-            foreach (unowned Gnome.RROutputInfo output_info in rr_config.get_outputs()) {
-                string name = output_info.get_name();
-                string display_name = output_info.get_display_name();
-                names.set(name, display_name);
-            }
-
             int pos = 0;
             int active = 0;
-            string monitor_to_use = settings.get_string("monitor-to-use");
-            string[] ms = new string[n_monitors];
 
-            for (int i = 0; i < n_monitors; i++) {
-                string name = screen.get_monitor_plug_name(i) ?? "PLUG_MONITOR_%i".printf(i);
-                string display_name = names.get(name) ?? name;
-                if (monitor_to_use == name) {
-                    active = pos;
+            string[] names = new string[n_monitors];
+            string monitor_to_use = settings.get_string("monitor-to-use");
+
+            foreach (unowned Gnome.RROutputInfo output_info in rr_config.get_outputs()) {
+                if (output_info.is_active()) {
+                    string name = output_info.get_name();
+                    string display_name = output_info.get_display_name();
+                    names[pos] = name;
+                    if (monitor_to_use == name) {
+                        active = pos;
+                    }
+                    monitors.append(out iter);
+                    monitors.set(iter, 0, name, 1, display_name);
+                    pos++;
                 }
-                ms[pos] = name;
-                monitors.append(out iter);
-                monitors.set(iter, 0, name, 1, display_name);
-                pos++;
             }
 
             if (combobox_monitors.get_model() == null) {
@@ -155,7 +150,7 @@ namespace ScreenshotApplet
                 switch_main_display.active = true;
                 settings.set_boolean("use-main-display", true);
                 combobox_monitors.active = 0;
-                settings.set_string("monitor-to-use", ms[0]);
+                settings.set_string("monitor-to-use", names[0]);
             }
 
             combobox_monitors.id_column = 0;
