@@ -49,13 +49,15 @@ libscreenshotapplet_la_CFLAGS = \
 	$(GNOME_CFLAGS) \
 	$(JSON_CFLAGS) \
 	$(REST_CFLAGS) \
+	$(GEE_CFLAGS) \
 	-DGNOME_DESKTOP_USE_UNSTABLE_API
 
 libscreenshotapplet_la_LIBADD = \
 	$(BUDGIE_PLUGIN_LIBS) \
 	$(GNOME_LIBS) \
 	$(JSON_LIBS) \
-	$(REST_LIBS)
+	$(REST_LIBS) \
+	$(GEE_LIBS)
 
 libscreenshotapplet_la_LDFLAGS = \
 	-module \
@@ -71,6 +73,7 @@ libscreenshotapplet_la_VALAFLAGS = \
 	--pkg budgie-1.0 \
 	--pkg json-glib-1.0 \
 	--pkg rest-0.7 \
+	--pkg gee-1.0 \
 	--pkg gnome-desktop-3.0 \
 	--vapidir ${top_srcdir}/vapi \
 	--gresources=${srcdir}/plugin.gresource.xml \

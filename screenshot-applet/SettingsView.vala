@@ -53,19 +53,18 @@ namespace ScreenshotApplet
 
             //monitors
             grid_displays.no_show_all = true;
-
-            Gnome.RRScreen rr_screen = new Gnome.RRScreen(get_screen());
+            Gdk.Screen screen = get_screen();
+            Gnome.RRScreen rr_screen = new Gnome.RRScreen(screen);
             populate_monitors(settings);
 
-            rr_screen.output_connected.connect (() => populate_monitors(settings));
-            rr_screen.output_disconnected.connect (() => populate_monitors(settings));
-            rr_screen.changed.connect (() => populate_monitors(settings));
+            screen.monitors_changed.connect(() => { populate_monitors(settings); });
 
             switch_main_display.state_set.connect((state) => {
                 grid_monitors.sensitive = !state;
                 return false;
             });
             grid_monitors.sensitive = !switch_main_display.active;
+
 
             // effects
             populate_effects();
@@ -117,19 +116,26 @@ namespace ScreenshotApplet
                 return;
             }
 
-            int pos = 0;
-            int active = 0;
-
-            string[] ms = new string[n_monitors];
-            string monitor_to_use = settings.get_string("monitor-to-use");
+            Gee.HashMap<string, string> names = new Gee.HashMap<string, string>();
 
             foreach (unowned Gnome.RROutputInfo output_info in rr_config.get_outputs()) {
                 string name = output_info.get_name();
                 string display_name = output_info.get_display_name();
-                ms[pos] = name;
+                names.set(name, display_name);
+            }
+
+            int pos = 0;
+            int active = 0;
+            string monitor_to_use = settings.get_string("monitor-to-use");
+            string[] ms = new string[n_monitors];
+
+            for (int i = 0; i < n_monitors; i++) {
+                string name = screen.get_monitor_plug_name(i) ?? "PLUG_MONITOR_%i".printf(i);
+                string display_name = names.get(name) ?? name;
                 if (monitor_to_use == name) {
                     active = pos;
                 }
+                ms[pos] = name;
                 monitors.append(out iter);
                 monitors.set(iter, 0, name, 1, display_name);
                 pos++;
