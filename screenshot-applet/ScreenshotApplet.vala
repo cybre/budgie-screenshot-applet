@@ -201,7 +201,6 @@ namespace ScreenshotApplet {
             stack.add_named(settings_view, "settings_view");
             stack.homogeneous = false;
             stack.show_all();
-            stack.visible_child_name = "new_screenshot_view";
 
             popover.add(stack);
 

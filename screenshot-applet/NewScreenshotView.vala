@@ -61,6 +61,13 @@ namespace ScreenshotApplet
 
         public signal void countdown(int delay);
 
+        struct ScreenGeometry {
+            int x;
+            int y;
+            int width;
+            int height;
+        }
+
         public NewScreenshotView(Gtk.Stack? stack, Gtk.Popover? popover)
         {
             this.popover = popover;
@@ -170,22 +177,22 @@ namespace ScreenshotApplet
                 return;
             }
 
-            int? x = null;
-            int? y = null;
-            int? width = null;
-            int? height = null;
+            ScreenGeometry? geometry = null;
 
             foreach (unowned Gnome.RROutputInfo output_info in rr_config.get_outputs()) {
                 string name = output_info.get_name();
                 if (monitor_to_use == name) {
-                    output_info.get_geometry(out x, out y, out width, out height);
+                    geometry = ScreenGeometry();
+                    output_info.get_geometry(out geometry.x, out geometry.y,
+                        out geometry.width, out geometry.height);
                 }
             }
 
-            if (x == null) return;
+            if (geometry == null) return;
 
             Gdk.Window root = screen.get_root_window();
-            Gdk.Pixbuf screenshot = Gdk.pixbuf_get_from_window(root, x, y, width, height);
+            Gdk.Pixbuf screenshot = Gdk.pixbuf_get_from_window(root,
+                geometry.x, geometry.y, geometry.width, geometry.height);
 
             if (screenshot == null) {
                 error_happened(title_entry);
@@ -364,11 +371,7 @@ namespace ScreenshotApplet
 
                 StringBuilder encode = null;
                 encode_file.begin(screenshot_file, (obj, res) => {
-                    try {
-                        encode = encode_file.end(res);
-                    } catch (GLib.ThreadError e) {
-                        stderr.printf(e.message);
-                    }
+                    encode = encode_file.end(res);
                     loop.quit();
                 });
                 loop.run();

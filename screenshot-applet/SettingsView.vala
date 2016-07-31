@@ -53,12 +53,9 @@ namespace ScreenshotApplet
 
             //monitors
             grid_displays.no_show_all = true;
-            Gdk.Screen screen = get_screen();
-            Gnome.RRScreen rr_screen = new Gnome.RRScreen(screen);
+            Gdk.Screen screen = Gdk.Screen.get_default();
             populate_monitors(settings);
-
             screen.monitors_changed.connect(() => { populate_monitors(settings); });
-
             switch_main_display.state_set.connect((state) => {
                 grid_monitors.sensitive = !state;
                 return false;
@@ -95,14 +92,14 @@ namespace ScreenshotApplet
             combobox_provider.pack_start(renderer, true);
             combobox_provider.add_attribute(renderer, "text", 1);
             combobox_provider.active = 0;
-            combobox_provider.set_id_column(0);
+            combobox_provider.id_column = 0;
         }
 
         private void populate_monitors(GLib.Settings settings)
         {
             Gtk.ListStore monitors = new Gtk.ListStore(2, typeof(string), typeof(string));
             Gtk.TreeIter iter;
-            Gdk.Screen screen = get_screen();
+            Gdk.Screen screen = Gdk.Screen.get_default();
             int n_monitors = screen.get_n_monitors();
 
             Gnome.RRScreen rr_screen;
@@ -179,7 +176,7 @@ namespace ScreenshotApplet
             combobox_effect.pack_start(renderer1, true);
             combobox_effect.add_attribute(renderer1, "text", 1);
             combobox_effect.active = 0;
-            combobox_effect.set_id_column(0);
+            combobox_effect.id_column = 0;
         }
 
         public static unowned ActualSettings instance(GLib.Settings? settings) {
