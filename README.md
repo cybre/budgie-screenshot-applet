@@ -12,13 +12,14 @@ budgie-1.0
 json-glib-1.0
 libnotify
 rest-0.7
+gnome-desktop-3.0
 gnome-screenshot
 ```
 
 These can be installed on Solus by running:  
 ```
 sudo eopkg it vala libgtk-3-devel glib2-devel libpeas-devel budgie-desktop-devel \
-libjson-glib-devel libnotify-devel librest-devel gnome-screenshot
+libjson-glib-devel libnotify-devel librest-devel libgnome-desktop-devel gnome-screenshot
 ```
 
 ### Installing
