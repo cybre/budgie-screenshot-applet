@@ -138,6 +138,8 @@ namespace ScreenshotApplet
 
             if (combobox_monitors.get_model() == null) {
                 Gtk.CellRendererText monitor_renderer = new Gtk.CellRendererText();
+                monitor_renderer.max_width_chars = 20;
+                monitor_renderer.ellipsize = Pango.EllipsizeMode.MIDDLE;
                 combobox_monitors.pack_start(monitor_renderer, true);
                 combobox_monitors.add_attribute(monitor_renderer, "text", 1);
             }

@@ -157,7 +157,7 @@ namespace ScreenshotApplet
 
         private async void take_monitor_screenshot()
         {
-            Gdk.Screen screen = get_screen();
+            Gdk.Screen screen = Gdk.Screen.get_default();
 
             Gnome.RRScreen rr_screen;
             Gnome.RRConfig rr_config;
@@ -170,20 +170,22 @@ namespace ScreenshotApplet
                 return;
             }
 
-            int? x = null, y = null, width = null, height = null;
+            int? x = null;
+            int? y = null;
+            int? width = null;
+            int? height = null;
 
             foreach (unowned Gnome.RROutputInfo output_info in rr_config.get_outputs()) {
                 string name = output_info.get_name();
                 if (monitor_to_use == name) {
                     output_info.get_geometry(out x, out y, out width, out height);
-                    break;
                 }
             }
 
             if (x == null) return;
 
             Gdk.Window root = screen.get_root_window();
-            Gdk.Pixbuf screenshot = Gdk.pixbuf_get_from_window (root, x, y, width, height);
+            Gdk.Pixbuf screenshot = Gdk.pixbuf_get_from_window(root, x, y, width, height);
 
             if (screenshot == null) {
                 error_happened(title_entry);
