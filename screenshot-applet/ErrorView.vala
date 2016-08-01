@@ -36,9 +36,7 @@ namespace ScreenshotApplet
             back_button.margin_top = 20;
             back_button.can_focus = false;
 
-            back_button.clicked.connect(() => {
-                stack.visible_child_name = "new_screenshot_view";
-            });
+            back_button.clicked.connect(() => { stack.visible_child_name = "new_screenshot_view"; });
 
             pack_start(image, true, true, 0);
             pack_start(label, true, true, 0);

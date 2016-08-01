@@ -198,9 +198,7 @@ namespace ScreenshotApplet
             back_button.can_focus = false;
             back_button.tooltip_text = "Go back";
 
-            back_button.clicked.connect(() => {
-                stack.visible_child_name = "new_screenshot_view";
-            });
+            back_button.clicked.connect(() => { stack.visible_child_name = "new_screenshot_view"; });
 
             Gtk.Label back_label = new Gtk.Label("<big>Settings</big>");
             back_label.halign = Gtk.Align.END;

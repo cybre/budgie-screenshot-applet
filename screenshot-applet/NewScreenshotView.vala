@@ -78,18 +78,14 @@ namespace ScreenshotApplet
             title_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "edit-clear-symbolic");
             title_entry.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, "Clear");
 
-            title_entry.icon_press.connect(() => {
-                title_entry.text = "";
-            });
+            title_entry.icon_press.connect(() => { title_entry.text = ""; });
 
             Gtk.Button settings_button = new Gtk.Button.from_icon_name("emblem-system-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             settings_button.relief = Gtk.ReliefStyle.NONE;
             settings_button.can_focus = false;
             settings_button.tooltip_text = "Settings";
 
-            settings_button.clicked.connect(() => {
-                stack.visible_child_name = "settings_view";
-            });
+            settings_button.clicked.connect(() => { stack.visible_child_name = "settings_view"; });
 
             Gtk.Box top_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
             top_box.margin = 5;
@@ -124,9 +120,7 @@ namespace ScreenshotApplet
             history_button.no_show_all = true;
             history_button.visible = false;
 
-            history_button.clicked.connect(() => {
-                stack.visible_child_name = "history_view";
-            });
+            history_button.clicked.connect(() => { stack.visible_child_name = "history_view"; });
 
             attach(top_box, 0, 0, 1, 1);
             attach(mode_selection, 0, 2, 1, 1);
@@ -384,24 +378,24 @@ namespace ScreenshotApplet
                         "image", encode.str
                 );
 
-                cancellable.cancelled.connect (() => {
-                    loop.quit();
-                });
+                cancellable.cancelled.connect (() => { loop.quit(); });
 
                 call.run_async((call, error, obj) => {
                     string payload = call.get_payload();
-                    int64 len = call.get_payload_length();
-                    Json.Parser parser = new Json.Parser();
-                    try {
-                        parser.load_from_data(payload, (ssize_t) len);
-                    } catch (GLib.Error e) {
-                        stderr.printf(e.message);
-                    }
-                    unowned Json.Object node_obj = parser.get_root().get_object();
-                    if (node_obj != null) {
-                        node_obj = node_obj.get_object_member("data");
+                    if (payload != null) {
+                        int64 len = call.get_payload_length();
+                        Json.Parser parser = new Json.Parser();
+                        try {
+                            parser.load_from_data(payload, (ssize_t) len);
+                        } catch (GLib.Error e) {
+                            stderr.printf(e.message);
+                        }
+                        unowned Json.Object node_obj = parser.get_root().get_object();
                         if (node_obj != null) {
-                            url = node_obj.get_string_member("link") ?? "";
+                            node_obj = node_obj.get_object_member("data");
+                            if (node_obj != null) {
+                                url = node_obj.get_string_member("link") ?? "";
+                            }
                         }
                     }
                     loop.quit();
@@ -474,9 +468,7 @@ namespace ScreenshotApplet
                 int standard_output;
                 Pid child_pid;
 
-                cancellable.cancelled.connect (() => {
-                    loop.quit();
-                });
+                cancellable.cancelled.connect (() => { loop.quit(); });
 
                 GLib.Process.spawn_async_with_pipes("/",
                     spawn_args,

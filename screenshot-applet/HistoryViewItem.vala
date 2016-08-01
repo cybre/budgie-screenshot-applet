@@ -62,9 +62,7 @@ namespace ScreenshotApplet
             title_entry.set_icon_from_icon_name(
                 Gtk.EntryIconPosition.SECONDARY, "edit-clear-symbolic");
             title_entry.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, "Clear");
-            title_entry.icon_press.connect(() => {
-                title_entry.text = "";
-            });
+            title_entry.icon_press.connect(() => { title_entry.text = ""; });
 
             Gtk.Button title_apply_button = new Gtk.Button.from_icon_name(
                 "emblem-ok-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
@@ -123,9 +121,7 @@ namespace ScreenshotApplet
                     }
                 });
 
-                upload_button.clicked.connect(() => {
-                    new_screenshot_view.upload_local(url);
-                });
+                upload_button.clicked.connect(() => { new_screenshot_view.upload_local(url); });
 
                 new_screenshot_view.local_upload_started.connect(() => {
                     action_stack.visible_child_name = "upload_spinner";
@@ -255,9 +251,7 @@ namespace ScreenshotApplet
                 });
             });
 
-            delete_button.clicked.connect(() => {
-                delete_item(settings);
-            });
+            delete_button.clicked.connect(() => { delete_item(settings); });
 
             Gtk.Box history_view_item_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             history_view_item_box.margin_top = 5;

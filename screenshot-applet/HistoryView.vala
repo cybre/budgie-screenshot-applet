@@ -36,9 +36,7 @@ namespace ScreenshotApplet
             history_back_button.tooltip_text = "Back";
             history_back_button.can_focus = false;
 
-            history_back_button.clicked.connect(() => {
-                stack.visible_child_name = "new_screenshot_view";
-            });
+            history_back_button.clicked.connect(() => { stack.visible_child_name = "new_screenshot_view"; });
 
             Gtk.Label history_header_label = new Gtk.Label("<b>Recent Screenshots</b>");
             history_header_label.use_markup = true;
@@ -97,21 +95,12 @@ namespace ScreenshotApplet
             pack_start(history_scroller, true, true, 0);
             pack_start(clear_all_box, true, true, 0);
             show_all();
-
-            update_child_count();
         }
 
         public void update_child_count()
         {
             uint len = history_listbox.get_children().length();
-
-            if (len == 0) {
-                clear_all_button.sensitive = false;
-                history_button.visible = false;
-            } else {
-                clear_all_button.sensitive = true;
-                history_button.visible = true;
-            }
+            clear_all_button.sensitive = history_button.visible = !(len == 0);
         }
 
         public async void update_history(int n, bool startup)
@@ -144,13 +133,11 @@ namespace ScreenshotApplet
                 history_view_item.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
                 GLib.Timeout.add(1, () => {
                     history_view_item.reveal_child = true;
-                    return true;
+                    return false;
                 });
             }
 
-            history_view_item.copy.connect((url) => {
-                clipboard.set_text(url, -1);
-            });
+            history_view_item.copy.connect((url) => { clipboard.set_text(url, -1); });
 
             history_view_item.deletion.connect(() => {
                 int index = parent.get_index();

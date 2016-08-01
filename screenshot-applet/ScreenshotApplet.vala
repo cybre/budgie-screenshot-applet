@@ -95,11 +95,12 @@ namespace ScreenshotApplet {
             settings_view = SettingsView.instance(settings, stack);
 
             history_view.history_button = new_screenshot_view.history_button;
+            history_view.update_child_count();
 
             new_screenshot_view.countdown.connect((delay) => {
                 int seconds = 1;
                 if (delay == 0 || delay == 1) {
-                    icon_stack.set_visible_child_full("icon_grab", Gtk.StackTransitionType.SLIDE_DOWN);
+                    icon_stack.visible_child_name = "icon_grab";
                 } else {
                     icon_stack.set_visible_child_full("countdown1", Gtk.StackTransitionType.SLIDE_DOWN);
                     GLib.Timeout.add_full(GLib.Priority.HIGH, 900, () => {
@@ -113,7 +114,7 @@ namespace ScreenshotApplet {
                         countdown_label2.label = (delay - seconds).to_string();
 
                         if (delay == seconds) {
-                            icon_stack.set_visible_child_full("icon_grab", Gtk.StackTransitionType.SLIDE_DOWN);
+                            icon_stack.visible_child_name = "icon_grab";
                             return false;
                         }
 
@@ -201,6 +202,7 @@ namespace ScreenshotApplet {
             stack.add_named(settings_view, "settings_view");
             stack.homogeneous = false;
             stack.show_all();
+            stack.visible_child_name = "new_screenshot_view";
 
             popover.add(stack);
 
@@ -211,19 +213,23 @@ namespace ScreenshotApplet {
                     if (e.button == 1) {
                         stack.transition_type = Gtk.StackTransitionType.NONE;
                         manager.show_popover(box);
+                        string child_to_show = "";
                         if (spinner.active) {
-                            stack.visible_child_name = "uploading_view";
+                            child_to_show = "uploading_view";
                         } else if (icon.get_style_context().has_class("alert") && !error) {
-                            stack.visible_child_name = "upload_done_view";
+                            child_to_show = "upload_done_view";
                             icon.get_style_context().remove_class("alert");
                         } else if (error) {
-                            stack.visible_child_name = "error_view";
+                            child_to_show = "error_view";
                             icon.get_style_context().remove_class("alert");
                             error = false;
                         } else {
-                            stack.visible_child_name = "new_screenshot_view";
+                            child_to_show = "new_screenshot_view";
                         }
+                        stack.visible_child_name = child_to_show;
                         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+                    } else if (e.button == 2) {
+                        stack.visible_child_name = "settings_view";
                     } else if (e.button == 3) {
                         stack.visible_child_name = "history_view";
                     } else {
@@ -252,7 +258,7 @@ namespace ScreenshotApplet {
             on_settings_changed("window-effect");
         }
 
-        private async void popover_map_event()
+        private void popover_map_event()
         {
             if (Gdk.Screen.get_default().get_active_window().get_toplevel() != box.get_window().get_toplevel()) {
                 new_screenshot_view.old_window = Gdk.Screen.get_default().get_active_window();
@@ -260,16 +266,10 @@ namespace ScreenshotApplet {
 
             // Hack to stop the entry from grabbing focus +
             new_screenshot_view.title_entry.can_focus = false;
-            yield sleep_async(1);
-            new_screenshot_view.title_entry.can_focus = true;
-        }
-
-        private async void sleep_async(int timeout)
-        {
-            uint timeout_src = 0;
-            timeout_src = GLib.Timeout.add(timeout, sleep_async.callback);
-            yield;
-            GLib.Source.remove(timeout_src);
+            GLib.Timeout.add(1, () => {
+                new_screenshot_view.title_entry.can_focus = true;
+                return false;
+            });
         }
 
         protected void on_settings_changed(string key)

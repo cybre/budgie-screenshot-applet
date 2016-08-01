@@ -24,7 +24,8 @@ namespace ScreenshotApplet
             width_request = 200;
             height_request = 150;
 
-            Gtk.Image image = new Gtk.Image.from_icon_name("software-update-available-symbolic", Gtk.IconSize.DIALOG);
+            Gtk.Image image = new Gtk.Image.from_icon_name(
+                "software-update-available-symbolic", Gtk.IconSize.DIALOG);
             image.pixel_size = 64;
 
             Gtk.Label label = new Gtk.Label("<big>Uploading...</big>");
@@ -35,9 +36,7 @@ namespace ScreenshotApplet
             cancel_button.margin_top = 20;
             cancel_button.can_focus = false;
 
-            cancel_button.clicked.connect(() => {
-                cancellable.cancel();
-            });
+            cancel_button.clicked.connect(() => { cancellable.cancel(); });
 
             pack_start(image, true, true, 0);
             pack_start(label, true, true, 0);

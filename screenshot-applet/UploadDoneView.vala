@@ -47,13 +47,8 @@ namespace ScreenshotApplet
             button_box.pack_start(history_button, true, true, 0);
             button_box.pack_start(open_button, true, true, 0);
 
-            back_button.clicked.connect(() => {
-                stack.visible_child_name = "new_screenshot_view";
-            });
-
-            history_button.clicked.connect(() => {
-                stack.visible_child_name = "history_view";
-            });
+            back_button.clicked.connect(() => { stack.visible_child_name = "new_screenshot_view"; });
+            history_button.clicked.connect(() => { stack.visible_child_name = "history_view"; });
 
             open_button.clicked.connect(() => {
                 stack.transition_type = Gtk.StackTransitionType.NONE;
