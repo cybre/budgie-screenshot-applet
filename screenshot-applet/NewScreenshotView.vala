@@ -337,9 +337,8 @@ namespace ScreenshotApplet
 
                         cancellable = new GLib.Cancellable ();
 
-                        upload_started(mainloop, cancellable);
-
                         if (!local_screenshots) {
+                            upload_started(mainloop, cancellable);
                             switch (provider_to_use) {
                                 case "imgur":
                                     link = upload_imgur();
