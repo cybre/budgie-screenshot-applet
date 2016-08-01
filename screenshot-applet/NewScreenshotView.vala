@@ -359,16 +359,16 @@ namespace ScreenshotApplet
         {
             string url = "";
             try {
-                GLib.MainLoop loop = new GLib.MainLoop();
                 Rest.Proxy proxy = new Rest.Proxy("https://api.imgur.com/3/", false);
                 Rest.ProxyCall call = proxy.new_call();
 
                 StringBuilder encode = null;
+                GLib.MainLoop loop1 = new GLib.MainLoop();
                 encode_file.begin(screenshot_file, (obj, res) => {
                     encode = encode_file.end(res);
-                    loop.quit();
+                    loop1.quit();
                 });
-                loop.run();
+                loop1.run();
 
                 call.set_method("POST");
                 call.add_header("Authorization", "Client-ID be12a30d5172bb7");
@@ -378,9 +378,9 @@ namespace ScreenshotApplet
                         "image", encode.str
                 );
 
-                cancellable.cancelled.connect (() => { loop.quit(); });
-
+                GLib.MainLoop loop2 = new GLib.MainLoop();
                 call.run_async((call, error, obj) => {
+                    cancellable.cancelled.connect (() => { loop2.quit(); });
                     string payload = call.get_payload();
                     if (payload != null) {
                         int64 len = call.get_payload_length();
@@ -398,9 +398,9 @@ namespace ScreenshotApplet
                             }
                         }
                     }
-                    loop.quit();
+                    loop2.quit();
                 }, null);
-                loop.run();
+                loop2.run();
             } catch (GLib.Error e) {
                 stderr.printf(e.message, "\n");
             }
