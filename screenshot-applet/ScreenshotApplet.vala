@@ -58,7 +58,7 @@ namespace ScreenshotApplet {
 
 
             Gtk.Image icon = new Gtk.Image.from_icon_name("image-x-generic-symbolic", Gtk.IconSize.MENU);
-            Gtk.Image icon_grab = new Gtk.Image.from_icon_name("camera-photo-symbolic", Gtk.IconSize.MENU);
+            Gtk.Image icon_cheese = new Gtk.Image.from_icon_name("face-smile-big-symbolic", Gtk.IconSize.MENU);
             Gtk.Spinner spinner = new Gtk.Spinner();
             countdown_label1 = new Gtk.Label("0");
             Gtk.Label countdown_label2 = new Gtk.Label("0");
@@ -67,7 +67,7 @@ namespace ScreenshotApplet {
             icon_stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
             icon_stack.transition_duration = 300;
             icon_stack.add_named(icon, "icon");
-            icon_stack.add_named(icon_grab, "icon_grab");
+            icon_stack.add_named(icon_cheese, "icon_cheese");
             icon_stack.add_named(spinner, "spinner");
             icon_stack.add_named(countdown_label1, "countdown1");
             icon_stack.add_named(countdown_label2, "countdown2");
@@ -109,7 +109,7 @@ namespace ScreenshotApplet {
                 countdown_view.cancellable = cancellable;
                 int seconds = 1;
                 if (delay == 0 || delay == 1) {
-                    icon_stack.visible_child_name = "icon_grab";
+                    icon_stack.visible_child_name = "icon_cheese";
                 } else {
                     icon_stack.set_visible_child_full("countdown1", Gtk.StackTransitionType.SLIDE_DOWN);
                     countdown_in_progress = true;
@@ -130,7 +130,11 @@ namespace ScreenshotApplet {
                         countdown_view.change_label(left);
 
                         if (delay == seconds) {
-                            icon_stack.visible_child_name = "icon_grab";
+                            GLib.Timeout.add(300, () => {
+                                popover.visible = false;
+                                return false;
+                            });
+                            icon_stack.visible_child_name = "icon_cheese";
                             countdown_in_progress = false;
                             return false;
                         }
