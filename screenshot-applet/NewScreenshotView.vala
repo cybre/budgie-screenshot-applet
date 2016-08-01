@@ -378,10 +378,9 @@ namespace ScreenshotApplet
                         "image", encode.str
                 );
 
+                cancellable.cancelled.connect (() => { loop.quit(); });
 
                 call.run_async((call, error, obj) => {
-                    loop.run();
-                    cancellable.cancelled.connect(() => { loop.quit(); });
                     string payload = call.get_payload();
                     if (payload != null) {
                         int64 len = call.get_payload_length();
