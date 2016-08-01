@@ -175,8 +175,8 @@ namespace ScreenshotApplet
             url_event_box.add(url_label);
             url_event_box.button_press_event.connect(() => {
                 try {
-                    GLib.Process.spawn_command_line_async("xdg-open \"%s\"".printf(url));
-                } catch (GLib.SpawnError e) {
+                    Gtk.show_uri(Gdk.Screen.get_default(), url, Gdk.CURRENT_TIME);
+                } catch (GLib.Error e) {
                     stderr.printf(e.message);
                 }
                 return true;

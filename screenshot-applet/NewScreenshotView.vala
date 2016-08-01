@@ -395,6 +395,9 @@ namespace ScreenshotApplet
                             node_obj = node_obj.get_object_member("data");
                             if (node_obj != null) {
                                 url = node_obj.get_string_member("link") ?? "";
+                                if (url == "") {
+                                    stdout.printf("ERROR: %s\n", node_obj.get_string_member("error"));
+                                }
                             }
                         }
                     }

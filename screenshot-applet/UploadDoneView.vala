@@ -51,15 +51,13 @@ namespace ScreenshotApplet
             history_button.clicked.connect(() => { stack.visible_child_name = "history_view"; });
 
             open_button.clicked.connect(() => {
-                stack.transition_type = Gtk.StackTransitionType.NONE;
                 try {
-                    GLib.Process.spawn_command_line_async("xdg-open \"%s\"".printf(link));
-                    popover.hide();
-                } catch (GLib.SpawnError e) {
+                    Gtk.show_uri(Gdk.Screen.get_default(), link, Gdk.CURRENT_TIME);
+                } catch (GLib.Error e) {
                     stderr.printf(e.message);
                 }
-                stack.visible_child_name = "new_screenshot_view";
-                stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+                popover.visible = false;
+                popover.unmap.connect(() => { stack.visible_child_name = "new_screenshot_view"; });
             });
 
             pack_start(image, true, true, 0);
