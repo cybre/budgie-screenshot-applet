@@ -124,9 +124,9 @@ namespace ScreenshotApplet {
                             icon_stack.set_visible_child_full("countdown1", Gtk.StackTransitionType.SLIDE_DOWN);
                         }
 
-                        string left = (delay - seconds).to_string();
-                        countdown_label1.label = left;
-                        countdown_label2.label = left;
+                        int left = delay - seconds;
+                        countdown_label1.label = left.to_string();
+                        countdown_label2.label = left.to_string();
                         countdown_view.change_label(left);
 
                         if (delay == seconds) {
@@ -142,7 +142,7 @@ namespace ScreenshotApplet {
                 }
 
                 countdown_label1.label = delay.to_string();
-                countdown_view.set_label(delay.to_string());
+                countdown_view.set_label(delay);
             });
 
             new_screenshot_view.upload_started.connect((mainloop, cancellable) => {
@@ -320,7 +320,7 @@ namespace ScreenshotApplet {
                 case "delay":
                     new_screenshot_view.screenshot_delay = settings.get_int(key);
                     countdown_label1.label = settings.get_int(key).to_string();
-                    countdown_view.set_label(settings.get_int(key).to_string());
+                    countdown_view.set_label(settings.get_int(key));
                     break;
                 case "include-border":
                     new_screenshot_view.include_border = settings.get_boolean(key);
