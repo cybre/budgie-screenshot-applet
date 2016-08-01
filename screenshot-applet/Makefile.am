@@ -32,6 +32,7 @@ screenshotapplet_LTLIBRARIES = \
 libscreenshotapplet_la_SOURCES = \
 	ScreenshotApplet.vala \
 	NewScreenshotView.vala \
+	CountdownView.vala \
 	UploadingView.vala \
 	UploadDoneView.vala \
 	ErrorView.vala \

@@ -36,6 +36,7 @@ namespace ScreenshotApplet
     {
         private Gtk.Popover popover;
         private GLib.Cancellable cancellable;
+        private GLib.Cancellable cancellable_c;
         private GLib.File screenshot_file;
         private string link;
         private string filepath;
@@ -59,7 +60,7 @@ namespace ScreenshotApplet
         public signal void local_upload_started();
         public signal void local_upload_finished(string link);
 
-        public signal void countdown(int delay);
+        public signal void countdown(int delay, GLib.Cancellable cancellable);
 
         struct ScreenGeometry {
             int x;
@@ -132,28 +133,41 @@ namespace ScreenshotApplet
             popover.visible = false;
             set_filepath();
 
-            countdown(screenshot_delay);
+            cancellable_c = new GLib.Cancellable();
+            countdown(screenshot_delay, cancellable_c);
+            GLib.MainLoop loop = new GLib.MainLoop();
 
             if (use_main_display) {
-                string command_output;
+                string command_output = "";
                 string[] spawn_args = {
                     "gnome-screenshot",
-                    "-d",
-                    screenshot_delay.to_string(),
                     "-f",
                     filepath
                 };
-                command_output = run_command(spawn_args);
-            } else {
-                GLib.MainLoop loop = new GLib.MainLoop();
                 GLib.Timeout.add_seconds(screenshot_delay, () => {
+                    if (cancellable_c.is_cancelled()) {
+                        loop.quit();
+                        return false;
+                    } else {
+                        command_output = run_command(spawn_args);
+                    }
+                    loop.quit();
+                    return false;
+                });
+                loop.run();
+            } else {
+                GLib.Timeout.add_seconds(screenshot_delay, () => {
+                    if (cancellable_c.is_cancelled()) {
+                        loop.quit();
+                        return false;
+                    }
                     take_monitor_screenshot();
                     loop.quit();
                     return false;
                 });
                 loop.run();
             }
-            upload();
+            if (!cancellable_c.is_cancelled()) upload();
         }
 
         private async void take_monitor_screenshot()
@@ -202,7 +216,7 @@ namespace ScreenshotApplet
 
         private void take_window_screenshot()
         {
-            string command_output;
+            string command_output = "";
             popover.visible = false;
 
             /* This makes sure the window that was focused before opening
@@ -214,13 +228,12 @@ namespace ScreenshotApplet
 
             set_filepath();
 
-            countdown(screenshot_delay);
+            cancellable_c = new GLib.Cancellable();
+            countdown(screenshot_delay, cancellable_c);
 
             string[] spawn_args = {
                 "gnome-screenshot",
                 "-w",
-                "-d",
-                screenshot_delay.to_string(),
                 "-e",
                 window_effect,
                 "-f",
@@ -230,8 +243,18 @@ namespace ScreenshotApplet
             if (include_border) spawn_args += "-b";
                 else spawn_args += "-B";
 
-            command_output = run_command(spawn_args);
-            upload();
+            GLib.MainLoop loop = new GLib.MainLoop();
+            GLib.Timeout.add_seconds(screenshot_delay, () => {
+                if (cancellable_c.is_cancelled()) {
+                    loop.quit();
+                    return false;
+                }
+                command_output = run_command(spawn_args);
+                loop.quit();
+                return false;
+            });
+            loop.run();
+            if (!cancellable_c.is_cancelled()) upload();
         }
 
         private void take_area_screenshot()
@@ -467,25 +490,25 @@ namespace ScreenshotApplet
         {
             try {
                 GLib.MainLoop loop = new GLib.MainLoop();
-                string[] spawn_env = Environ.get();
+                string[] spawn_env = GLib.Environ.get();
                 int standard_output;
-                Pid child_pid;
+                GLib.Pid child_pid;
 
-                cancellable.cancelled.connect (() => { loop.quit(); });
+                cancellable.cancelled.connect(() => { loop.quit(); });
 
                 GLib.Process.spawn_async_with_pipes("/",
                     spawn_args,
                     spawn_env,
-                    SpawnFlags.SEARCH_PATH | SpawnFlags.DO_NOT_REAP_CHILD,
+                    GLib.SpawnFlags.SEARCH_PATH | GLib.SpawnFlags.DO_NOT_REAP_CHILD,
                     null,
                     out child_pid,
                     null,
                     out standard_output,
                     null);
 
-                IOChannel output = new IOChannel.unix_new(standard_output);
+                GLib.IOChannel output = new IOChannel.unix_new(standard_output);
                 string line = "";
-                output.add_watch(IOCondition.IN | IOCondition.HUP, (channel, condition) => {
+                output.add_watch(GLib.IOCondition.IN | GLib.IOCondition.HUP, (channel, condition) => {
                     try {
                         channel.read_to_end(out line, null);
                     } catch (GLib.Error e) {
@@ -494,7 +517,7 @@ namespace ScreenshotApplet
                     return false;
                 });
 
-                ChildWatch.add(child_pid, (pid, status) => {
+                GLib.ChildWatch.add(child_pid, (pid, status) => {
                     GLib.Process.close_pid(pid);
                     loop.quit();
                 });

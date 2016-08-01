@@ -28,12 +28,14 @@ namespace ScreenshotApplet {
         private Gtk.Stack stack;
         private Gtk.Clipboard clipboard;
         private NewScreenshotView new_screenshot_view;
+        private CountdownView countdown_view;
         private UploadingView uploading_view;
         private UploadDoneView upload_done_view;
         private ErrorView error_view;
         private HistoryView history_view;
         private SettingsView settings_view;
         private bool error;
+        private bool countdown_in_progress = false;
         public string uuid { public set ; public get; }
 
         public override bool supports_settings() {
@@ -88,6 +90,7 @@ namespace ScreenshotApplet {
             popover.map.connect(popover_map_event);
 
             new_screenshot_view = NewScreenshotView.instance(stack, popover);
+            countdown_view = CountdownView.instance();
             uploading_view = UploadingView.instance();
             upload_done_view = UploadDoneView.instance(stack, popover);
             error_view = ErrorView.instance(stack);
@@ -97,24 +100,38 @@ namespace ScreenshotApplet {
             history_view.history_button = new_screenshot_view.history_button;
             history_view.update_child_count();
 
-            new_screenshot_view.countdown.connect((delay) => {
+            countdown_view.cancelled.connect(() => {
+                icon_stack.visible_child_name = "icon";
+                stack.visible_child_name = "new_screenshot_view";
+            });
+
+            new_screenshot_view.countdown.connect((delay, cancellable) => {
+                countdown_view.cancellable = cancellable;
                 int seconds = 1;
                 if (delay == 0 || delay == 1) {
                     icon_stack.visible_child_name = "icon_grab";
                 } else {
                     icon_stack.set_visible_child_full("countdown1", Gtk.StackTransitionType.SLIDE_DOWN);
-                    GLib.Timeout.add_full(GLib.Priority.HIGH, 900, () => {
+                    countdown_in_progress = true;
+                    GLib.Timeout.add_full(GLib.Priority.HIGH, 950, () => {
+                        if (cancellable.is_cancelled()) {
+                            countdown_in_progress = false;
+                            return false;
+                        }
                         if (icon_stack.visible_child_name == "countdown1") {
                             icon_stack.set_visible_child_full("countdown2", Gtk.StackTransitionType.SLIDE_DOWN);
                         } else {
                             icon_stack.set_visible_child_full("countdown1", Gtk.StackTransitionType.SLIDE_DOWN);
                         }
 
-                        countdown_label1.label = (delay - seconds).to_string();
-                        countdown_label2.label = (delay - seconds).to_string();
+                        string left = (delay - seconds).to_string();
+                        countdown_label1.label = left;
+                        countdown_label2.label = left;
+                        countdown_view.change_label(left);
 
                         if (delay == seconds) {
                             icon_stack.visible_child_name = "icon_grab";
+                            countdown_in_progress = false;
                             return false;
                         }
 
@@ -125,6 +142,7 @@ namespace ScreenshotApplet {
                 }
 
                 countdown_label1.label = delay.to_string();
+                countdown_view.set_label(delay.to_string());
             });
 
             new_screenshot_view.upload_started.connect((mainloop, cancellable) => {
@@ -195,6 +213,7 @@ namespace ScreenshotApplet {
             });
 
             stack.add_named(new_screenshot_view, "new_screenshot_view");
+            stack.add_named(countdown_view, "countdown_view");
             stack.add_named(uploading_view, "uploading_view");
             stack.add_named(upload_done_view, "upload_done_view");
             stack.add_named(history_view, "history_view");
@@ -214,7 +233,9 @@ namespace ScreenshotApplet {
                         stack.transition_type = Gtk.StackTransitionType.NONE;
                         manager.show_popover(box);
                         string child_to_show = "";
-                        if (spinner.active) {
+                        if (countdown_in_progress) {
+                            child_to_show = "countdown_view";
+                        } else if (spinner.active) {
                             child_to_show = "uploading_view";
                         } else if (icon.get_style_context().has_class("alert") && !error) {
                             child_to_show = "upload_done_view";
@@ -299,6 +320,7 @@ namespace ScreenshotApplet {
                 case "delay":
                     new_screenshot_view.screenshot_delay = settings.get_int(key);
                     countdown_label1.label = settings.get_int(key).to_string();
+                    countdown_view.set_label(settings.get_int(key).to_string());
                     break;
                 case "include-border":
                     new_screenshot_view.include_border = settings.get_boolean(key);
