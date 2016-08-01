@@ -130,7 +130,7 @@ namespace ScreenshotApplet {
                         countdown_view.change_label(left);
 
                         if (delay == seconds) {
-                            GLib.Timeout.add(300, () => {
+                            GLib.Timeout.add(400, () => {
                                 popover.visible = false;
                                 return false;
                             });

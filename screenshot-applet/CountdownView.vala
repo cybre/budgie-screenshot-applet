@@ -17,6 +17,7 @@ namespace ScreenshotApplet
         private Gtk.Stack stack;
         public Gtk.Label label1;
         private Gtk.Label label2;
+        private Gtk.Button cancel_button;
 
         private static GLib.Once<CountdownView> _instance;
 
@@ -53,7 +54,7 @@ namespace ScreenshotApplet
             stack.add_named(label2, "label2");
             stack.add_named(cheese_box, "cheese");
 
-            Gtk.Button cancel_button = new Gtk.Button.with_label("Cancel");
+            cancel_button = new Gtk.Button.with_label("Cancel");
             cancel_button.margin_top = 20;
             cancel_button.can_focus = false;
 
@@ -75,6 +76,8 @@ namespace ScreenshotApplet
             label2.label = "<span font='50'>%i</span>".printf(left);
 
             if (left == 0) {
+                cancel_button.visible = false;
+                stack.margin_top = 20;
                 stack.visible_child_name = "cheese";
             }
         }
@@ -82,6 +85,8 @@ namespace ScreenshotApplet
         public void set_label(int label, int size = 50) {
             label1.label = "<span font='%i'>%i</span>".printf(size, label);
             stack.visible_child_name = "label1";
+            cancel_button.visible = true;
+            stack.margin_top = 0;
         }
 
         public static unowned CountdownView instance() {
