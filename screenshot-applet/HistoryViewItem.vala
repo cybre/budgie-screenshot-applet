@@ -298,7 +298,7 @@ namespace ScreenshotApplet
                so this will destroy the parent without the close animation.
                Might be a GTK+ bug. */
             notify["child-revealed"].connect_after(() => {
-                get_parent().destroy();
+                if (get_parent() != null) get_parent().destroy();
             });
 
             reveal_child = false;
