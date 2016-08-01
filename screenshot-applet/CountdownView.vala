@@ -49,7 +49,6 @@ namespace ScreenshotApplet
             stack = new Gtk.Stack();
             stack.transition_type = Gtk.StackTransitionType.SLIDE_DOWN;
             stack.transition_duration = 200;
-            stack.set_interpolate_size(true);
             stack.add_named(label1, "label1");
             stack.add_named(label2, "label2");
             stack.add_named(cheese_box, "cheese");
@@ -78,6 +77,7 @@ namespace ScreenshotApplet
             if (left == 0) {
                 cancel_button.visible = false;
                 stack.margin_top = 20;
+                stack.transition_duration = 100;
                 stack.visible_child_name = "cheese";
             }
         }
@@ -87,6 +87,7 @@ namespace ScreenshotApplet
             stack.visible_child_name = "label1";
             cancel_button.visible = true;
             stack.margin_top = 0;
+            stack.transition_duration = 200;
         }
 
         public static unowned CountdownView instance() {
