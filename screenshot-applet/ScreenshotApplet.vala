@@ -64,11 +64,11 @@ namespace ScreenshotApplet {
             Gtk.Label countdown_label2 = new Gtk.Label("0");
 
             Gtk.Stack icon_stack = new Gtk.Stack();
-            icon_stack.transition_type = Gtk.StackTransitionType.SLIDE_UP_DOWN;
+            icon_stack.transition_type = Gtk.StackTransitionType.SLIDE_DOWN;
             icon_stack.transition_duration = 300;
             icon_stack.add_named(icon, "icon");
-            icon_stack.add_named(icon_cheese, "icon_cheese");
             icon_stack.add_named(spinner, "spinner");
+            icon_stack.add_named(icon_cheese, "icon_cheese");
             icon_stack.add_named(countdown_label1, "countdown1");
             icon_stack.add_named(countdown_label2, "countdown2");
 
@@ -111,7 +111,7 @@ namespace ScreenshotApplet {
                 if (delay == 0 || delay == 1) {
                     icon_stack.visible_child_name = "icon_cheese";
                 } else {
-                    icon_stack.set_visible_child_full("countdown1", Gtk.StackTransitionType.SLIDE_DOWN);
+                    icon_stack.visible_child_name = "countdown1";
                     countdown_in_progress = true;
                     GLib.Timeout.add_full(GLib.Priority.HIGH, 950, () => {
                         if (cancellable.is_cancelled()) {
@@ -119,9 +119,9 @@ namespace ScreenshotApplet {
                             return false;
                         }
                         if (icon_stack.visible_child_name == "countdown1") {
-                            icon_stack.set_visible_child_full("countdown2", Gtk.StackTransitionType.SLIDE_DOWN);
+                            icon_stack.visible_child_name = "countdown2";
                         } else {
-                            icon_stack.set_visible_child_full("countdown1", Gtk.StackTransitionType.SLIDE_DOWN);
+                            icon_stack.visible_child_name = "countdown1";
                         }
 
                         int left = delay - seconds;
