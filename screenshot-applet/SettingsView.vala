@@ -216,8 +216,26 @@ namespace ScreenshotApplet
 
             ActualSettings actual_settings = ActualSettings.instance(settings);
 
+            Gtk.Button reset_button = new Gtk.Button.with_label("Reset to default");
+            reset_button.relief = Gtk.ReliefStyle.NONE;
+            reset_button.can_focus = false;
+            reset_button.get_child().margin = 5;
+
+            reset_button.clicked.connect(() => {
+                settings.reset("enable-label");
+                settings.reset("enable-local");
+                settings.reset("provider");
+                settings.reset("use-main-display");
+                settings.reset("monitor-to-use");
+                settings.reset("delay");
+                settings.reset("include-border");
+                settings.reset("window-effect");
+            });
+
             pack_start(back_box, false, false, 0);
             pack_start(actual_settings, true, true, 10);
+            pack_start(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), true, true, 0);
+            pack_start(reset_button, false, false, 0);
         }
 
         public static unowned SettingsView instance(GLib.Settings? settings, Gtk.Stack stack) {
