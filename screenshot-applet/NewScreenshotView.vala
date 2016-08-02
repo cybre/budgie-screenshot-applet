@@ -89,7 +89,7 @@ namespace ScreenshotApplet
             settings_button.clicked.connect(() => { stack.visible_child_name = "settings_view"; });
 
             Gtk.Box top_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 5);
-            top_box.margin = 5;
+            top_box.margin = 10;
             top_box.pack_start(title_entry, true, true, 0);
             top_box.pack_end(settings_button, false, false, 0);
 

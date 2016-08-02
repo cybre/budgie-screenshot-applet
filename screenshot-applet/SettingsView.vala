@@ -193,22 +193,21 @@ namespace ScreenshotApplet
 
             Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
 
-            Gtk.Button back_button = new Gtk.Button.from_icon_name("go-previous-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            back_button.relief = Gtk.ReliefStyle.NONE;
+            Gtk.Button back_button = new Gtk.Button.with_label("Back");
             back_button.can_focus = false;
             back_button.tooltip_text = "Go back";
 
             back_button.clicked.connect(() => { stack.visible_child_name = "new_screenshot_view"; });
 
-            Gtk.Label back_label = new Gtk.Label("<big>Settings</big>");
+            Gtk.Label back_label = new Gtk.Label("<span font=\"11\">Settings</span>");
             back_label.halign = Gtk.Align.END;
             back_label.use_markup = true;
             back_label.get_style_context().add_class("dim-label");
 
             Gtk.Box back_subbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            back_subbox.margin = 5;
+            back_subbox.margin = 10;
             back_subbox.pack_start(back_button, false, false, 0);
-            back_subbox.pack_end(back_label, true, true, 10);
+            back_subbox.pack_end(back_label, true, true, 0);
 
             Gtk.Box back_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             back_box.pack_start(back_subbox, true, true, 0);

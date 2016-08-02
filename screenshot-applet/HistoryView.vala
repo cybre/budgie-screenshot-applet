@@ -38,9 +38,10 @@ namespace ScreenshotApplet
 
             history_back_button.clicked.connect(() => { stack.visible_child_name = "new_screenshot_view"; });
 
-            Gtk.Label history_header_label = new Gtk.Label("<b>Recent Screenshots</b>");
+            Gtk.Label history_header_label = new Gtk.Label("<span font=\"11\">Recent Screenshots</span>");
             history_header_label.use_markup = true;
             history_header_label.halign = Gtk.Align.END;
+            history_header_label.get_style_context().add_class("dim-label");
 
             Gtk.Separator separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
 
@@ -63,6 +64,7 @@ namespace ScreenshotApplet
             clear_all_button = new Gtk.Button.with_label("Clear all Screenshots");
             ((Gtk.Label) clear_all_button.get_child()).halign = Gtk.Align.START;
             clear_all_button.get_child().margin = 5;
+            clear_all_button.get_child().margin_start = 0;
             clear_all_button.clicked.connect(clear_all);
             clear_all_button.can_focus = false;
             clear_all_button.relief = Gtk.ReliefStyle.NONE;
