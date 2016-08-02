@@ -46,6 +46,10 @@ namespace ScreenshotApplet {
             .screenshot-applet separator {
                 background-color: rgba(0, 0, 0, 0.2);
             }
+
+            .action-button {
+                padding: 0;
+            }
         """;
 
         public ScreenshotApplet(string uuid)

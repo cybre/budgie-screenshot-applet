@@ -49,6 +49,7 @@ namespace ScreenshotApplet
             title_edit_button.relief = Gtk.ReliefStyle.NONE;
             title_edit_button.can_focus = false;
             title_edit_button.tooltip_text = "Edit Title";
+            title_edit_button.get_style_context().add_class("action-button");
 
             Gtk.Box title_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             title_box.pack_start(title_label, true, true, 0);
@@ -69,6 +70,7 @@ namespace ScreenshotApplet
             title_apply_button.relief = Gtk.ReliefStyle.NONE;
             title_apply_button.can_focus = false;
             title_apply_button.tooltip_text = "Apply Changes";
+            title_apply_button.get_style_context().add_class("action-button");
 
             Gtk.Box title_edit_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             title_edit_box.pack_start(title_entry, true, true, 0);
@@ -84,6 +86,7 @@ namespace ScreenshotApplet
             copy_button.relief = Gtk.ReliefStyle.NONE;
             copy_button.can_focus = false;
             copy_button.tooltip_text = "Copy Screenshot URL";
+            copy_button.get_style_context().add_class("action-button");
 
             Gtk.Image copy_ok_image = new Gtk.Image.from_icon_name(
                 "emblem-ok-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
@@ -100,6 +103,7 @@ namespace ScreenshotApplet
                 upload_button.relief = Gtk.ReliefStyle.NONE;
                 upload_button.can_focus = false;
                 upload_button.tooltip_text = "Upload screenshot";
+                upload_button.get_style_context().add_class("action-button");
 
                 Gtk.Spinner upload_spinner = new Gtk.Spinner();
 
@@ -150,6 +154,7 @@ namespace ScreenshotApplet
             delete_button.relief = Gtk.ReliefStyle.NONE;
             delete_button.can_focus = false;
             delete_button.tooltip_text = "Delete Screenshot";
+            delete_button.get_style_context().add_class("action-button");
 
             Gtk.Box title_main_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             title_main_box.pack_start(title_stack, true, true, 0);
