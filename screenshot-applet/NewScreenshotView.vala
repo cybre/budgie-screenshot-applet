@@ -82,13 +82,12 @@ namespace ScreenshotApplet
             title_entry.icon_press.connect(() => { title_entry.text = ""; });
 
             Gtk.Button settings_button = new Gtk.Button.from_icon_name("emblem-system-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            settings_button.relief = Gtk.ReliefStyle.NONE;
             settings_button.can_focus = false;
             settings_button.tooltip_text = "Settings";
 
             settings_button.clicked.connect(() => { stack.visible_child_name = "settings_view"; });
 
-            Gtk.Box top_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 5);
+            Gtk.Box top_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
             top_box.margin = 10;
             top_box.pack_start(title_entry, true, true, 0);
             top_box.pack_end(settings_button, false, false, 0);
