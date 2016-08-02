@@ -306,11 +306,7 @@ namespace ScreenshotApplet
 
         private void apply_changes(GLib.Settings settings, string current_url)
         {
-            if (title_entry.text == "") {
-                title = "Untitled";
-            } else {
-                title = title_entry.text.strip();
-            }
+            title = (title_entry.text == "") ? "Untitled" : title_entry.text.strip();
 
             title_label.set_text("<b>%s</b>".printf(title));
             title_label.use_markup = true;
