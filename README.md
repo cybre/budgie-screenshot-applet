@@ -30,8 +30,9 @@ libjson-glib-devel libnotify-devel librest-devel libgnome-desktop-devel gnome-sc
 make
 sudo make install
 ```
+
 **Solus**  
-The package can be installed on Solus via the software centre or using
+You can install screenshot-applet from the Software Centre or via the command line:
 ```
 sudo eopkg it screenshot-applet
 ```
