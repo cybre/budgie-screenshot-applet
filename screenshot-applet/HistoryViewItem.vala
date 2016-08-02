@@ -93,9 +93,8 @@ namespace ScreenshotApplet
             copy_stack.add_named(copy_button, "copy_button");
             copy_stack.add_named(copy_ok_image, "copy_ok_image");
 
-            string start = url.slice(0, 4);
             Gtk.Stack? action_stack = null;
-            if (start == "file") {
+            if (url.has_prefix("file")) {
                 Gtk.Button upload_button = new Gtk.Button.from_icon_name(
                     "go-up-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
                 upload_button.relief = Gtk.ReliefStyle.NONE;
@@ -130,8 +129,7 @@ namespace ScreenshotApplet
 
                 new_screenshot_view.local_upload_finished.connect((link) => {
                     upload_spinner.active = false;
-                    string link_start = link.slice(0, 4);
-                    if (link != "" && link_start == "http") {
+                    if (link != "" && link.has_prefix("http")) {
                         action_stack.visible_child_name = "copy_stack";
                         string old_url = url;
                         url = link;
@@ -157,7 +155,7 @@ namespace ScreenshotApplet
             title_main_box.pack_start(title_stack, true, true, 0);
             title_main_box.pack_end(delete_button, false, false, 0);
 
-            if (start == "http") {
+            if (url.has_prefix("http")) {
                 title_main_box.pack_end(copy_stack, false, false, 0);
             } else {
                 title_main_box.pack_end(action_stack, false, false, 0);
@@ -254,10 +252,7 @@ namespace ScreenshotApplet
             delete_button.clicked.connect(() => { delete_item(settings); });
 
             Gtk.Box history_view_item_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-            history_view_item_box.margin_top = 5;
-            history_view_item_box.margin_bottom = 5;
-            history_view_item_box.margin_start = 10;
-            history_view_item_box.margin_end = 10;
+            history_view_item_box.margin = 5;
             history_view_item_box.pack_start(title_main_box, true, true, 0);
             history_view_item_box.pack_start(url_main_box, true, true, 0);
 

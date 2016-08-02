@@ -88,7 +88,7 @@ namespace ScreenshotApplet
 
             settings_button.clicked.connect(() => { stack.visible_child_name = "settings_view"; });
 
-            Gtk.Box top_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
+            Gtk.Box top_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 5);
             top_box.margin = 5;
             top_box.pack_start(title_entry, true, true, 0);
             top_box.pack_end(settings_button, false, false, 0);
@@ -120,6 +120,7 @@ namespace ScreenshotApplet
             history_button.can_focus = false;
             history_button.no_show_all = true;
             history_button.visible = false;
+            history_button.get_child().margin = 5;
 
             history_button.clicked.connect(() => { stack.visible_child_name = "history_view"; });
 

@@ -62,18 +62,16 @@ namespace ScreenshotApplet
 
             clear_all_button = new Gtk.Button.with_label("Clear all Screenshots");
             ((Gtk.Label) clear_all_button.get_child()).halign = Gtk.Align.START;
-            clear_all_button.get_style_context().add_class("flat");
+            clear_all_button.get_child().margin = 5;
             clear_all_button.clicked.connect(clear_all);
             clear_all_button.can_focus = false;
             clear_all_button.relief = Gtk.ReliefStyle.NONE;
-            clear_all_button.margin_start = 2;
-            clear_all_button.margin_end = 2;
 
             Gtk.Separator clear_all_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
 
             Gtk.Box clear_all_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
             clear_all_box.pack_start(clear_all_separator, false, false, 0);
-            clear_all_box.pack_end(clear_all_button, false, true, 2);
+            clear_all_box.pack_end(clear_all_button, false, true, 0);
 
             Gtk.Image placeholder_image = new Gtk.Image.from_icon_name(
                 "action-unavailable-symbolic", Gtk.IconSize.DIALOG);

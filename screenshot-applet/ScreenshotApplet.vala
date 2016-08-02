@@ -42,6 +42,12 @@ namespace ScreenshotApplet {
             return false;
         }
 
+        private string ARC_STYLE_CSS = """
+            .screenshot-applet separator {
+                background-color: rgba(0, 0, 0, 0.2);
+            }
+        """;
+
         public ScreenshotApplet(string uuid)
         {
             Object(uuid: uuid);
@@ -56,6 +62,19 @@ namespace ScreenshotApplet {
             Gdk.Display display = get_display();
             clipboard = Gtk.Clipboard.get_for_display(display, Gdk.SELECTION_CLIPBOARD);
 
+            Gdk.Screen screen = Gdk.Screen.get_default();
+            Gtk.Settings gtk_settings = Gtk.Settings.get_for_screen(screen);
+            string gtk_theme_name = gtk_settings.gtk_theme_name.down();
+
+            if (gtk_theme_name.has_prefix("arc-")) {
+                Gtk.CssProvider provider = new Gtk.CssProvider();
+                try {
+                    provider.load_from_data(ARC_STYLE_CSS, ARC_STYLE_CSS.length);
+                    Gtk.StyleContext.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                } catch (Error e) {
+                    warning(e.message);
+                }
+            }
 
             Gtk.Image icon = new Gtk.Image.from_icon_name("image-x-generic-symbolic", Gtk.IconSize.MENU);
             Gtk.Image icon_cheese = new Gtk.Image.from_icon_name("face-smile-big-symbolic", Gtk.IconSize.MENU);
@@ -82,8 +101,8 @@ namespace ScreenshotApplet {
             box = new Gtk.EventBox();
             box.add(layout);
 
-
             popover = new Gtk.Popover(box);
+            popover.get_style_context().add_class("screenshot-applet");
             stack = new Gtk.Stack();
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
@@ -130,10 +149,6 @@ namespace ScreenshotApplet {
                         countdown_view.change_label(left);
 
                         if (delay == seconds) {
-                            GLib.Timeout.add(400, () => {
-                                popover.visible = false;
-                                return false;
-                            });
                             icon_stack.visible_child_name = "icon_cheese";
                             countdown_in_progress = false;
                             return false;
@@ -185,9 +200,7 @@ namespace ScreenshotApplet {
                     return;
                 }
 
-                string link_start = link.slice(0, 4);
-
-                if (link_start == "file" || link_start == "http") {
+                if (link.has_prefix("file") || link.has_prefix("http")) {
                     history_view.add_to_history(link, title_entry.text);
 
                     if (local_screenshots) {

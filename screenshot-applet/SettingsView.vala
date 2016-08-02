@@ -205,9 +205,14 @@ namespace ScreenshotApplet
             back_label.use_markup = true;
             back_label.get_style_context().add_class("dim-label");
 
-            Gtk.Box back_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            back_box.pack_start(back_button, false, false, 0);
-            back_box.pack_end(back_label, true, true, 10);
+            Gtk.Box back_subbox = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+            back_subbox.margin = 5;
+            back_subbox.pack_start(back_button, false, false, 0);
+            back_subbox.pack_end(back_label, true, true, 10);
+
+            Gtk.Box back_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            back_box.pack_start(back_subbox, true, true, 0);
+            back_box.pack_end(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), true, true, 0);
 
             ActualSettings actual_settings = ActualSettings.instance(settings);
 
