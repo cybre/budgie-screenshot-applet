@@ -62,7 +62,6 @@ namespace ScreenshotApplet
             history_scroller.add(history_listbox);
 
             clear_all_button = new Gtk.Button.with_label("Clear all Screenshots");
-            ((Gtk.Label) clear_all_button.get_child()).halign = Gtk.Align.START;
             clear_all_button.get_child().margin = 5;
             clear_all_button.get_child().margin_start = 0;
             clear_all_button.clicked.connect(clear_all);
