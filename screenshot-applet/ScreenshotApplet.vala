@@ -230,10 +230,10 @@ namespace ScreenshotApplet {
             });
 
             stack.add_named(new_screenshot_view, "new_screenshot_view");
+            stack.add_named(history_view, "history_view");
             stack.add_named(countdown_view, "countdown_view");
             stack.add_named(uploading_view, "uploading_view");
             stack.add_named(upload_done_view, "upload_done_view");
-            stack.add_named(history_view, "history_view");
             stack.add_named(error_view, "error_view");
             stack.add_named(settings_view, "settings_view");
             stack.homogeneous = false;
