@@ -1,4 +1,4 @@
-# screenshot-applet
+# budgie-screenshot-applet
 A Budgie applet for taking and uploading screenshots to Imgur and Imagebin.
 
 ## Dependencies
@@ -32,9 +32,9 @@ sudo make install
 ```
 
 **Solus**  
-You can install screenshot-applet from the Software Centre or via the command line:
+You can install budgie-screenshot-applet from the Software Centre or via the command line:
 ```
-sudo eopkg it screenshot-applet
+sudo eopkg it budgie-screenshot-applet
 ```
 
 **Arch Linux**  
