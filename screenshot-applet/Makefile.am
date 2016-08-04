@@ -2,27 +2,6 @@ plugindir = $(libdir)/budgie-desktop/plugins
 
 screenshotappletdir = $(plugindir)/screenshot-applet
 
-plugin_resources = $(shell glib-compile-resources --sourcedir=$(top_srcdir)/screenshot-applet --generate-dependencies $(top_srcdir)/screenshot-applet/plugin.gresource.xml)
-
-# resources
-plugin-resources.h: $(top_srcdir)/screenshot-applet/plugin.gresource.xml $(plugin_resources)
-	glib-compile-resources --target=$@ --sourcedir=$(top_srcdir)/screenshot-applet --generate-header --c-name screenshot_applet $<
-
-plugin-resources.c: $(top_srcdir)/screenshot-applet/plugin.gresource.xml $(plugin_resources)
-	glib-compile-resources --target=$@ --sourcedir=$(top_srcdir)/screenshot-applet --generate-source --c-name screenshot_applet $<
-
-BUILT_SOURCES = \
-	plugin-resources.h \
-	plugin-resources.c
-
-CLEANFILES = \
-	$(BUILT_SOURCES)
-
-EXTRA_DIST = \
-	com.github.cybre.screenshot-applet.gschema.xml \
-	plugin.gresource.xml \
-	settings.ui
-
 screenshotapplet_DATA = \
 	ScreenshotApplet.plugin
 
@@ -40,10 +19,8 @@ libscreenshotapplet_la_SOURCES = \
 	HistoryView.vala \
 	HistoryViewItem.vala \
 	SettingsView.vala \
-	plugin-resources.h \
-	plugin-resources.c \
-	../data/screenshot-applet-images.h \
-	../data/screenshot-applet-images.c
+	../data/plugin-resources.h \
+	../data/plugin-resources.c
 
 libscreenshotapplet_la_CFLAGS = \
 	$(BUDGIE_PLUGIN_CFLAGS) \
@@ -77,11 +54,5 @@ libscreenshotapplet_la_VALAFLAGS = \
 	--pkg gee-1.0 \
 	--pkg gnome-desktop-3.0 \
 	--vapidir ${top_srcdir}/vapi \
-	--gresources=${srcdir}/plugin.gresource.xml \
-	--gresources=${top_srcdir}/data/screenshot-applet-images.gresource.xml \
+	--gresources=${top_srcdir}/data/plugin.gresource.xml \
 	--target-glib=2.38
-
-gsettings_SCHEMAS = \
-	com.github.cybre.screenshot-applet.gschema.xml
-
-@GSETTINGS_RULES@
