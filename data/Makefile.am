@@ -1,18 +1,20 @@
 appdatadir = $(datadir)/appdata
 appdata_DATA = budgie-screenshot-applet.appdata.xml
 
+gsettings_SCHEMAS = \
+	com.github.cybre.screenshot-applet.gschema.xml
 
 EXTRA_DIST = \
 	plugin.gresource.xml \
-	com.github.cybre.screenshot-applet.gschema.xml \
 	settings.ui \
+	$(gsettings_SCHEMAS) \
 	$(appdata_DATA) \
-	screen.png \
-	window.png \
-	selection.png \
-	src/screen.svg \
-	src/window.svg \
-	src/selection.svg
+	images/screen.png \
+	images/window.png \
+	images/selection.png \
+	images/src/screen.svg \
+	images/src/window.svg \
+	images/src/selection.svg
 
 plugin_resources = $(shell glib-compile-resources --sourcedir=$(top_srcdir)/data --generate-dependencies $(top_srcdir)/data/plugin.gresource.xml)
 
@@ -27,7 +29,4 @@ plugin-resources.h: $(top_srcdir)/data/plugin.gresource.xml $(plugin_resources)
 plugin-resources.c: $(top_srcdir)/data/plugin.gresource.xml $(plugin_resources)
 	glib-compile-resources --target=$@ --sourcedir=$(top_srcdir)/data --generate-source --c-name screenshot_applet $<
 	
-gsettings_SCHEMAS = \
-	com.github.cybre.screenshot-applet.gschema.xml
-
 @GSETTINGS_RULES@

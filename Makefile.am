@@ -5,4 +5,4 @@ EXTRA_DIST = \
 
 SUBDIRS = \
     data \
-	screenshot-applet
+	budgie-screenshot-applet

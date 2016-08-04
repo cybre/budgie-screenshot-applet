@@ -15,7 +15,7 @@ namespace ScreenshotApplet
     {
         public ScreenshotModeButton(string image, string label)
         {
-            Gtk.Image mode_image = new Gtk.Image.from_resource("/com/github/cybre/screenshot-applet/%s".printf(image));
+            Gtk.Image mode_image = new Gtk.Image.from_resource("/com/github/cybre/screenshot-applet/images/%s".printf(image));
             mode_image.pixel_size = 64;
 
             Gtk.Label mode_label = new Gtk.Label(label);

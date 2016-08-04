@@ -1,4 +1,4 @@
-AC_INIT([screenshot-applet], 0.3, [stfric369@gmail.com], [screenshot-applet], [https://github.com/cybre/screenshot-applet])
+AC_INIT([budgie-screenshot-applet], 0.3, [stfric369@gmail.com], [budgie-screenshot-applet], [https://github.com/cybre/budgie-screenshot-applet])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wno-portability no-dist-gzip dist-xz foreign subdir-objects])
 AC_PROG_CC
@@ -41,13 +41,13 @@ PKG_CHECK_MODULES(GEE,
 AM_PROG_VALAC([0.28], [], [AC_MSG_ERROR([valac is required to build Vala applets])])
 
 AC_CONFIG_FILES([Makefile
-                screenshot-applet/Makefile
+                budgie-screenshot-applet/Makefile
                 data/Makefile])
 
 AC_OUTPUT
 
 AC_MSG_RESULT([
-        screenshot-applet $VERSION
+        budgie-screenshot-applet $VERSION
         ========
 
         prefix:                 ${prefix}
