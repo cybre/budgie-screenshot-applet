@@ -1,4 +1,4 @@
-AC_INIT([budgie-screenshot-applet], 0.3, [stfric369@gmail.com], [budgie-screenshot-applet], [https://github.com/cybre/budgie-screenshot-applet])
+AC_INIT([budgie-screenshot-applet], 0.3.7, [stfric369@gmail.com], [budgie-screenshot-applet], [https://github.com/cybre/budgie-screenshot-applet])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wno-portability no-dist-gzip dist-xz foreign subdir-objects])
 AC_PROG_CC
@@ -31,10 +31,6 @@ PKG_CHECK_MODULES(JSON,
 
 PKG_CHECK_MODULES(REST,
         rest-0.7 >= 0.7
-)
-
-PKG_CHECK_MODULES(GEE,
-        gee-1.0 >= 0.6.8
 )
 
 # Required only for Vala applets.
