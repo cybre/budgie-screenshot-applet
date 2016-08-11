@@ -67,6 +67,7 @@ namespace ScreenshotApplet
             clear_all_button.clicked.connect(clear_all);
             clear_all_button.can_focus = false;
             clear_all_button.relief = Gtk.ReliefStyle.NONE;
+            clear_all_button.get_style_context().add_class("bottom-button");
 
             Gtk.Separator clear_all_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
 

@@ -50,6 +50,21 @@ namespace ScreenshotApplet {
             .action-button {
                 padding: 0;
             }
+
+            .mode-button {
+                border-radius: 0;
+                border: 0;
+            }
+
+            .mode-button:hover {
+                -gtk-icon-effect: none;
+            }
+
+            .bottom-button {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                border-top: 0;
+            }
         """;
 
         public ScreenshotApplet(string uuid)
@@ -70,7 +85,7 @@ namespace ScreenshotApplet {
             Gtk.Settings gtk_settings = Gtk.Settings.get_for_screen(screen);
             string gtk_theme_name = gtk_settings.gtk_theme_name.down();
 
-            if (gtk_theme_name.has_prefix("arc-")) {
+            if (gtk_theme_name.has_prefix("arc")) {
                 Gtk.CssProvider provider = new Gtk.CssProvider();
                 try {
                     provider.load_from_data(ARC_STYLE_CSS, ARC_STYLE_CSS.length);

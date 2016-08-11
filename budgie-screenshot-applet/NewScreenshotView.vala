@@ -29,6 +29,8 @@ namespace ScreenshotApplet
             label_widget = button_box;
 
             get_child().can_focus = false;
+
+            get_child().get_style_context().add_class("mode-button");
         }
     }
 
@@ -103,14 +105,15 @@ namespace ScreenshotApplet
             screenshot_window_button.clicked.connect(take_window_screenshot);
             screenshot_area_button.clicked.connect(take_area_screenshot);
 
-            Gtk.Grid mode_selection = new Gtk.Grid();
-            mode_selection.attach(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), 0, 0, 1, 1);
             Gtk.Box mode_selection_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
             mode_selection_box.add(screenshot_screen_button);
             mode_selection_box.add(new Gtk.Separator(Gtk.Orientation.VERTICAL));
             mode_selection_box.add(screenshot_window_button);
             mode_selection_box.add(new Gtk.Separator(Gtk.Orientation.VERTICAL));
             mode_selection_box.add(screenshot_area_button);
+
+            Gtk.Grid mode_selection = new Gtk.Grid();
+            mode_selection.attach(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), 0, 0, 1, 1);
             mode_selection.attach(mode_selection_box, 0, 1, 1, 1);
             mode_selection.attach(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), 0, 2, 1, 1);
 
@@ -120,6 +123,7 @@ namespace ScreenshotApplet
             history_button.no_show_all = true;
             history_button.visible = false;
             history_button.get_child().margin = 5;
+            history_button.get_style_context().add_class("bottom-button");
 
             history_button.clicked.connect(() => { stack.visible_child_name = "history_view"; });
 

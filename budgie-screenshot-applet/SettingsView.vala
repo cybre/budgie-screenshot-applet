@@ -219,6 +219,7 @@ namespace ScreenshotApplet
             reset_button.relief = Gtk.ReliefStyle.NONE;
             reset_button.can_focus = false;
             reset_button.get_child().margin = 5;
+            reset_button.get_style_context().add_class("bottom-button");
 
             reset_button.clicked.connect(() => {
                 settings.reset("enable-label");
