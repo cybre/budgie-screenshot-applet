@@ -131,6 +131,7 @@ namespace ScreenshotApplet {
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
             popover.map.connect(popover_map_event);
+            popover.unmap.connect(popover_unmap_event);
 
             new_screenshot_view = NewScreenshotView.instance(stack, popover);
             countdown_view = CountdownView.instance();
@@ -337,6 +338,10 @@ namespace ScreenshotApplet {
                 new_screenshot_view.title_entry.can_focus = true;
                 return false;
             });
+        }
+
+        private void popover_unmap_event() {
+            stack.set_visible_child_full("new_screenshot_view", Gtk.StackTransitionType.NONE);
         }
 
         protected void on_settings_changed(string key)
