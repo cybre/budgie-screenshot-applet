@@ -40,7 +40,6 @@ namespace ScreenshotApplet {
         private SettingsView settings_view;
         private bool error;
         private bool countdown_in_progress = false;
-        private uint clicked_button = 0;
         public string uuid { public set ; public get; }
 
         public override bool supports_settings() {
@@ -271,9 +270,33 @@ namespace ScreenshotApplet {
                 if (popover.get_visible()) {
                     popover.hide();
                 } else {
-                    clicked_button = e.button;
+                    string child_to_show = "new_screenshot_view";
+                    if (e.button == 1) {
+                        stack.transition_type = Gtk.StackTransitionType.NONE;
+                        if (countdown_in_progress) {
+                            child_to_show = "countdown_view";
+                        } else if (spinner.active) {
+                            child_to_show = "uploading_view";
+                        } else if (icon.get_style_context().has_class("alert") && !error) {
+                            child_to_show = "upload_done_view";
+                            icon.get_style_context().remove_class("alert");
+                        } else if (error) {
+                            child_to_show = "error_view";
+                            icon.get_style_context().remove_class("alert");
+                            error = false;
+                        } else {
+                            child_to_show = "new_screenshot_view";
+                        }
+                    } else if (e.button == 2) {
+                        child_to_show = "settings_view";
+                    } else if (e.button == 3) {
+                        child_to_show = "history_view";
+                    } else {
+                        return Gdk.EVENT_PROPAGATE;
+                    }
+                    stack.visible_child_name = child_to_show;
+                    stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
                     manager.show_popover(box);
-                    // we figure out which page to show in the popover map event
                 }
                 return Gdk.EVENT_STOP;
             });
@@ -296,38 +319,8 @@ namespace ScreenshotApplet {
             on_settings_changed("window-effect");
         }
 
-        private void figure_out_pages()
-        {
-            stack.transition_type = Gtk.StackTransitionType.NONE;
-            string child_to_show = "";
-            if (clicked_button == 2) {
-                child_to_show = "settings_view";
-            } else if (clicked_button == 3) {
-                child_to_show = "history_view";
-            } else if (countdown_in_progress) {
-                child_to_show = "countdown_view";
-            } else if (spinner.active) {
-                child_to_show = "uploading_view";
-            } else if (icon.get_style_context().has_class("alert") && !error) {
-                child_to_show = "upload_done_view";
-                icon.get_style_context().remove_class("alert");
-            } else if (error) {
-                child_to_show = "error_view";
-                icon.get_style_context().remove_class("alert");
-                error = false;
-            } else {
-                child_to_show = (clicked_button != 0) ? "new_screenshot_view" : stack.visible_child_name;
-            }
-            stack.visible_child_name = child_to_show;
-            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-            clicked_button = 0;
-        }
-
         private void popover_map_event()
         {
-
-            figure_out_pages();
-
             if (Gdk.Screen.get_default().get_active_window().get_toplevel() != box.get_window().get_toplevel()) {
                 new_screenshot_view.old_window = Gdk.Screen.get_default().get_active_window();
             }
