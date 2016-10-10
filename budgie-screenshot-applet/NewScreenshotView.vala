@@ -284,7 +284,6 @@ namespace ScreenshotApplet
             if (local_screenshots) {
                 GLib.DateTime datetime = new GLib.DateTime.now_local();
                 string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
-                filepath = "";
 
                 // Use gnome-screenshot's auto-save-directory if set
                 GLib.Settings g_settings = new GLib.Settings("org.gnome.gnome-screenshot");
@@ -299,23 +298,22 @@ namespace ScreenshotApplet
                         bool writable = info.get_attribute_boolean(GLib.FileAttribute.ACCESS_CAN_WRITE);
                         if (writable) {
                             filepath = @"$auto_save_dir/$filename";
+                            return;
                         }
                     }
                 }
 
                 // Use the default directory if auto-save-directory isn't viable
-                if (filepath == "") {
-                    filepath = "%s/%s".printf("file://%s/Screenshots"
-                        .printf(GLib.Environment.get_user_special_dir(GLib.UserDirectory.PICTURES)), filename);
-                    screenshot_file = GLib.File.new_for_uri(filepath);
+                filepath = "%s/%s".printf("file://%s/Screenshots"
+                    .printf(GLib.Environment.get_user_special_dir(GLib.UserDirectory.PICTURES)), filename);
+                screenshot_file = GLib.File.new_for_uri(filepath);
 
-                    // Create the directory if it doesn't exist
-                    if (!screenshot_file.get_parent().query_exists()) {
-                        try {
-                            screenshot_file.get_parent().make_directory();
-                        } catch (GLib.Error e) {
-                            warning(e.message);
-                        }
+                // Create the directory if it doesn't exist
+                if (!screenshot_file.get_parent().query_exists()) {
+                    try {
+                        screenshot_file.get_parent().make_directory();
+                    } catch (GLib.Error e) {
+                        warning(e.message);
                     }
                 }
             } else {
