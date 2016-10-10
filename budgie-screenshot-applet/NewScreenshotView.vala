@@ -185,7 +185,7 @@ namespace ScreenshotApplet
                 rr_screen = new Gnome.RRScreen(screen);
                 rr_config = new Gnome.RRConfig.current(rr_screen);
             } catch (GLib.Error e) {
-                stderr.printf(e.message, "\n");
+                warning(e.message);
                 return;
             }
 
@@ -214,7 +214,7 @@ namespace ScreenshotApplet
             try {
                 screenshot.save(filepath.split("://")[1], "png");
             } catch (GLib.Error e) {
-                stderr.printf(e.message, "\n");
+                warning(e.message);
             }
         }
 
@@ -284,13 +284,38 @@ namespace ScreenshotApplet
             if (local_screenshots) {
                 GLib.DateTime datetime = new GLib.DateTime.now_local();
                 string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
-                filepath = "%s/%s".printf("file://%s/Screenshots".printf(GLib.Environment.get_user_special_dir(GLib.UserDirectory.PICTURES)), filename);
-                screenshot_file = GLib.File.new_for_uri(filepath);
-                if (!screenshot_file.get_parent().query_exists()) {
-                    try {
-                        screenshot_file.get_parent().make_directory();
-                    } catch (GLib.Error e) {
-                        stderr.printf(e.message, "\n");
+                filepath = "";
+
+                // Use gnome-screenshot's auto-save-directory if set
+                GLib.Settings g_settings = new GLib.Settings("org.gnome.gnome-screenshot");
+                string auto_save_dir = g_settings.get_string("auto-save-directory");
+                if (auto_save_dir != "") {
+                    GLib.File auto_save_dir_file = GLib.File.new_for_uri(auto_save_dir);
+                    // Check if the directory exists
+                    if (auto_save_dir_file.query_exists()) {
+                        // Check if we can access the directory (writable)
+                        GLib.FileInfo info = auto_save_dir_file.query_info(
+                            GLib.FileAttribute.ACCESS_CAN_WRITE, GLib.FileQueryInfoFlags.NONE);
+                        bool writable = info.get_attribute_boolean(GLib.FileAttribute.ACCESS_CAN_WRITE);
+                        if (writable) {
+                            filepath = @"$auto_save_dir/$filename";
+                        }
+                    }
+                }
+
+                // Use the default directory if auto-save-directory isn't viable
+                if (filepath == "") {
+                    filepath = "%s/%s".printf("file://%s/Screenshots"
+                        .printf(GLib.Environment.get_user_special_dir(GLib.UserDirectory.PICTURES)), filename);
+                    screenshot_file = GLib.File.new_for_uri(filepath);
+
+                    // Create the directory if it doesn't exist
+                    if (!screenshot_file.get_parent().query_exists()) {
+                        try {
+                            screenshot_file.get_parent().make_directory();
+                        } catch (GLib.Error e) {
+                            warning(e.message);
+                        }
                     }
                 }
             } else {
@@ -299,7 +324,7 @@ namespace ScreenshotApplet
                     screenshot_file = GLib.File.new_tmp("screenshot-XXXXXX.png", out iostream);
                     filepath = screenshot_file.get_uri();
                 } catch (GLib.Error e) {
-                    stderr.printf(e.message, "\n");
+                    warning(e.message);
                 }
             }
         }
@@ -365,7 +390,7 @@ namespace ScreenshotApplet
                             try {
                                 screenshot_file.delete();
                             } catch (GLib.Error e) {
-                                stderr.printf(e.message, "\n");
+                                warning(e.message);
                             }
                         }
 
@@ -374,7 +399,7 @@ namespace ScreenshotApplet
                         error_happened(title_entry);
                     }
                 } catch (GLib.Error e) {
-                    stderr.printf(e.message, "\n");
+                    warning(e.message);
                 }
             } else {
                 error_happened(title_entry);
@@ -431,7 +456,7 @@ namespace ScreenshotApplet
                 }, null);
                 loop2.run();
             } catch (GLib.Error e) {
-                stderr.printf(e.message, "\n");
+                warning(e.message);
             }
 
             return url;

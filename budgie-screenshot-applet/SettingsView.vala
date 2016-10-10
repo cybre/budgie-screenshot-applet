@@ -109,7 +109,7 @@ namespace ScreenshotApplet
                 rr_screen = new Gnome.RRScreen(screen);
                 rr_config = new Gnome.RRConfig.current(rr_screen);
             } catch (GLib.Error e) {
-                stderr.printf(e.message, "\n");
+                warning(e.message);
                 return;
             }
 

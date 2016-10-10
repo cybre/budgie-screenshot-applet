@@ -232,7 +232,7 @@ namespace ScreenshotApplet {
                             Gdk.Pixbuf pb = new Gdk.Pixbuf.from_file(link.split("://")[1]);
                             clipboard.set_image(pb);
                         } catch (GLib.Error e) {
-                            stderr.printf(e.message, "\n");
+                            warning(e.message);
                         }
                     } else {
                         clipboard.set_text(link, -1);
