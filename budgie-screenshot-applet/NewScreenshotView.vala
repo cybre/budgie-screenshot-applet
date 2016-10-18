@@ -11,8 +11,10 @@
 
 private class ScreenshotApplet.ScreenshotModeButton : Gtk.ToolButton
 {
-    public ScreenshotModeButton(string image, string label)
+    public ScreenshotModeButton(string image, string label, string tooltip)
     {
+        set_tooltip_text(tooltip);
+
         Gtk.Image mode_image = new Gtk.Image.from_resource("/com/github/cybre/screenshot-applet/images/%s".printf(image));
         mode_image.set_pixel_size(64);
 
@@ -91,12 +93,12 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
         top_box.pack_start(title_entry, true, true, 0);
         top_box.pack_end(settings_button, false, false, 0);
 
-        ScreenshotModeButton screenshot_screen_button = new ScreenshotModeButton("screen.png", "Screen");
-        screenshot_screen_button.set_tooltip_text("Grab the whole screen");
-        ScreenshotModeButton screenshot_window_button = new ScreenshotModeButton("window.png", "Window");
-        screenshot_window_button.set_tooltip_text("Grab the current window");
-        ScreenshotModeButton screenshot_area_button = new ScreenshotModeButton("selection.png", "Selection");
-        screenshot_area_button.set_tooltip_text("Select area to grab");
+        ScreenshotModeButton screenshot_screen_button = new ScreenshotModeButton(
+            "screen.png", "Screen", "Grab the whole screen");
+        ScreenshotModeButton screenshot_window_button = new ScreenshotModeButton(
+            "window.png", "Window", "Grab the current window");
+        ScreenshotModeButton screenshot_area_button = new ScreenshotModeButton(
+            "selection.png", "Selection", "Select area to grab");
 
         screenshot_screen_button.clicked.connect(take_screen_screenshot);
         screenshot_window_button.clicked.connect(take_window_screenshot);
@@ -289,6 +291,7 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
                         bool writable = info.get_attribute_boolean(GLib.FileAttribute.ACCESS_CAN_WRITE);
                         if (writable) {
                             filepath = @"$auto_save_dir/$filename";
+                            screenshot_file = GLib.File.new_for_uri(filepath);
                             return;
                         }
                     } catch (GLib.Error e) {
@@ -299,8 +302,8 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
             }
 
             // Use the default directory if auto-save-directory isn't viable
-            filepath = "%s/%s".printf("file://%s/Screenshots"
-                .printf(GLib.Environment.get_user_special_dir(GLib.UserDirectory.PICTURES)), filename);
+            filepath = "file://%s/Screenshots/%s".printf(
+                GLib.Environment.get_user_special_dir(GLib.UserDirectory.PICTURES), filename);
             screenshot_file = GLib.File.new_for_uri(filepath);
 
             // Create the directory if it doesn't exist
