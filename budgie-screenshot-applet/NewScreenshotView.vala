@@ -50,7 +50,6 @@ namespace ScreenshotApplet
         public bool include_border { set; get; default = true; }
         public bool local_screenshots { set; get; default = false; }
         public Gtk.Entry title_entry;
-        public Gdk.Window old_window;
         public Gtk.Button history_button;
 
         private static GLib.Once<NewScreenshotView> _instance;
@@ -222,13 +221,6 @@ namespace ScreenshotApplet
         {
             string command_output = "";
             popover.visible = false;
-
-            /* This makes sure the window that was focused before opening
-               the popover gets focused when taking a screenshot because
-               budgie-panel grabs the focus when the popover gets closed. */
-            if (old_window != null) {
-                old_window.focus(0);
-            }
 
             set_filepath();
 

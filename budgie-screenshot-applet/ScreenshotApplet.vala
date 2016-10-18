@@ -321,10 +321,6 @@ namespace ScreenshotApplet {
 
         private void popover_map_event()
         {
-            if (Gdk.Screen.get_default().get_active_window().get_toplevel() != box.get_window().get_toplevel()) {
-                new_screenshot_view.old_window = Gdk.Screen.get_default().get_active_window();
-            }
-
             // Hack to stop the entry from grabbing focus +
             new_screenshot_view.title_entry.can_focus = false;
             GLib.Timeout.add(1, () => {
