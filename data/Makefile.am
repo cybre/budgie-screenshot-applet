@@ -7,6 +7,7 @@ gsettings_SCHEMAS = \
 EXTRA_DIST = \
 	plugin.gresource.xml \
 	settings.ui \
+	style.css \
 	$(gsettings_SCHEMAS) \
 	$(appdata_DATA) \
 	images/screen.png \

@@ -26,7 +26,11 @@ m4/lt~obsolete.m4
 
 *.la
 *.lo
-/budgie-screenshot-applet/*/*.c
+/budgie-screenshot-applet/*.c
+/data/*.c
+/data/*.h
 *.stamp*
 
 *.ui~
+
+*.valid

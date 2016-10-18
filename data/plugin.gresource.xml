@@ -2,6 +2,7 @@
 <gresources>
         <gresource prefix="/com/github/cybre/screenshot-applet">
                 <file preprocess="xml-stripblanks">settings.ui</file>
+                <file>style.css</file>
                 <file>images/screen.png</file>
                 <file>images/window.png</file>
                 <file>images/selection.png</file>

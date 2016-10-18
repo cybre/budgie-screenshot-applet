@@ -1,0 +1,27 @@
+.screenshot-applet separator {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.screenshot-applet,
+.screenshot-applet .action-button {
+    padding: 0;
+}
+
+.screenshot-applet row {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.screenshot-applet .mode-button {
+    border-radius: 0;
+    border: 0;
+}
+
+.screenshot-applet .mode-button:hover {
+    -gtk-icon-effect: none;
+}
+
+.screenshot-applet .bottom-button {
+    border-radius: 0 0 4px 4px;
+    border: 0;
+}

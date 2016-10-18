@@ -46,31 +46,6 @@ namespace ScreenshotApplet {
             return false;
         }
 
-        private string ARC_STYLE_CSS = """
-            .screenshot-applet separator {
-                background-color: rgba(0, 0, 0, 0.2);
-            }
-
-            .action-button {
-                padding: 0;
-            }
-
-            .mode-button {
-                border-radius: 0;
-                border: 0;
-            }
-
-            .mode-button:hover {
-                -gtk-icon-effect: none;
-            }
-
-            .bottom-button {
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
-                border-top: 0;
-            }
-        """;
-
         public ScreenshotApplet(string uuid)
         {
             Object(uuid: uuid);
@@ -92,9 +67,9 @@ namespace ScreenshotApplet {
             if (gtk_theme_name.has_prefix("arc")) {
                 Gtk.CssProvider provider = new Gtk.CssProvider();
                 try {
-                    provider.load_from_data(ARC_STYLE_CSS, ARC_STYLE_CSS.length);
+                    provider.load_from_resource("/com/github/cybre/screenshot-applet/style.css");
                     Gtk.StyleContext.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-                } catch (Error e) {
+                } catch (GLib.Error e) {
                     warning(e.message);
                 }
             }
