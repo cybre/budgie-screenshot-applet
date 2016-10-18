@@ -2,6 +2,9 @@ plugindir = $(libdir)/budgie-desktop/plugins
 
 screenshotappletdir = $(plugindir)/budgie-screenshot-applet
 
+EXTRA_DIST = \
+	ScreenshotApplet.plugin
+
 screenshotapplet_DATA = \
 	ScreenshotApplet.plugin
 
