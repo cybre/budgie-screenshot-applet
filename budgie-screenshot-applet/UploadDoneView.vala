@@ -9,69 +9,64 @@
  * (at your option) any later version.
  */
 
-namespace ScreenshotApplet
+public class UploadDoneView : Gtk.Box
 {
-    public class UploadDoneView : Gtk.Box
+    private Gtk.Label label;
+    public string link;
+
+    private static GLib.Once<UploadDoneView> _instance;
+
+    public UploadDoneView(Gtk.Stack stack, Gtk.Popover popover)
     {
-        private Gtk.Label label;
-        public string link;
+        Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL, margin: 20);
+        set_size_request(200, 150);
 
-        private static GLib.Once<UploadDoneView> _instance;
+        Gtk.Image image = new Gtk.Image.from_icon_name("emblem-ok-symbolic", Gtk.IconSize.DIALOG);
+        image.set_pixel_size(64);
 
-        public UploadDoneView(Gtk.Stack stack, Gtk.Popover popover)
-        {
-            Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
-            margin = 20;
-            width_request = 200;
-            height_request = 150;
+        label = new Gtk.Label("<big>The link has been copied \nto your clipboard!</big>");
+        label.set_margin_top(10);
+        label.set_justify(Gtk.Justification.CENTER);
+        label.set_use_markup(true);
 
-            Gtk.Image image = new Gtk.Image.from_icon_name("emblem-ok-symbolic", Gtk.IconSize.DIALOG);
-            image.pixel_size = 64;
+        Gtk.Button back_button = new Gtk.Button.with_label("Back");
+        back_button.set_can_focus(false);
+        Gtk.Button history_button = new Gtk.Button.with_label("History");
+        history_button.set_can_focus(false);
+        Gtk.Button open_button = new Gtk.Button.with_label("Open");
+        open_button.set_can_focus(false);
 
-            label = new Gtk.Label("<big>The link has been copied \nto your clipboard!</big>");
-            label.margin_top = 10;
-            label.justify = Gtk.Justification.CENTER;
-            label.use_markup = true;
+        Gtk.Box button_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
+        button_box.get_style_context().add_class("linked");
+        button_box.set_margin_top(20);
+        button_box.pack_start(back_button, true, true, 0);
+        button_box.pack_start(history_button, true, true, 0);
+        button_box.pack_start(open_button, true, true, 0);
 
-            Gtk.Button back_button = new Gtk.Button.with_label("Back");
-            back_button.can_focus = false;
-            Gtk.Button history_button = new Gtk.Button.with_label("History");
-            history_button.can_focus = false;
-            Gtk.Button open_button = new Gtk.Button.with_label("Open");
-            open_button.can_focus = false;
+        back_button.clicked.connect(() => { stack.set_visible_child_name("new_screenshot_view"); });
+        history_button.clicked.connect(() => { stack.set_visible_child_name("history_view"); });
 
-            Gtk.Box button_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
-            button_box.get_style_context().add_class("linked");
-            button_box.margin_top = 20;
-            button_box.pack_start(back_button, true, true, 0);
-            button_box.pack_start(history_button, true, true, 0);
-            button_box.pack_start(open_button, true, true, 0);
+        open_button.clicked.connect(() => {
+            try {
+                Gtk.show_uri(Gdk.Screen.get_default(), link, Gdk.CURRENT_TIME);
+            } catch (GLib.Error e) {
+                stderr.printf(e.message);
+            }
+            popover.hide();
+            popover.unmap.connect(() => { stack.set_visible_child_name("new_screenshot_view"); });
+        });
 
-            back_button.clicked.connect(() => { stack.visible_child_name = "new_screenshot_view"; });
-            history_button.clicked.connect(() => { stack.visible_child_name = "history_view"; });
+        pack_start(image, true, true, 0);
+        pack_start(label, true, true, 0);
+        pack_start(button_box, true, true, 0);
+    }
 
-            open_button.clicked.connect(() => {
-                try {
-                    Gtk.show_uri(Gdk.Screen.get_default(), link, Gdk.CURRENT_TIME);
-                } catch (GLib.Error e) {
-                    stderr.printf(e.message);
-                }
-                popover.visible = false;
-                popover.unmap.connect(() => { stack.visible_child_name = "new_screenshot_view"; });
-            });
+    public void set_label(string text)
+    {
+        label.label = text;
+    }
 
-            pack_start(image, true, true, 0);
-            pack_start(label, true, true, 0);
-            pack_start(button_box, true, true, 0);
-        }
-
-        public void set_label(string text)
-        {
-            label.label = text;
-        }
-
-        public static unowned UploadDoneView instance(Gtk.Stack stack, Gtk.Popover popover) {
-            return _instance.once(() => { return new UploadDoneView(stack, popover); });
-        }
+    public static unowned UploadDoneView instance(Gtk.Stack stack, Gtk.Popover popover) {
+        return _instance.once(() => { return new UploadDoneView(stack, popover); });
     }
 }

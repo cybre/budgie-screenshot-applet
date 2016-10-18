@@ -9,42 +9,37 @@
  * (at your option) any later version.
  */
 
-namespace ScreenshotApplet
+public class UploadingView : Gtk.Box
 {
-    public class UploadingView : Gtk.Box
+    public GLib.Cancellable cancellable;
+
+    private static GLib.Once<UploadingView> _instance;
+
+    public UploadingView()
     {
-        public GLib.Cancellable cancellable;
+        Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL, margin: 20);
+        set_size_request(200, 150);
 
-        private static GLib.Once<UploadingView> _instance;
+        Gtk.Image image = new Gtk.Image.from_icon_name(
+            "software-update-available-symbolic", Gtk.IconSize.DIALOG);
+        image.set_pixel_size(64);
 
-        public UploadingView()
-        {
-            Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
-            margin = 20;
-            width_request = 200;
-            height_request = 150;
+        Gtk.Label label = new Gtk.Label("<big>Uploading...</big>");
+        label.set_use_markup(true);
+        label.set_margin_top(10);
 
-            Gtk.Image image = new Gtk.Image.from_icon_name(
-                "software-update-available-symbolic", Gtk.IconSize.DIALOG);
-            image.pixel_size = 64;
+        Gtk.Button cancel_button = new Gtk.Button.with_label("Cancel");
+        cancel_button.set_margin_top(20);
+        cancel_button.set_can_focus(false);
 
-            Gtk.Label label = new Gtk.Label("<big>Uploading...</big>");
-            label.use_markup = true;
-            label.margin_top = 10;
+        cancel_button.clicked.connect(() => { cancellable.cancel(); });
 
-            Gtk.Button cancel_button = new Gtk.Button.with_label("Cancel");
-            cancel_button.margin_top = 20;
-            cancel_button.can_focus = false;
+        pack_start(image, true, true, 0);
+        pack_start(label, true, true, 0);
+        pack_start(cancel_button, true, true, 0);
+    }
 
-            cancel_button.clicked.connect(() => { cancellable.cancel(); });
-
-            pack_start(image, true, true, 0);
-            pack_start(label, true, true, 0);
-            pack_start(cancel_button, true, true, 0);
-        }
-
-        public static unowned UploadingView instance() {
-            return _instance.once(() => { return new UploadingView(); });
-        }
+    public static unowned UploadingView instance() {
+        return _instance.once(() => { return new UploadingView(); });
     }
 }

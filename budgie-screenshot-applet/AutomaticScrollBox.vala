@@ -9,46 +9,43 @@
  * (at your option) any later version.
  */
 
-namespace ScreenshotApplet
+public class AutomaticScrollBox : Gtk.ScrolledWindow
 {
-   public class AutomaticScrollBox : Gtk.ScrolledWindow
-   {
-        public int max_height { default = 512; get; set; }
+    public int max_height { default = 512; get; set; }
 
-        public AutomaticScrollBox(Gtk.Adjustment? hadj = null, Gtk.Adjustment? vadj = null) {
-            Object(hadjustment : hadj, vadjustment : vadj);
+    public AutomaticScrollBox(Gtk.Adjustment? hadj = null, Gtk.Adjustment? vadj = null) {
+        Object(hadjustment : hadj, vadjustment : vadj);
+    }
+
+    construct {
+        notify["max-height"].connect(queue_resize);
+    }
+
+    public override void get_preferred_height_for_width(int width, out int minimum_height, out int natural_height)
+    {
+        unowned Gtk.Widget child = get_child();
+
+        if (child != null) {
+            child.get_preferred_height_for_width(width, out minimum_height, out natural_height);
+
+            minimum_height = int.min(max_height, minimum_height);
+            natural_height = int.min(max_height, natural_height);
+        } else {
+            minimum_height = natural_height = 0;
         }
+    }
 
-        construct {
-            notify["max-height"].connect(queue_resize);
-        }
+    public override void get_preferred_height(out int minimum_height, out int natural_height)
+    {
+        unowned Gtk.Widget child = get_child();
 
-        public override void get_preferred_height_for_width(int width, out int minimum_height, out int natural_height)
-        {
-            unowned Gtk.Widget child = get_child();
+        if (child != null) {
+            child.get_preferred_height(out minimum_height, out natural_height);
 
-            if (child != null) {
-                child.get_preferred_height_for_width(width, out minimum_height, out natural_height);
-
-                minimum_height = int.min(max_height, minimum_height);
-                natural_height = int.min(max_height, natural_height);
-            } else {
-                minimum_height = natural_height = 0;
-            }
-        }
-
-        public override void get_preferred_height(out int minimum_height, out int natural_height)
-        {
-            unowned Gtk.Widget child = get_child();
-
-            if (child != null) {
-                child.get_preferred_height(out minimum_height, out natural_height);
-
-                minimum_height = int.min(max_height, minimum_height);
-                natural_height = int.min(max_height, natural_height);
-            } else {
-                minimum_height = natural_height = 0;
-            }
+            minimum_height = int.min(max_height, minimum_height);
+            natural_height = int.min(max_height, natural_height);
+        } else {
+            minimum_height = natural_height = 0;
         }
     }
 }

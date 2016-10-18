@@ -9,47 +9,41 @@
  * (at your option) any later version.
  */
 
-namespace ScreenshotApplet
+public class ErrorView : Gtk.Box
 {
-    public class ErrorView : Gtk.Box
+    private Gtk.Label label;
+
+    private static GLib.Once<ErrorView> _instance;
+
+    public ErrorView(Gtk.Stack stack)
     {
-        private Gtk.Label label;
+        Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL, margin: 20);
+        set_size_request(200, 150);
 
-        private static GLib.Once<ErrorView> _instance;
+        Gtk.Image image = new Gtk.Image.from_icon_name("emblem-important-symbolic", Gtk.IconSize.DIALOG);
+        image.set_pixel_size(64);
 
-        public ErrorView(Gtk.Stack stack)
-        {
-            Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
-            margin = 20;
-            width_request = 200;
-            height_request = 150;
+        label = new Gtk.Label("<big>We couldn't upload your image</big>\nCheck your internet connection.");
+        label.set_margin_top(10);
+        label.set_justify(Gtk.Justification.CENTER);
+        label.set_use_markup(true);
 
-            Gtk.Image image = new Gtk.Image.from_icon_name("emblem-important-symbolic", Gtk.IconSize.DIALOG);
-            image.pixel_size = 64;
+        Gtk.Button back_button = new Gtk.Button.with_label("Back");
+        back_button.set_margin_top(20);
+        back_button.set_can_focus(false);
 
-            label = new Gtk.Label("<big>We couldn't upload your image</big>\nCheck your internet connection.");
-            label.margin_top = 10;
-            label.justify = Gtk.Justification.CENTER;
-            label.use_markup = true;
+        back_button.clicked.connect(() => { stack.set_visible_child_name("new_screenshot_view"); });
 
-            Gtk.Button back_button = new Gtk.Button.with_label("Back");
-            back_button.margin_top = 20;
-            back_button.can_focus = false;
+        pack_start(image, true, true, 0);
+        pack_start(label, true, true, 0);
+        pack_start(back_button, true, true, 0);
+    }
 
-            back_button.clicked.connect(() => { stack.visible_child_name = "new_screenshot_view"; });
+    public void set_label(string text) {
+        label.label = text;
+    }
 
-            pack_start(image, true, true, 0);
-            pack_start(label, true, true, 0);
-            pack_start(back_button, true, true, 0);
-        }
-
-        public void set_label(string text)
-        {
-            label.label = text;
-        }
-
-        public static unowned ErrorView instance(Gtk.Stack stack) {
-            return _instance.once(() => { return new ErrorView(stack); });
-        }
+    public static unowned ErrorView instance(Gtk.Stack stack) {
+        return _instance.once(() => { return new ErrorView(stack); });
     }
 }
