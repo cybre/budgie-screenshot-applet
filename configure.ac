@@ -1,4 +1,4 @@
-AC_INIT([budgie-screenshot-applet], 0.3.7, [stfric369@gmail.com], [budgie-screenshot-applet], [https://github.com/cybre/budgie-screenshot-applet])
+AC_INIT([budgie-screenshot-applet], 0.3.9.1, [stfric369@gmail.com], [budgie-screenshot-applet], [https://github.com/cybre/budgie-screenshot-applet])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wno-portability no-dist-gzip dist-xz foreign subdir-objects])
 AC_PROG_CC
@@ -12,7 +12,7 @@ AC_CONFIG_MACRO_DIR([m4])
 
 GLIB_GSETTINGS
 
-m4_define([budgie_required_version], [1])
+m4_define([budgie_required_version], [2])
 
 # Note budgie-1.0 depends on peas, gtk, etc. Sorta your package managers
 # business to make sure those deps are satisfied.
