@@ -9,7 +9,7 @@
  * (at your option) any later version.
  */
 
-private class ScreenshotModeButton : Gtk.ToolButton
+private class ScreenshotApplet.ScreenshotModeButton : Gtk.ToolButton
 {
     public ScreenshotModeButton(string image, string label)
     {
@@ -32,7 +32,7 @@ private class ScreenshotModeButton : Gtk.ToolButton
     }
 }
 
-public class NewScreenshotView : Gtk.Grid
+public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
 {
     private Gtk.Popover popover;
     private GLib.Cancellable cancellable;

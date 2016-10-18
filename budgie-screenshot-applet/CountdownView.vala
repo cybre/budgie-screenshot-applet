@@ -9,7 +9,7 @@
  * (at your option) any later version.
  */
 
-public class CountdownView : Gtk.Box
+public class ScreenshotApplet.CountdownView : Gtk.Box
 {
     public GLib.Cancellable cancellable;
     private Gtk.Stack stack;

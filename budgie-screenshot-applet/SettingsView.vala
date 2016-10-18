@@ -182,7 +182,7 @@ internal class ActualSettings : Gtk.Grid
     }
 }
 
-public class SettingsView : Gtk.Box
+public class ScreenshotApplet.SettingsView : Gtk.Box
 {
     private static GLib.Once<SettingsView> _instance;
 

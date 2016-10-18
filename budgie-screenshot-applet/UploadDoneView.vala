@@ -9,7 +9,7 @@
  * (at your option) any later version.
  */
 
-public class UploadDoneView : Gtk.Box
+public class ScreenshotApplet.UploadDoneView : Gtk.Box
 {
     private Gtk.Label label;
     public string link;

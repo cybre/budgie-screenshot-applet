@@ -9,14 +9,14 @@
  * (at your option) any later version.
  */
 
-public class BudgieScreenshotApplet : GLib.Object, Budgie.Plugin
+public class ScreenshotApplet.BudgieScreenshotApplet : GLib.Object, Budgie.Plugin
 {
     public Budgie.Applet get_panel_widget(string uuid) {
         return new ScreenshotApplet(uuid);
     }
 }
 
-public class ScreenshotApplet : Budgie.Applet
+public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
 {
     Gtk.Popover? popover = null;
     Gtk.EventBox? box = null;
@@ -350,5 +350,5 @@ public class ScreenshotApplet : Budgie.Applet
 public void peas_register_types(TypeModule module)
 {
     var objmodule = module as Peas.ObjectModule;
-    objmodule.register_extension_type(typeof(Budgie.Plugin), typeof(BudgieScreenshotApplet));
+    objmodule.register_extension_type(typeof(Budgie.Plugin), typeof(ScreenshotApplet.BudgieScreenshotApplet));
 }

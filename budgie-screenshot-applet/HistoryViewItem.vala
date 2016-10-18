@@ -9,7 +9,7 @@
  * (at your option) any later version.
  */
 
-public class HistoryViewItem : Gtk.Revealer
+public class ScreenshotApplet.HistoryViewItem : Gtk.Revealer
 {
     private GLib.Settings gnome_settings;
     private GLib.DateTime time;

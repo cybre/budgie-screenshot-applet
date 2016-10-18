@@ -9,7 +9,7 @@
  * (at your option) any later version.
  */
 
-public class UploadingView : Gtk.Box
+public class ScreenshotApplet.UploadingView : Gtk.Box
 {
     public GLib.Cancellable cancellable;
 

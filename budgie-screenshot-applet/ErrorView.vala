@@ -9,7 +9,7 @@
  * (at your option) any later version.
  */
 
-public class ErrorView : Gtk.Box
+public class ScreenshotApplet.ErrorView : Gtk.Box
 {
     private Gtk.Label label;
 

@@ -9,7 +9,7 @@
  * (at your option) any later version.
  */
 
-public class AutomaticScrollBox : Gtk.ScrolledWindow
+public class ScreenshotApplet.AutomaticScrollBox : Gtk.ScrolledWindow
 {
     public int max_height { default = 512; get; set; }
 

@@ -9,7 +9,7 @@
  * (at your option) any later version.
  */
 
-public class HistoryView : Gtk.Box
+public class ScreenshotApplet.HistoryView : Gtk.Box
 {
     private Gtk.Button clear_all_button;
     private Gtk.ListBox history_listbox;
