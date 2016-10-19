@@ -34,3 +34,6 @@ m4/lt~obsolete.m4
 *.ui~
 
 *.valid
+
+/po/*.gmo
+/po/Makefile*
