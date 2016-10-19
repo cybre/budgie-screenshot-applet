@@ -24,11 +24,11 @@ public class ScreenshotApplet.UploadingView : Gtk.Box
             "software-update-available-symbolic", Gtk.IconSize.DIALOG);
         image.set_pixel_size(64);
 
-        Gtk.Label label = new Gtk.Label("<big>Uploading...</big>");
+        Gtk.Label label = new Gtk.Label("<big>%s</big>".printf("Uploading…"));
         label.set_use_markup(true);
         label.set_margin_top(10);
 
-        Gtk.Button cancel_button = new Gtk.Button.with_label("Cancel");
+        Gtk.Button cancel_button = new Gtk.Button.with_label(_("Cancel"));
         cancel_button.set_margin_top(20);
         cancel_button.set_can_focus(false);
 

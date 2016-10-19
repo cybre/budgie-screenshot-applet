@@ -24,16 +24,16 @@ public class ScreenshotApplet.UploadDoneView : Gtk.Box
         Gtk.Image image = new Gtk.Image.from_icon_name("emblem-ok-symbolic", Gtk.IconSize.DIALOG);
         image.set_pixel_size(64);
 
-        label = new Gtk.Label("<big>The link has been copied \nto your clipboard!</big>");
+        label = new Gtk.Label("<big>%s</big>".printf(_("The link has been copied \nto your clipboard!")));
         label.set_margin_top(10);
         label.set_justify(Gtk.Justification.CENTER);
         label.set_use_markup(true);
 
-        Gtk.Button back_button = new Gtk.Button.with_label("Back");
+        Gtk.Button back_button = new Gtk.Button.with_label(_("Back"));
         back_button.set_can_focus(false);
-        Gtk.Button history_button = new Gtk.Button.with_label("History");
+        Gtk.Button history_button = new Gtk.Button.with_label(_("History"));
         history_button.set_can_focus(false);
-        Gtk.Button open_button = new Gtk.Button.with_label("Open");
+        Gtk.Button open_button = new Gtk.Button.with_label(_("Open"));
         open_button.set_can_focus(false);
 
         Gtk.Box button_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);

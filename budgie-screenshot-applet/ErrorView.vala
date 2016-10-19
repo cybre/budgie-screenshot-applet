@@ -23,12 +23,13 @@ public class ScreenshotApplet.ErrorView : Gtk.Box
         Gtk.Image image = new Gtk.Image.from_icon_name("emblem-important-symbolic", Gtk.IconSize.DIALOG);
         image.set_pixel_size(64);
 
-        label = new Gtk.Label("<big>We couldn't upload your image</big>\nCheck your internet connection.");
+        label = new Gtk.Label("<big>%s</big>\n%s".printf(
+            _("We couldn't upload your image"), _("Check your internet connection.")));
         label.set_margin_top(10);
         label.set_justify(Gtk.Justification.CENTER);
         label.set_use_markup(true);
 
-        Gtk.Button back_button = new Gtk.Button.with_label("Back");
+        Gtk.Button back_button = new Gtk.Button.with_label(_("Back"));
         back_button.set_margin_top(20);
         back_button.set_can_focus(false);
 

@@ -2,6 +2,7 @@
 
 set -e
 
+intltoolize --copy --force --automake
 autoreconf --force --install --symlink --warnings=all
 
 args="\

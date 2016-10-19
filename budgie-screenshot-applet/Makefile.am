@@ -1,3 +1,5 @@
+-include $(top_srcdir)/common.mk
+
 plugindir = $(libdir)/budgie-desktop/plugins
 
 screenshotappletdir = $(plugindir)/budgie-screenshot-applet
@@ -30,7 +32,9 @@ libscreenshotapplet_la_CFLAGS = \
 	$(GNOME_CFLAGS) \
 	$(JSON_CFLAGS) \
 	$(REST_CFLAGS) \
-	-DGNOME_DESKTOP_USE_UNSTABLE_API
+	-DGNOME_DESKTOP_USE_UNSTABLE_API \
+	-DPACKAGE_LOCALEDIR=\""$(datadir)/locale"\" \
+	-include $(CONFIG_HEADER)
 
 libscreenshotapplet_la_LIBADD = \
 	$(BUDGIE_PLUGIN_LIBS) \
@@ -52,7 +56,8 @@ libscreenshotapplet_la_VALAFLAGS = \
 	--pkg budgie-1.0 \
 	--pkg json-glib-1.0 \
 	--pkg rest-0.7 \
-	--pkg gnome-desktop-3.0 \
 	--vapidir ${top_srcdir}/vapi \
+	--pkg gnome-desktop-3.0 \
+	--pkg config \
 	--gresources=${top_srcdir}/data/plugin.gresource.xml \
 	--target-glib=2.38

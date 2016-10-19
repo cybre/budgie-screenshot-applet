@@ -75,16 +75,16 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
         this.popover = popover;
 
         title_entry = new Gtk.Entry();
-        title_entry.placeholder_text = "Title (Optional)";
+        title_entry.placeholder_text = _("Title (Optional)");
         title_entry.set_max_length(50);
         title_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "edit-clear-symbolic");
-        title_entry.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, "Clear");
+        title_entry.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, _("Clear"));
 
         title_entry.icon_press.connect(() => { title_entry.text = ""; });
 
         Gtk.Button settings_button = new Gtk.Button.from_icon_name("emblem-system-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         settings_button.set_can_focus(false);
-        settings_button.set_tooltip_text("Settings");
+        settings_button.set_tooltip_text(_("Settings"));
 
         settings_button.clicked.connect(() => { stack.set_visible_child_name("settings_view"); });
 
@@ -94,11 +94,11 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
         top_box.pack_end(settings_button, false, false, 0);
 
         ScreenshotModeButton screenshot_screen_button = new ScreenshotModeButton(
-            "screen.png", "Screen", "Grab the whole screen");
+            "screen.png", _("Screen"), _("Grab the whole screen"));
         ScreenshotModeButton screenshot_window_button = new ScreenshotModeButton(
-            "window.png", "Window", "Grab the current window");
+            "window.png", _("Window"), _("Grab the current window"));
         ScreenshotModeButton screenshot_area_button = new ScreenshotModeButton(
-            "selection.png", "Selection", "Select area to grab");
+            "selection.png", _("Selection"), _("Select area to grab"));
 
         screenshot_screen_button.clicked.connect(take_screen_screenshot);
         screenshot_window_button.clicked.connect(take_window_screenshot);
@@ -116,7 +116,7 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
         mode_selection.attach(mode_selection_box, 0, 1, 1, 1);
         mode_selection.attach(new Gtk.Separator(Gtk.Orientation.HORIZONTAL), 0, 2, 1, 1);
 
-        history_button = new Gtk.Button.with_label("History");
+        history_button = new Gtk.Button.with_label(_("History"));
         history_button.set_relief(Gtk.ReliefStyle.NONE);
         history_button.set_can_focus(false);
         history_button.set_no_show_all(true);
@@ -275,7 +275,8 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
     {
         if (local_screenshots) {
             GLib.DateTime datetime = new GLib.DateTime.now_local();
-            string filename = "Screenshot from %s.png".printf(datetime.format("%Y-%m-%d %H-%M-%S"));
+            string screenshot_from_string = _("Screenshot from");
+            string filename = "%s %s.png".printf(screenshot_from_string, datetime.format("%Y-%m-%d %H-%M-%S"));
 
             // Use gnome-screenshot's auto-save-directory if set
             GLib.Settings g_settings = new GLib.Settings("org.gnome.gnome-screenshot");
@@ -302,8 +303,8 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
             }
 
             // Use the default directory if auto-save-directory isn't viable
-            filepath = "file://%s/Screenshots/%s".printf(
-                GLib.Environment.get_user_special_dir(GLib.UserDirectory.PICTURES), filename);
+            filepath = "file://%s/%s/%s".printf(
+                GLib.Environment.get_user_special_dir(GLib.UserDirectory.PICTURES), _("Screenshots"), filename);
             screenshot_file = GLib.File.new_for_uri(filepath);
 
             // Create the directory if it doesn't exist

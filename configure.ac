@@ -1,4 +1,4 @@
-AC_INIT([budgie-screenshot-applet], 0.3.9.1, [stfric369@gmail.com], [budgie-screenshot-applet], [https://github.com/cybre/budgie-screenshot-applet])
+AC_INIT([budgie-screenshot-applet],[0.3.9.1],[stfric369@gmail.com],[budgie-screenshot-applet],[https://github.com/cybre/budgie-screenshot-applet])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wno-portability no-dist-gzip dist-xz foreign subdir-objects])
 AC_PROG_CC
@@ -9,6 +9,7 @@ AC_PREFIX_DEFAULT(/usr/local)
 AM_SILENT_RULES([yes])
 LT_INIT([disable-static])
 AC_CONFIG_MACRO_DIR([m4])
+AM_GNU_GETTEXT([external])
 
 GLIB_GSETTINGS
 
@@ -35,12 +36,21 @@ PKG_CHECK_MODULES(REST,
 
 # Required only for Vala applets.
 AM_PROG_VALAC([0.28], [], [AC_MSG_ERROR([valac is required to build Vala applets])])
+     
+IT_PROG_INTLTOOL([0.50.0])
+GETTEXT_PACKAGE=budgie-screenshot-applet
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE",
+                   [The prefix for our gettext translation domains.])
 
 AC_CONFIG_FILES([Makefile
                 budgie-screenshot-applet/Makefile
-                data/Makefile])
+                data/Makefile
+                po/Makefile.in])
 
 AC_OUTPUT
+
+AM_GLIB_GNU_GETTEXT
 
 AC_MSG_RESULT([
         budgie-screenshot-applet $VERSION

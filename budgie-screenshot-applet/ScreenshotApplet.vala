@@ -46,6 +46,11 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
     {
         Object(uuid: uuid);
 
+        Intl.setlocale(LocaleCategory.ALL, "");
+        Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.PACKAGE_LOCALEDIR);
+        Intl.bind_textdomain_codeset(Config.GETTEXT_PACKAGE, "UTF-8");
+        Intl.textdomain(Config.GETTEXT_PACKAGE);
+
         settings_schema = "com.github.cybre.screenshot-applet";
         settings_prefix = "/com/github/cybre/screenshot-applet";
 
@@ -81,7 +86,7 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
         icon_stack.add_named(countdown_label1, "countdown1");
         icon_stack.add_named(countdown_label2, "countdown2");
 
-        label = new Gtk.Label("Screenshot");
+        label = new Gtk.Label(_("Screenshot"));
         label.set_halign(Gtk.Align.START);
 
         Gtk.Box layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
@@ -183,7 +188,8 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
             }
 
             if ((link == null || link == "")) {
-                error_view.set_label("<big>We couldn't upload your image</big>\nCheck your internet connection.");
+                error_view.set_label("<big>%s</big>\n%s".printf(
+                    _("We couldn't upload your image"), _("Check your internet connection.")));
                 if (popover.visible) {
                     stack.set_visible_child_name("error_view");
                 }
@@ -214,7 +220,8 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
 
         new_screenshot_view.error_happened.connect((title_entry) => {
             icon_stack.set_visible_child_name("icon");
-            error_view.set_label("<big>Couldn't open file</big>\nFile is missing or not an image.");
+            error_view.set_label("<big>%s</big>\n%s".printf(
+                _("Couldn't open file"), _("File is missing or not an image.")));
             title_entry.text = "";
             icon.get_style_context().add_class("alert");
             error = true;
@@ -309,9 +316,9 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
             case "enable-local":
                 new_screenshot_view.local_screenshots = settings.get_boolean(key);
                 if (settings.get_boolean(key)) {
-                    upload_done_view.set_label("<big>The screenshot has been saved</big>");
+                    upload_done_view.set_label("<big>%s</big>".printf(_("The screenshot has been saved")));
                 } else {
-                    upload_done_view.set_label("<big>The link has been copied \nto your clipboard!</big>");
+                    upload_done_view.set_label("<big>%s</big>".printf(_("The link has been copied \nto your clipboard!")));
                 }
                 break;
             case "provider":

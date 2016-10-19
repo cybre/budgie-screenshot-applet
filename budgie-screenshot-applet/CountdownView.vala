@@ -35,7 +35,7 @@ public class ScreenshotApplet.CountdownView : Gtk.Box
         Gtk.Image cheese_image = new Gtk.Image.from_icon_name("face-smile-big-symbolic", Gtk.IconSize.DIALOG);
         cheese_image.set_pixel_size(64);
 
-        Gtk.Label cheese_label = new Gtk.Label("<span font='20'>Cheese!</span>");
+        Gtk.Label cheese_label = new Gtk.Label("<span font='20'>%s</span>".printf(_("Cheese!")));
         cheese_label.set_use_markup(true);
 
         Gtk.Box cheese_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
@@ -49,7 +49,7 @@ public class ScreenshotApplet.CountdownView : Gtk.Box
         stack.add_named(label2, "label2");
         stack.add_named(cheese_box, "cheese");
 
-        cancel_button = new Gtk.Button.with_label("Cancel");
+        cancel_button = new Gtk.Button.with_label(_("Cancel"));
         cancel_button.set_margin_top(20);
         cancel_button.set_can_focus(false);
 

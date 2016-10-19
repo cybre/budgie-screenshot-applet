@@ -1,3 +1,5 @@
+-include $(top_srcdir)/common.mk
+
 appdatadir = $(datadir)/appdata
 appdata_DATA = budgie-screenshot-applet.appdata.xml
 

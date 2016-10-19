@@ -1,0 +1,226 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Stefan Ric (cybre) <stfric369@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: budgie-screenshot-applet\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-19 20:57+0200\n"
+"PO-Revision-Date: 2016-10-19 19:51+0000\n"
+"Last-Translator: Stefan Ric (cybre) <stfric369@gmail.com>\n"
+"Language-Team: Serbian (Serbia) (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/sr_RS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr_RS\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../budgie-screenshot-applet/CountdownView.vala:38
+msgid "Cheese!"
+msgstr "Птичица!"
+
+#: ../budgie-screenshot-applet/CountdownView.vala:52
+#: ../budgie-screenshot-applet/UploadingView.vala:31
+msgid "Cancel"
+msgstr "Откажи"
+
+#: ../budgie-screenshot-applet/ErrorView.vala:27
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:192
+msgid "We couldn't upload your image"
+msgstr "Отпремање слике неуспешно"
+
+#: ../budgie-screenshot-applet/ErrorView.vala:27
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:192
+msgid "Check your internet connection."
+msgstr "Проверите вашу Интернет конекцију"
+
+#: ../budgie-screenshot-applet/ErrorView.vala:32
+#: ../budgie-screenshot-applet/HistoryView.vala:32
+#: ../budgie-screenshot-applet/SettingsView.vala:194
+#: ../budgie-screenshot-applet/UploadDoneView.vala:32
+msgid "Back"
+msgstr "Назад"
+
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:38
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:308
+#: ../budgie-screenshot-applet/HistoryView.vala:167
+msgid "Untitled"
+msgstr "Без наслова"
+
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:49
+msgid "Edit Title"
+msgstr "Измени наслов"
+
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:57
+msgid "New Title"
+msgstr "Нови наслов"
+
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:63
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:81
+msgid "Clear"
+msgstr "Очисти"
+
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:70
+msgid "Apply Changes"
+msgstr "Потврди промене"
+
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:86
+msgid "Copy Screenshot URL"
+msgstr "Копирај УРЛ снимка екрана"
+
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:103
+msgid "Upload screenshot"
+msgstr "Отпреми снимак екрана"
+
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:145
+msgid "Upload failed! Click to try again."
+msgstr "Отпремање неуспешно! Кликни да пробаш поново."
+
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:155
+msgid "Delete Screenshot"
+msgstr "Обриши снимак екрана"
+
+#: ../budgie-screenshot-applet/HistoryViewItem.vala:176
+msgid "Click to open this screenshot"
+msgstr "Кликни да отвориш овај снимак екрана"
+
+#: ../budgie-screenshot-applet/HistoryView.vala:37
+msgid "Recent Screenshots"
+msgstr "Недавни снимци екрана"
+
+#: ../budgie-screenshot-applet/HistoryView.vala:60
+msgid "Clear all Screenshots"
+msgstr "Обриши све снимке екрана"
+
+#: ../budgie-screenshot-applet/HistoryView.vala:77
+msgid "Nothing to see here"
+msgstr "Ништа за видети"
+
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:78
+msgid "Title (Optional)"
+msgstr "Наслов (Опционално)"
+
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:87
+#: ../budgie-screenshot-applet/SettingsView.vala:199
+msgid "Settings"
+msgstr "Поставке"
+
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:97
+msgid "Screen"
+msgstr "Екран"
+
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:97
+msgid "Grab the whole screen"
+msgstr "Усликај цео екран"
+
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:99
+msgid "Window"
+msgstr "Прозор"
+
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:99
+msgid "Grab the current window"
+msgstr "Усликај тренутни прозор"
+
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:101
+msgid "Selection"
+msgstr "Селекција"
+
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:101
+msgid "Select area to grab"
+msgstr "Селектуј површину за сликање"
+
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:119
+#: ../budgie-screenshot-applet/UploadDoneView.vala:34
+msgid "History"
+msgstr "Историја"
+
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:278
+msgid "Screenshot from"
+msgstr "Снимак екрана од"
+
+#. Use the default directory if auto-save-directory isn't viable
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:307
+msgid "Screenshots"
+msgstr "Снимци екрана"
+
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:89
+msgid "Screenshot"
+msgstr "Снимак екрана"
+
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:224
+msgid "Couldn't open file"
+msgstr "Није могуће отворити датотеку"
+
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:224
+msgid "File is missing or not an image."
+msgstr "Датотека је непостојећа или није слика"
+
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:319
+msgid "The screenshot has been saved"
+msgstr "Снимак екрана је сачуван"
+
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:321
+#: ../budgie-screenshot-applet/UploadDoneView.vala:27
+msgid ""
+"The link has been copied \n"
+"to your clipboard!"
+msgstr "Линк је копиран\nу ваш међуспремник"
+
+#: ../budgie-screenshot-applet/SettingsView.vala:164
+msgid "None"
+msgstr "Никакав"
+
+#: ../budgie-screenshot-applet/SettingsView.vala:166
+msgid "Drop shadow"
+msgstr "Сенка"
+
+#: ../budgie-screenshot-applet/SettingsView.vala:168
+msgid "Border"
+msgstr "Ивица"
+
+#: ../budgie-screenshot-applet/SettingsView.vala:170
+msgid "Vintage"
+msgstr "Старина"
+
+#: ../budgie-screenshot-applet/SettingsView.vala:215
+msgid "Reset to default"
+msgstr "Врати на фабричка"
+
+#: ../budgie-screenshot-applet/UploadDoneView.vala:36
+msgid "Open"
+msgstr "Отвори"
+
+#: ../data/settings.ui.h:1
+msgid "Show Label"
+msgstr "Прикажи ознаку"
+
+#: ../data/settings.ui.h:2
+msgid "Local Screenshots"
+msgstr "Локални снимци екрана"
+
+#: ../data/settings.ui.h:3
+msgid "Upload Provider"
+msgstr "Провајдер за отпремање"
+
+#: ../data/settings.ui.h:4
+msgid "Use main display"
+msgstr "Користи главни дисплеј"
+
+#: ../data/settings.ui.h:5
+msgid "Select monitor"
+msgstr "Изабери монитор"
+
+#: ../data/settings.ui.h:6
+msgid "Screenshot Delay"
+msgstr "Кашњење снимања екрана"
+
+#: ../data/settings.ui.h:7
+msgid "Window Effect"
+msgstr "Ефекат прозора"
+
+#: ../data/settings.ui.h:8
+msgid "Include Window Border"
+msgstr "Обухвати ивицу прозора"

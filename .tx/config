@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[budgie-screenshot-applet.budgie-screenshot-appletpot]
+file_filter = po/<lang>.po
+source_file = po/budgie-screenshot-applet.pot
+source_lang = en
+type = PO

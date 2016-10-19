@@ -161,13 +161,13 @@ internal class ActualSettings : Gtk.Grid
         Gtk.TreeIter iter;
 
         effects.append(out iter);
-        effects.set(iter, 0, "none", 1, "None");
+        effects.set(iter, 0, "none", 1, _("None"));
         effects.append(out iter);
-        effects.set(iter, 0, "shadow", 1, "Drop shadow");
+        effects.set(iter, 0, "shadow", 1, _("Drop shadow"));
         effects.append(out iter);
-        effects.set(iter, 0, "border", 1, "Border");
+        effects.set(iter, 0, "border", 1, _("Border"));
         effects.append(out iter);
-        effects.set(iter, 0, "vintage", 1, "Vintage");
+        effects.set(iter, 0, "vintage", 1, _("Vintage"));
 
         combobox_effect.set_model(effects);
         Gtk.CellRendererText renderer1 = new Gtk.CellRendererText();
@@ -191,13 +191,12 @@ public class ScreenshotApplet.SettingsView : Gtk.Box
 
         Object(spacing: 0, orientation: Gtk.Orientation.VERTICAL);
 
-        Gtk.Button back_button = new Gtk.Button.with_label("Back");
+        Gtk.Button back_button = new Gtk.Button.with_label(_("Back"));
         back_button.set_can_focus(false);
-        back_button.set_tooltip_text("Go back");
 
         back_button.clicked.connect(() => { stack.set_visible_child_name("new_screenshot_view"); });
 
-        Gtk.Label back_label = new Gtk.Label("<span font=\"11\">Settings</span>");
+        Gtk.Label back_label = new Gtk.Label("<span font=\"11\">%s</span>".printf(_("Settings")));
         back_label.set_halign(Gtk.Align.END);
         back_label.set_use_markup(true);
         back_label.get_style_context().add_class("dim-label");
@@ -213,7 +212,7 @@ public class ScreenshotApplet.SettingsView : Gtk.Box
 
         ActualSettings actual_settings = ActualSettings.instance(settings);
 
-        Gtk.Button reset_button = new Gtk.Button.with_label("Reset to default");
+        Gtk.Button reset_button = new Gtk.Button.with_label(_("Reset to default"));
         reset_button.set_relief(Gtk.ReliefStyle.NONE);
         reset_button.set_can_focus(false);
         reset_button.get_child().margin = 5;
