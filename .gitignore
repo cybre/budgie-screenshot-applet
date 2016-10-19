@@ -37,3 +37,5 @@ m4/lt~obsolete.m4
 
 /po/*.gmo
 /po/Makefile*
+/po/POTFILES
+/po/stamp-it
