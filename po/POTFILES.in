@@ -7,4 +7,5 @@ budgie-screenshot-applet/ScreenshotApplet.vala
 budgie-screenshot-applet/SettingsView.vala
 budgie-screenshot-applet/UploadDoneView.vala
 budgie-screenshot-applet/UploadingView.vala
+
 [type: gettext/glade]data/settings.ui

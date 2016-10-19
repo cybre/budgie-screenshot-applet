@@ -7,4 +7,3 @@ budgie-screenshot-applet/ScreenshotApplet.c
 budgie-screenshot-applet/SettingsView.c
 budgie-screenshot-applet/UploadDoneView.c
 budgie-screenshot-applet/UploadingView.c
-data/settings.ui
