@@ -9,7 +9,6 @@ AC_PREFIX_DEFAULT(/usr/local)
 AM_SILENT_RULES([yes])
 LT_INIT([disable-static])
 AC_CONFIG_MACRO_DIR([m4])
-AM_GNU_GETTEXT([external])
 
 GLIB_GSETTINGS
 
