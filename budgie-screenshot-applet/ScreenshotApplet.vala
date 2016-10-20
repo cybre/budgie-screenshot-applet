@@ -189,7 +189,7 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
 
             if ((link == null || link == "")) {
                 error_view.set_label("<big>%s</big>\n%s".printf(
-                    _("We couldn't upload your image"), _("Check your internet connection.")));
+                    _("Upload failed!"), _("Check your internet connection.")));
                 if (popover.visible) {
                     stack.set_visible_child_name("error_view");
                 }
@@ -318,7 +318,7 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
                 if (settings.get_boolean(key)) {
                     upload_done_view.set_label("<big>%s</big>".printf(_("The screenshot has been saved")));
                 } else {
-                    upload_done_view.set_label("<big>%s</big>".printf(_("The link has been copied \nto your clipboard!")));
+                    upload_done_view.set_label("<big>%s</big>".printf(_("The link has been copied to your clipboard!")));
                 }
                 break;
             case "provider":
