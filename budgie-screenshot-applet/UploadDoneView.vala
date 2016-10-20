@@ -24,7 +24,8 @@ public class ScreenshotApplet.UploadDoneView : Gtk.Box
         Gtk.Image image = new Gtk.Image.from_icon_name("emblem-ok-symbolic", Gtk.IconSize.DIALOG);
         image.set_pixel_size(64);
 
-        label = new Gtk.Label("<big>%s</big>".printf(_("The link has been copied \nto your clipboard!")));
+        label = new Gtk.Label("<big>%s</big>".printf(_("The link has been copied to your clipboard!")));
+        label.set_max_width_chars(25);
         label.set_margin_top(10);
         label.set_justify(Gtk.Justification.CENTER);
         label.set_use_markup(true);

@@ -24,7 +24,7 @@ public class ScreenshotApplet.ErrorView : Gtk.Box
         image.set_pixel_size(64);
 
         label = new Gtk.Label("<big>%s</big>\n%s".printf(
-            _("We couldn't upload your image"), _("Check your internet connection.")));
+            _("Upload failed!"), _("Check your internet connection and try again.")));
         label.set_margin_top(10);
         label.set_justify(Gtk.Justification.CENTER);
         label.set_use_markup(true);

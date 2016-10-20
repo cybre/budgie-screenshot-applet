@@ -86,7 +86,7 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
         icon_stack.add_named(countdown_label1, "countdown1");
         icon_stack.add_named(countdown_label2, "countdown2");
 
-        label = new Gtk.Label(_("Screenshot"));
+        label = new Gtk.Label(_("Screenshots"));
         label.set_halign(Gtk.Align.START);
 
         Gtk.Box layout = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);

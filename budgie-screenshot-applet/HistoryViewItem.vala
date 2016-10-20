@@ -46,7 +46,7 @@ public class ScreenshotApplet.HistoryViewItem : Gtk.Revealer
             "accessories-text-editor-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         title_edit_button.set_relief(Gtk.ReliefStyle.NONE);
         title_edit_button.set_can_focus(false);
-        title_edit_button.set_tooltip_text(_("Edit Title"));
+        title_edit_button.set_tooltip_text(_("Edit title"));
         title_edit_button.get_style_context().add_class("action-button");
 
         Gtk.Box title_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
@@ -54,7 +54,7 @@ public class ScreenshotApplet.HistoryViewItem : Gtk.Revealer
         title_box.pack_end(title_edit_button, false, false, 0);
 
         title_entry = new Gtk.Entry();
-        title_entry.placeholder_text = _("New Title");
+        title_entry.placeholder_text = _("New title");
         title_entry.set_max_length(50);
         title_entry.set_margin_end(10);
 
@@ -67,7 +67,7 @@ public class ScreenshotApplet.HistoryViewItem : Gtk.Revealer
             "emblem-ok-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         title_apply_button.set_relief(Gtk.ReliefStyle.NONE);
         title_apply_button.set_can_focus(false);
-        title_apply_button.set_tooltip_text(_("Apply Changes"));
+        title_apply_button.set_tooltip_text(_("Apply changes"));
         title_apply_button.get_style_context().add_class("action-button");
 
         Gtk.Box title_edit_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
@@ -83,7 +83,7 @@ public class ScreenshotApplet.HistoryViewItem : Gtk.Revealer
             "edit-copy-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         copy_button.set_relief(Gtk.ReliefStyle.NONE);
         copy_button.set_can_focus(false);
-        copy_button.set_tooltip_text(_("Copy Screenshot URL"));
+        copy_button.set_tooltip_text(_("Copy screenshot URL"));
         copy_button.get_style_context().add_class("action-button");
 
         Gtk.Image copy_ok_image = new Gtk.Image.from_icon_name(
@@ -152,7 +152,7 @@ public class ScreenshotApplet.HistoryViewItem : Gtk.Revealer
             "list-remove-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
         delete_button.set_relief(Gtk.ReliefStyle.NONE);
         delete_button.set_can_focus(false);
-        delete_button.set_tooltip_text(_("Delete Screenshot"));
+        delete_button.set_tooltip_text(_("Delete screenshot"));
         delete_button.get_style_context().add_class("action-button");
 
         Gtk.Box title_main_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
@@ -173,7 +173,7 @@ public class ScreenshotApplet.HistoryViewItem : Gtk.Revealer
         url_label.set_ellipsize(Pango.EllipsizeMode.MIDDLE);
 
         Gtk.EventBox url_event_box = new Gtk.EventBox();
-        url_event_box.set_tooltip_text(_("Click to open this screenshot"));
+        url_event_box.set_tooltip_text(_("Open screenshot"));
         url_event_box.add(url_label);
         url_event_box.button_press_event.connect(() => {
             try {

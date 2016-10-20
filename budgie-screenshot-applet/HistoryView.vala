@@ -74,7 +74,7 @@ public class ScreenshotApplet.HistoryView : Gtk.Box
         Gtk.Image placeholder_image = new Gtk.Image.from_icon_name(
             "action-unavailable-symbolic", Gtk.IconSize.DIALOG);
         placeholder_image.set_pixel_size(64);
-        Gtk.Label placeholder_label = new Gtk.Label("<big>%s</big>".printf(_("Nothing to see here")));
+        Gtk.Label placeholder_label = new Gtk.Label("<big>%s</big>".printf(_("Your screenshots will show up here")));
         placeholder_label.set_use_markup(true);
         Gtk.Box placeholder_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
         placeholder_box.margin = 40;

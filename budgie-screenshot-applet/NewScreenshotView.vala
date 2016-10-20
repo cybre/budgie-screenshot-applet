@@ -98,7 +98,7 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
         ScreenshotModeButton screenshot_window_button = new ScreenshotModeButton(
             "window.png", _("Window"), _("Grab the current window"));
         ScreenshotModeButton screenshot_area_button = new ScreenshotModeButton(
-            "selection.png", _("Selection"), _("Select area to grab"));
+            "selection.png", _("Selection"), _("Select an area to grab"));
 
         screenshot_screen_button.clicked.connect(take_screen_screenshot);
         screenshot_window_button.clicked.connect(take_window_screenshot);
@@ -275,8 +275,8 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
     {
         if (local_screenshots) {
             GLib.DateTime datetime = new GLib.DateTime.now_local();
-            string screenshot_from_string = _("Screenshot from");
-            string filename = "%s %s.png".printf(screenshot_from_string, datetime.format("%Y-%m-%d %H-%M-%S"));
+            string screenshot_from_string = _("Screenshot from %s").printf(datetime.format("%Y-%m-%d %H-%M-%S"));
+            string filename = "%s.png".printf(screenshot_from_string);
 
             // Use gnome-screenshot's auto-save-directory if set
             GLib.Settings g_settings = new GLib.Settings("org.gnome.gnome-screenshot");
