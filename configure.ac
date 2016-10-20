@@ -35,7 +35,7 @@ PKG_CHECK_MODULES(REST,
 
 # Required only for Vala applets.
 AM_PROG_VALAC([0.28], [], [AC_MSG_ERROR([valac is required to build Vala applets])])
-     
+
 IT_PROG_INTLTOOL([0.50.0])
 GETTEXT_PACKAGE=budgie-screenshot-applet
 AC_SUBST(GETTEXT_PACKAGE)

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: budgie-screenshot-applet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-19 20:57+0200\n"
-"PO-Revision-Date: 2016-10-19 19:51+0000\n"
+"POT-Creation-Date: 2016-10-20 22:12+0200\n"
+"PO-Revision-Date: 2016-10-20 20:22+0000\n"
 "Last-Translator: Stefan Ric (cybre) <stfric369@gmail.com>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
@@ -29,18 +29,17 @@ msgstr "Откажи"
 
 #: ../budgie-screenshot-applet/ErrorView.vala:27
 #: ../budgie-screenshot-applet/ScreenshotApplet.vala:192
-msgid "We couldn't upload your image"
-msgstr "Отпремање слике неуспешно"
+msgid "Upload failed!"
+msgstr "Отпремање није успело!"
 
 #: ../budgie-screenshot-applet/ErrorView.vala:27
-#: ../budgie-screenshot-applet/ScreenshotApplet.vala:192
-msgid "Check your internet connection."
-msgstr "Проверите вашу Интернет конекцију"
+msgid "Check your internet connection and try again."
+msgstr "Проверите вашу Интернет конекцију и покушајте поново"
 
 #: ../budgie-screenshot-applet/ErrorView.vala:32
 #: ../budgie-screenshot-applet/HistoryView.vala:32
 #: ../budgie-screenshot-applet/SettingsView.vala:194
-#: ../budgie-screenshot-applet/UploadDoneView.vala:32
+#: ../budgie-screenshot-applet/UploadDoneView.vala:33
 msgid "Back"
 msgstr "Назад"
 
@@ -51,11 +50,11 @@ msgid "Untitled"
 msgstr "Без наслова"
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:49
-msgid "Edit Title"
+msgid "Edit title"
 msgstr "Измени наслов"
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:57
-msgid "New Title"
+msgid "New title"
 msgstr "Нови наслов"
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:63
@@ -64,11 +63,11 @@ msgid "Clear"
 msgstr "Очисти"
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:70
-msgid "Apply Changes"
+msgid "Apply changes"
 msgstr "Потврди промене"
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:86
-msgid "Copy Screenshot URL"
+msgid "Copy screenshot URL"
 msgstr "Копирај УРЛ снимка екрана"
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:103
@@ -77,15 +76,15 @@ msgstr "Отпреми снимак екрана"
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:145
 msgid "Upload failed! Click to try again."
-msgstr "Отпремање неуспешно! Кликни да пробаш поново."
+msgstr "Отпремање није успешно! Кликни да пробаш поново."
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:155
-msgid "Delete Screenshot"
+msgid "Delete screenshot"
 msgstr "Обриши снимак екрана"
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:176
-msgid "Click to open this screenshot"
-msgstr "Кликни да отвориш овај снимак екрана"
+msgid "Open screenshot"
+msgstr "Отвори снимак екрана"
 
 #: ../budgie-screenshot-applet/HistoryView.vala:37
 msgid "Recent Screenshots"
@@ -96,8 +95,8 @@ msgid "Clear all Screenshots"
 msgstr "Обриши све снимке екрана"
 
 #: ../budgie-screenshot-applet/HistoryView.vala:77
-msgid "Nothing to see here"
-msgstr "Ништа за видети"
+msgid "Your screenshots will show up here"
+msgstr "Ваши снимци екрана ће бити приказани овде"
 
 #: ../budgie-screenshot-applet/NewScreenshotView.vala:78
 msgid "Title (Optional)"
@@ -129,26 +128,28 @@ msgid "Selection"
 msgstr "Селекција"
 
 #: ../budgie-screenshot-applet/NewScreenshotView.vala:101
-msgid "Select area to grab"
+msgid "Select an area to grab"
 msgstr "Селектуј површину за сликање"
 
 #: ../budgie-screenshot-applet/NewScreenshotView.vala:119
-#: ../budgie-screenshot-applet/UploadDoneView.vala:34
+#: ../budgie-screenshot-applet/UploadDoneView.vala:35
 msgid "History"
 msgstr "Историја"
 
 #: ../budgie-screenshot-applet/NewScreenshotView.vala:278
-msgid "Screenshot from"
-msgstr "Снимак екрана од"
+#, c-format
+msgid "Screenshot from %s"
+msgstr "Снимак екрана од %s"
 
 #. Use the default directory if auto-save-directory isn't viable
 #: ../budgie-screenshot-applet/NewScreenshotView.vala:307
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:89
 msgid "Screenshots"
 msgstr "Снимци екрана"
 
-#: ../budgie-screenshot-applet/ScreenshotApplet.vala:89
-msgid "Screenshot"
-msgstr "Снимак екрана"
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:192
+msgid "Check your internet connection."
+msgstr "Проверите вашу интернет конекцију"
 
 #: ../budgie-screenshot-applet/ScreenshotApplet.vala:224
 msgid "Couldn't open file"
@@ -156,7 +157,7 @@ msgstr "Није могуће отворити датотеку"
 
 #: ../budgie-screenshot-applet/ScreenshotApplet.vala:224
 msgid "File is missing or not an image."
-msgstr "Датотека је непостојећа или није слика"
+msgstr "Датотека је непостојећа или није слика."
 
 #: ../budgie-screenshot-applet/ScreenshotApplet.vala:319
 msgid "The screenshot has been saved"
@@ -164,10 +165,8 @@ msgstr "Снимак екрана је сачуван"
 
 #: ../budgie-screenshot-applet/ScreenshotApplet.vala:321
 #: ../budgie-screenshot-applet/UploadDoneView.vala:27
-msgid ""
-"The link has been copied \n"
-"to your clipboard!"
-msgstr "Линк је копиран\nу ваш међуспремник"
+msgid "The link has been copied to your clipboard!"
+msgstr "Линк је копиран у ваш међуспремник!"
 
 #: ../budgie-screenshot-applet/SettingsView.vala:164
 msgid "None"
@@ -187,9 +186,9 @@ msgstr "Старина"
 
 #: ../budgie-screenshot-applet/SettingsView.vala:215
 msgid "Reset to default"
-msgstr "Врати на фабричка"
+msgstr "Поврати на фабричка"
 
-#: ../budgie-screenshot-applet/UploadDoneView.vala:36
+#: ../budgie-screenshot-applet/UploadDoneView.vala:37
 msgid "Open"
 msgstr "Отвори"
 

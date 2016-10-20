@@ -43,3 +43,4 @@ intltool-update.in
 /po/Makefile*
 /po/POTFILES
 /po/stamp-it
+/po/budgie-screenshot-applet.pot
