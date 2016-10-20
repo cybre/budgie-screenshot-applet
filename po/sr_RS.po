@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: budgie-screenshot-applet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-10-20 22:12+0200\n"
-"PO-Revision-Date: 2016-10-20 20:22+0000\n"
+"PO-Revision-Date: 2016-10-20 21:28+0000\n"
 "Last-Translator: Stefan Ric (cybre) <stfric369@gmail.com>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgstr "Отпреми снимак екрана"
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:145
 msgid "Upload failed! Click to try again."
-msgstr "Отпремање није успешно! Кликни да пробаш поново."
+msgstr "Отпремање није успело! Кликни да пробаш поново."
 
 #: ../budgie-screenshot-applet/HistoryViewItem.vala:155
 msgid "Delete screenshot"
