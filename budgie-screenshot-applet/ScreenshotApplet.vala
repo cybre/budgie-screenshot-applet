@@ -316,7 +316,7 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
             case "enable-local":
                 new_screenshot_view.local_screenshots = settings.get_boolean(key);
                 if (settings.get_boolean(key)) {
-                    upload_done_view.set_label("<big>%s</big>".printf(_("The screenshot has been saved")));
+                    upload_done_view.set_label("<big>%s</big>".printf(_("The screenshot has been saved!")));
                 } else {
                     upload_done_view.set_label("<big>%s</big>".printf(_("The link has been copied to your clipboard!")));
                 }
