@@ -61,7 +61,7 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
     public signal void local_upload_started();
     public signal void local_upload_finished(string link);
 
-    public signal void countdown(int delay, GLib.Cancellable cancellable);
+    public signal void countdown(string mode, int delay, GLib.Cancellable cancellable);
 
     struct ScreenGeometry {
         int x;
@@ -100,8 +100,18 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
         ScreenshotModeButton screenshot_area_button = new ScreenshotModeButton(
             "selection.png", _("Selection"), _("Select an area to grab"));
 
-        screenshot_screen_button.clicked.connect(take_screen_screenshot);
-        screenshot_window_button.clicked.connect(take_window_screenshot);
+        screenshot_screen_button.clicked.connect(()=> {
+            popover.hide();
+            cancellable_c = new GLib.Cancellable();
+            countdown("screen", screenshot_delay, cancellable_c);
+        });
+
+        screenshot_window_button.clicked.connect(()=> {
+            popover.hide();
+            cancellable_c = new GLib.Cancellable();
+            countdown("screen", screenshot_delay, cancellable_c);
+        });
+
         screenshot_area_button.clicked.connect(take_area_screenshot);
 
         Gtk.Box mode_selection_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
@@ -131,14 +141,10 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
         attach(history_button, 0, 4, 1, 1);
     }
 
-    private void take_screen_screenshot()
+    public void take_screen_screenshot()
     {
         popover.hide();
         set_filepath();
-
-        cancellable_c = new GLib.Cancellable();
-        countdown(screenshot_delay, cancellable_c);
-        GLib.MainLoop loop = new GLib.MainLoop();
 
         if (use_main_display) {
             string command_output = "";
@@ -147,30 +153,12 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
                 "-f",
                 filepath
             };
-            GLib.Timeout.add_seconds(screenshot_delay, () => {
-                if (cancellable_c.is_cancelled()) {
-                    loop.quit();
-                    return false;
-                } else {
-                    command_output = run_command(spawn_args);
-                }
-                loop.quit();
-                return false;
-            });
-            loop.run();
+            command_output = run_command(spawn_args);
         } else {
-            GLib.Timeout.add_seconds(screenshot_delay, () => {
-                if (cancellable_c.is_cancelled()) {
-                    loop.quit();
-                    return false;
-                }
-                take_monitor_screenshot.begin();
-                loop.quit();
-                return false;
-            });
-            loop.run();
+            take_monitor_screenshot.begin();
         }
-        if (!cancellable_c.is_cancelled()) upload();
+
+        upload();
     }
 
     private async void take_monitor_screenshot()
@@ -217,15 +205,12 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
         }
     }
 
-    private void take_window_screenshot()
+    public void take_window_screenshot()
     {
         string command_output = "";
         popover.hide();
 
         set_filepath();
-
-        cancellable_c = new GLib.Cancellable();
-        countdown(screenshot_delay, cancellable_c);
 
         string[] spawn_args = {
             "gnome-screenshot",
@@ -239,18 +224,8 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
         if (include_border) spawn_args += "-b";
             else spawn_args += "-B";
 
-        GLib.MainLoop loop = new GLib.MainLoop();
-        GLib.Timeout.add_seconds(screenshot_delay, () => {
-            if (cancellable_c.is_cancelled()) {
-                loop.quit();
-                return false;
-            }
-            command_output = run_command(spawn_args);
-            loop.quit();
-            return false;
-        });
-        loop.run();
-        if (!cancellable_c.is_cancelled()) upload();
+        command_output = run_command(spawn_args);
+        upload();
     }
 
     private void take_area_screenshot()

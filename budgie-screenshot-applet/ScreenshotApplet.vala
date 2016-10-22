@@ -120,7 +120,8 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
             stack.set_visible_child_name("new_screenshot_view");
         });
 
-        new_screenshot_view.countdown.connect((delay, cancellable) => {
+        new_screenshot_view.countdown.connect((mode, delay, cancellable) => {
+            icon_stack.set_transition_duration(300);
             countdown_view.cancellable = cancellable;
             int seconds = 1;
             if (delay == 0 || delay == 1) {
@@ -128,7 +129,7 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
             } else {
                 icon_stack.set_visible_child_name("countdown1");
                 countdown_in_progress = true;
-                GLib.Timeout.add_full(GLib.Priority.HIGH, 950, () => {
+                GLib.Timeout.add_full(GLib.Priority.HIGH, 1000, () => {
                     if (cancellable.is_cancelled()) {
                         countdown_in_progress = false;
                         return false;
@@ -144,9 +145,21 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
                     countdown_label2.label = left.to_string();
                     countdown_view.change_label(left);
 
-                    if (delay == seconds) {
+                    if (seconds == delay) {
+                        icon_stack.set_transition_duration(0);
                         icon_stack.set_visible_child_name("icon_cheese");
                         countdown_in_progress = false;
+                        switch (mode) {
+                            case "screen":
+                                new_screenshot_view.take_screen_screenshot();
+                                break;
+                            case "window":
+                                new_screenshot_view.take_window_screenshot();
+                                break;
+                            default:
+                                break;
+                        }
+                        icon_stack.set_transition_duration(300);
                         return false;
                     }
 
