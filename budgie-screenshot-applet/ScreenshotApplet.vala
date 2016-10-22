@@ -120,57 +120,8 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
             stack.set_visible_child_name("new_screenshot_view");
         });
 
-        new_screenshot_view.countdown.connect((mode, delay, cancellable) => {
-            icon_stack.set_transition_duration(300);
-            countdown_view.cancellable = cancellable;
-            int seconds = 1;
-            if (delay == 0 || delay == 1) {
-                icon_stack.set_visible_child_name("icon_cheese");
-            } else {
-                icon_stack.set_visible_child_name("countdown1");
-                countdown_in_progress = true;
-                GLib.Timeout.add_full(GLib.Priority.HIGH, 1000, () => {
-                    if (cancellable.is_cancelled()) {
-                        countdown_in_progress = false;
-                        return false;
-                    }
-                    if (icon_stack.visible_child_name == "countdown1") {
-                        icon_stack.set_visible_child_name("countdown2");
-                    } else {
-                        icon_stack.set_visible_child_name("countdown1");
-                    }
-
-                    int left = delay - seconds;
-                    countdown_label1.label = left.to_string();
-                    countdown_label2.label = left.to_string();
-                    countdown_view.change_label(left);
-
-                    if (seconds == delay) {
-                        icon_stack.set_transition_duration(0);
-                        icon_stack.set_visible_child_name("icon_cheese");
-                        countdown_in_progress = false;
-                        switch (mode) {
-                            case "screen":
-                                new_screenshot_view.take_screen_screenshot();
-                                break;
-                            case "window":
-                                new_screenshot_view.take_window_screenshot();
-                                break;
-                            default:
-                                break;
-                        }
-                        icon_stack.set_transition_duration(300);
-                        return false;
-                    }
-
-                    seconds++;
-
-                    return true;
-                });
-            }
-
-            countdown_label1.label = delay.to_string();
-            countdown_view.set_label(delay);
+        new_screenshot_view.countdown.connect((mode, delay, cancellable)=> {
+            start_countdown(mode, delay, cancellable, icon_stack);
         });
 
         new_screenshot_view.upload_started.connect((mainloop, cancellable) => {
@@ -318,6 +269,66 @@ public class ScreenshotApplet.ScreenshotApplet : Budgie.Applet
 
     private void popover_unmap_event() {
         stack.set_visible_child_full("new_screenshot_view", Gtk.StackTransitionType.NONE);
+    }
+
+    private void take_screenshot(string mode)
+    {
+        switch (mode) {
+            case "screen":
+                new_screenshot_view.take_screen_screenshot();
+                break;
+            case "window":
+                new_screenshot_view.take_window_screenshot();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void start_countdown(string mode, int delay, GLib.Cancellable cancellable, Gtk.Stack icon_stack)
+    {
+        icon_stack.set_transition_duration(300);
+        countdown_view.cancellable = cancellable;
+        int seconds = 1;
+        if (delay == 0) {
+            icon_stack.set_transition_duration(0);
+            icon_stack.set_visible_child_name("icon_cheese");
+            take_screenshot(mode);
+        } else {
+            icon_stack.set_visible_child_name("countdown1");
+            countdown_in_progress = true;
+            GLib.Timeout.add_full(GLib.Priority.HIGH, 1000, () => {
+                if (cancellable.is_cancelled()) {
+                    countdown_in_progress = false;
+                    return false;
+                }
+                if (icon_stack.visible_child_name == "countdown1") {
+                    icon_stack.set_visible_child_name("countdown2");
+                } else {
+                    icon_stack.set_visible_child_name("countdown1");
+                }
+
+                int left = delay - seconds;
+                countdown_label1.label = left.to_string();
+                countdown_label2.label = left.to_string();
+                countdown_view.change_label(left);
+
+                if (seconds == delay) {
+                    icon_stack.set_transition_duration(0);
+                    icon_stack.set_visible_child_name("icon_cheese");
+                    countdown_in_progress = false;
+                    take_screenshot(mode);
+                    return false;
+                }
+
+                seconds++;
+
+                return true;
+            });
+        }
+
+        countdown_label1.label = delay.to_string();
+        countdown_view.set_label(delay);
     }
 
     protected void on_settings_changed(string key)

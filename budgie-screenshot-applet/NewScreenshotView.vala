@@ -109,7 +109,7 @@ public class ScreenshotApplet.NewScreenshotView : Gtk.Grid
         screenshot_window_button.clicked.connect(()=> {
             popover.hide();
             cancellable_c = new GLib.Cancellable();
-            countdown("screen", screenshot_delay, cancellable_c);
+            countdown("window", screenshot_delay, cancellable_c);
         });
 
         screenshot_area_button.clicked.connect(take_area_screenshot);
