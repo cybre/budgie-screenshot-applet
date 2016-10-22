@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Geert Verheyde <geert.verheyde@gmail.com>, 2016
+# Stefan Ric (cybre) <stfric369@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: budgie-screenshot-applet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-20 22:12+0200\n"
-"PO-Revision-Date: 2016-10-21 09:07+0000\n"
-"Last-Translator: Geert Verheyde <geert.verheyde@gmail.com>\n"
+"POT-Creation-Date: 2016-10-23 01:02+0200\n"
+"PO-Revision-Date: 2016-10-22 23:05+0000\n"
+"Last-Translator: Stefan Ric (cybre) <stfric369@gmail.com>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,17 +19,13 @@ msgstr ""
 "Language: nl_BE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../budgie-screenshot-applet/CountdownView.vala:38
-msgid "Cheese!"
-msgstr "Cheese!"
-
-#: ../budgie-screenshot-applet/CountdownView.vala:52
+#: ../budgie-screenshot-applet/CountdownView.vala:41
 #: ../budgie-screenshot-applet/UploadingView.vala:31
 msgid "Cancel"
 msgstr "Annuleer"
 
 #: ../budgie-screenshot-applet/ErrorView.vala:27
-#: ../budgie-screenshot-applet/ScreenshotApplet.vala:192
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:156
 msgid "Upload failed!"
 msgstr "Upload  mislukt!"
 
@@ -39,7 +36,7 @@ msgstr "Controleer uw internetverbinding en probeer opnieuw"
 #: ../budgie-screenshot-applet/ErrorView.vala:32
 #: ../budgie-screenshot-applet/HistoryView.vala:32
 #: ../budgie-screenshot-applet/SettingsView.vala:194
-#: ../budgie-screenshot-applet/UploadDoneView.vala:33
+#: ../budgie-screenshot-applet/UploadDoneView.vala:34
 msgid "Back"
 msgstr "Terug"
 
@@ -131,40 +128,39 @@ msgstr "Gebied"
 msgid "Select an area to grab"
 msgstr "Gebied selecteren"
 
-#: ../budgie-screenshot-applet/NewScreenshotView.vala:119
-#: ../budgie-screenshot-applet/UploadDoneView.vala:35
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:129
+#: ../budgie-screenshot-applet/UploadDoneView.vala:36
 msgid "History"
 msgstr "Geschiedenis"
 
-#: ../budgie-screenshot-applet/NewScreenshotView.vala:278
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:253
 #, c-format
 msgid "Screenshot from %s"
 msgstr "Schermafdruk van %s"
 
 #. Use the default directory if auto-save-directory isn't viable
-#: ../budgie-screenshot-applet/NewScreenshotView.vala:307
+#: ../budgie-screenshot-applet/NewScreenshotView.vala:282
 #: ../budgie-screenshot-applet/ScreenshotApplet.vala:89
 msgid "Screenshots"
 msgstr "Schermafdrukken"
 
-#: ../budgie-screenshot-applet/ScreenshotApplet.vala:192
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:156
 msgid "Check your internet connection."
 msgstr "Controleer je internetverbinding"
 
-#: ../budgie-screenshot-applet/ScreenshotApplet.vala:224
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:188
 msgid "Couldn't open file"
 msgstr "Kan het bestand niet openen"
 
-#: ../budgie-screenshot-applet/ScreenshotApplet.vala:224
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:188
 msgid "File is missing or not an image."
 msgstr "Bestand ontbreekt of is geen afbeelding"
 
-#: ../budgie-screenshot-applet/ScreenshotApplet.vala:319
-msgid "The screenshot has been saved"
-msgstr "De Schermafdruk is bewaard"
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:343
+msgid "The screenshot has been saved!"
+msgstr "De Schermafdruk is bewaard!"
 
-#: ../budgie-screenshot-applet/ScreenshotApplet.vala:321
-#: ../budgie-screenshot-applet/UploadDoneView.vala:27
+#: ../budgie-screenshot-applet/ScreenshotApplet.vala:345
 msgid "The link has been copied to your clipboard!"
 msgstr "De link is naar uw klembord gekopiëerd"
 
@@ -188,7 +184,7 @@ msgstr "Vintage"
 msgid "Reset to default"
 msgstr "Standaardinstellingen"
 
-#: ../budgie-screenshot-applet/UploadDoneView.vala:37
+#: ../budgie-screenshot-applet/UploadDoneView.vala:38
 msgid "Open"
 msgstr "Openen"
 
