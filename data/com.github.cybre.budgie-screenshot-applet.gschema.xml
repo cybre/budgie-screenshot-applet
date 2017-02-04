@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="budgie-screenshot-applet">
+  <schema id="com.github.cybre.budgie-screenshot-applet">
+
+    <key type="b" name="ask-to-upload">
+        <default>true</default>
+    </key>
+
+    <key type="b" name="automatic-copy">
+        <default>true</default>
+    </key>
+
+    <key type="b" name="automatic-upload">
+        <default>false</default>
+    </key>
+
+    <key type="b" name="include-border">
+        <default>true</default>
+    </key>
+
+    <key type="b" name="include-pointer">
+        <default>true</default>
+    </key>
+
+    <key type="b" name="open-popover">
+        <default>true</default>
+    </key>
+
+    <key type="s" name="monitor-to-use">
+        <default>"all"</default>
+    </key>
+
+    <key type="b" name="save-history">
+        <default>true</default>
+    </key>
+
+    <key type="s" name="save-path">
+        <default>""</default>
+    </key>
+
+    <key type="b" name="show-thumbnails">
+        <default>true</default>
+    </key>
+
+    <key type="i" name="delay-global">
+        <range min="0" max="60"/>
+        <default>1</default>
+    </key>
+
+    <key type="i" name="delay-screen">
+        <range min="0" max="60"/>
+        <default>1</default>
+    </key>
+
+    <key type="i" name="delay-selection">
+        <range min="0" max="60"/>
+        <default>0</default>
+    </key>
+
+    <key type="i" name="delay-window">
+        <range min="0" max="60"/>
+        <default>1</default>
+    </key>
+
+    <key type="b" name="delete-files">
+        <default>true</default>
+    </key>
+
+    <key type="s" name="upload-provider">
+        <default>'imgur'</default>
+    </key>
+
+    <key type="b" name="use-global-delay">
+        <default>false</default>
+    </key>
+
+    <key type="a(xsss)" name="history">
+        <default>[]</default>
+    </key>
+
+  </schema>
+</schemalist>
