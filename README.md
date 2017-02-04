@@ -1,46 +1,35 @@
-# budgie-screenshot-applet
-A Budgie applet for taking and uploading screenshots to Imgur and Imagebin.
+# Budgie Screenshot Applet
+Take a screenshot of your desktop, a window or region; save to disk and upload. Made with ❤ for Budgie Desktop.
 
 ## Dependencies
 ```
-vala
-gtk+-3.0
-gio-unix-2.0
-libpeas-1.0
-PeasGtk-1.0
-budgie-1.0
-json-glib-1.0
-libnotify
-rest-0.7
+budgie-1.0 >= 2
 gnome-desktop-3.0
-gnome-screenshot
+gtk+-3.0 >= 3.20
+json-glib-1.0
+libsoup-2.4
+vala
 ```
 
 These can be installed on Solus by running:  
-```
-sudo eopkg it vala libgtk-3-devel glib2-devel libpeas-devel budgie-desktop-devel \
-libjson-glib-devel libnotify-devel librest-devel libgnome-desktop-devel gnome-screenshot
+```bash
+sudo eopkg it budgie-desktop-devel libgnome-desktop-devel libjson-glib-devel libsoup-devel vala
 ```
 
 ### Installing
 
 **From source**  
-```
-./autogen.sh --prefix=/usr
-make
-sudo make install
+```bash
+mkdir build && cd build
+meson --prefix /usr ..
+ninja
+sudo ninja install
 ```
 
 **Solus**  
 You can install budgie-screenshot-applet from the Software Centre or via the command line:
-```
+```bash
 sudo eopkg it budgie-screenshot-applet
-```
-
-**Arch Linux**  
-The package can be installed on Arch using
-```
-yaourt -S screenshot-applet
 ```
 
 ---

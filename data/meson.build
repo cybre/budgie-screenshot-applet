@@ -1,0 +1,1 @@
+install_data('com.github.cybre.budgie-screenshot-applet.gschema.xml', install_dir : 'share/glib-2.0/schemas/')

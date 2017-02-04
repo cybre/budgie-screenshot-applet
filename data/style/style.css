@@ -1,0 +1,83 @@
+.budgie-screenshot-applet separator {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+list,
+row,
+.budgie-screenshot-applet {
+    padding: 0;
+}
+
+.budgie-screenshot-applet .view-header {
+    padding: 10px;
+    border-bottom: 1px solid mix(@theme_base_color, #000000,  0.35);
+    box-shadow: 0px 1px 1px alpha(@theme_fg_color, 0.04);
+}
+
+.budgie-screenshot-applet .screenshot-mode-button {
+    border-radius: 0;
+    border: 0;
+}
+
+.budgie-screenshot-applet .middle-mode-button {
+    border-left: 1px solid mix(@theme_base_color, #000000, 0.35);
+    border-right: 1px solid mix(@theme_base_color, #000000, 0.35);
+    box-shadow: 2px 0px 1px -1px alpha(@theme_fg_color, 0.04),
+                inset 2px 0px 1px -1px alpha(@theme_fg_color, 0.04);
+}
+
+.budgie-screenshot-applet .screenshot-mode-button:hover {
+    -gtk-icon-effect: none;
+}
+
+.budgie-screenshot-applet .bottom-button {
+    border-radius: 0 0 2px 2px;
+    border: 0;
+    border-top: 1px solid mix(@theme_base_color, #000000, 0.35);
+    box-shadow: inset 0px 1px 1px alpha(@theme_fg_color, 0.04);
+}
+
+.budgie-screenshot-applet .quick-settings {
+    border-top: 1px solid mix(@theme_base_color, #000000, 0.35);
+    box-shadow: inset 0px 1px 1px alpha(@theme_fg_color, 0.04);
+    background: alpha(@theme_fg_color, 0.04);
+    padding: 10px;
+}
+
+.budgie-screenshot-applet .history-separator {
+    padding: 0;
+    margin: 0;
+    background-color: mix(@theme_base_color, #000000,  0.35);
+    /*border-bottom: 1px solid mix(@theme_base_color, #000000,  0.35);*/
+    box-shadow: 0px 1px 1px alpha(@theme_fg_color, 0.04);
+}
+
+.budgie-screenshot-applet .no-border {
+    border-bottom: none;
+    box-shadow: none;
+}
+
+.budgie-screenshot-applet .new-item {
+    animation: new_item_keyframes 1s ease-in-out;
+    animation-iteration-count: 1;
+}
+
+@keyframes new_item_keyframes {
+    0% {
+        background-color: alpha(@theme_base_color, 0.7);
+    }
+    50% {
+        background-color: alpha(@theme_base_color, 0.7);
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+.budgie-screenshot-applet .thumbnail-image {
+    border: 1px solid alpha(#000000, 0.35);
+    border-radius: 5px;
+    box-shadow: 0 1px 3px alpha(#000000, 0.12),
+                0 1px 2px alpha(#000000, 0.24);
+    -gtk-icon-shadow: 0 1px alpha(black, 0.1);
+}

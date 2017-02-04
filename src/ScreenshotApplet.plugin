@@ -1,0 +1,8 @@
+[Plugin]
+Module=screenshotapplet.so
+Name=Screenshot
+Description=Screenshot Applet
+Authors=Stefan Ric
+Copyright=Copyright © 2016 Stefan Ric
+Website=https://github.com/cybre/budgie-screenshot-applet
+Icon=image-x-generic-symbolic

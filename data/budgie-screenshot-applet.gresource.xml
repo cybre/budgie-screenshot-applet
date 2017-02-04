@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+        <gresource prefix="/com/github/cybre/budgie-screenshot-applet">
+                <file preprocess="xml-stripblanks">ui/main_view.ui</file>
+                <file preprocess="xml-stripblanks">ui/history_view.ui</file>
+                <file preprocess="xml-stripblanks">ui/settings_view.ui</file>
+                <file preprocess="xml-stripblanks">ui/history_item.ui</file>
+                <file preprocess="xml-stripblanks">ui/history_placeholder.ui</file>
+                <file>style/style.css</file>
+                <file>images/screen.png</file>
+                <file>images/window.png</file>
+                <file>images/selection.png</file>
+        </gresource>
+</gresources>
