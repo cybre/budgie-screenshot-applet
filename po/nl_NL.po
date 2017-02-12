@@ -1,0 +1,339 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the budgie-screenshot-applet package.
+# 
+# Translators:
+# Geert Verheyde <geert.verheyde@gmail.com>, 2016
+# Heimen Stoffels <vistausss@outlook.com>, 2016-2017
+# Stefan Ric (cybre) <stfric369@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: budgie-screenshot-applet\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-12 06:26+0100\n"
+"PO-Revision-Date: 2017-02-12 10:21+0000\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/nl_NL/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/Views/HistoryView.vala:123 src/Widgets/HistoryItem.vala:295
+msgid "Untitled"
+msgstr "Naamloos"
+
+#: src/Views/SettingsView.vala:77
+msgid "Reset global settings"
+msgstr "Terugzetten op standaardwaarden"
+
+#: src/Views/SettingsView.vala:80
+msgid "Reset individual settings"
+msgstr "Terugzetten op standaardwaarden"
+
+#: src/Views/FileChooserView.vala:30 data/ui/history_item.ui:446
+#: data/ui/history_item.ui:521
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: src/Views/FileChooserView.vala:34 src/Views/FileChooserView.vala:38
+msgid "Select"
+msgstr "Selecteren"
+
+#: src/Widgets/HistoryItem.vala:198
+msgid "Screenshot not available"
+msgstr "Schermafdruk is niet beschikbaar"
+
+#: src/Widgets/QuickSettings.vala:35 src/Widgets/QuickSettings.vala:61
+#: src/Widgets/QuickSettings.vala:80 data/ui/main_view.ui:338
+#: data/ui/main_view.ui:401
+msgid "Delay"
+msgstr "Vertraging"
+
+#: src/Widgets/QuickSettings.vala:35 src/Widgets/QuickSettings.vala:61
+#: src/Widgets/QuickSettings.vala:80 data/ui/settings_view.ui:468
+#: data/ui/settings_view.ui:561 data/ui/settings_view.ui:654
+msgid "Screenshot delay"
+msgstr "Schermafdrukvertraging"
+
+#: src/Widgets/QuickSettings.vala:42 data/ui/main_view.ui:290
+#: data/ui/settings_view.ui:496
+msgid "Monitor"
+msgstr "Beeldscherm"
+
+#: src/Widgets/QuickSettings.vala:42
+msgid "Monitor to use"
+msgstr "Het te gebruiken beeldscherm"
+
+#: src/Widgets/QuickSettings.vala:68 data/ui/main_view.ui:350
+#: data/ui/settings_view.ui:589
+msgid "Include border"
+msgstr "Vensterrand opnemen"
+
+#: src/Widgets/QuickSettings.vala:68
+msgid "Wether to include the window border"
+msgstr "Of de vensterrand moet worden opgenomen"
+
+#. Initialize save_path if not set
+#: src/Backend/SettingsManager.vala:156 src/Backend/SettingsManager.vala:182
+#: src/Backend/ScreenshotMode/ScreenshotAbstract.vala:84
+msgid "Screenshots"
+msgstr "Schermafdrukken"
+
+#: src/Backend/SettingsManager.vala:223
+msgid "All monitors"
+msgstr "Alle beeldschermen"
+
+#: src/Backend/ScreenshotMode/ScreenshotAbstract.vala:125
+#, c-format
+msgid "Screenshot from %s"
+msgstr "Schermafdruk van %s"
+
+#: data/ui/history_item.ui:76
+msgid ""
+"Left click to open\n"
+"Right click to copy"
+msgstr "Linkermuisklik om te openen\nRechtermuisklik om te kopiëren"
+
+#: data/ui/history_item.ui:167
+msgid "Edit screenshot title"
+msgstr "Schermafdruktitel bewerken"
+
+#: data/ui/history_item.ui:201
+msgid "Clear"
+msgstr "Wissen"
+
+#: data/ui/history_item.ui:202
+msgid "New title (optional)"
+msgstr "Nieuwe titel (optioneel)"
+
+#: data/ui/history_item.ui:217
+msgid "Apply changes"
+msgstr "Wijzigingen toepassen"
+
+#: data/ui/history_item.ui:257
+msgid "Upload screenshot"
+msgstr "Schermafdruk uploaden"
+
+#: data/ui/history_item.ui:277
+msgid "Copy screenshot link"
+msgstr "Schermafdruklink kopiëren"
+
+#: data/ui/history_item.ui:316
+msgid "Delete screenshot"
+msgstr "Schermafdruk verwijderen"
+
+#: data/ui/history_item.ui:348
+msgid "Open screenshot"
+msgstr "Schermafdruk openen"
+
+#: data/ui/history_item.ui:421
+msgid "<big>Uploading</big>"
+msgstr "<big>Bezig met uploaden</big>"
+
+#: data/ui/history_item.ui:450
+msgid "Cancel upload"
+msgstr "Uploaden annuleren"
+
+#: data/ui/history_item.ui:482
+msgid "<big>Upload failed</big>"
+msgstr "<big>Het uploaden is mislukt</big>"
+
+#: data/ui/history_item.ui:502
+msgid "Try again"
+msgstr "Opnieuw proberen"
+
+#: data/ui/history_item.ui:563
+msgid "<big>Upload queued</big>"
+msgstr "<big>Upload staat in de wachtrij</big>"
+
+#: data/ui/history_item.ui:574
+msgid "Remove"
+msgstr "Verwijderen"
+
+#: data/ui/history_placeholder.ui:32
+msgid "<big>Your screenshots will show up here</big>"
+msgstr "<big>Uw schermafdrukken worden hier weergegeven</big>"
+
+#: data/ui/history_view.ui:23 data/ui/settings_view.ui:49
+msgid "Back"
+msgstr "Terug"
+
+#: data/ui/history_view.ui:42
+msgid "<span font=\"11\">Recent screenshots</span>"
+msgstr "<span font=\"11\">Recente schermafdrukken</span>"
+
+#: data/ui/history_view.ui:90
+msgid "Remove all screenshots from history"
+msgstr "Alle schermafdrukken verwijderen uit geschiedenis"
+
+#: data/ui/history_view.ui:95
+msgid "Clear all screenshots"
+msgstr "Alle schermafdrukken wissen"
+
+#: data/ui/main_view.ui:41
+msgid "Clear title"
+msgstr "Titel wissen"
+
+#: data/ui/main_view.ui:42
+msgid "Title (Optional)"
+msgstr "Titel (Optioneel)"
+
+#: data/ui/main_view.ui:115
+msgctxt "Screen option in the main applet view"
+msgid "Screen"
+msgstr "Scherm"
+
+#: data/ui/main_view.ui:171
+msgctxt "Window option in the main applet view"
+msgid "Window"
+msgstr "Venster"
+
+#: data/ui/main_view.ui:229
+msgctxt "Selection option in the main applet view"
+msgid "Selection"
+msgstr "Selectie"
+
+#: data/ui/main_view.ui:278
+msgctxt "Screenshot delay"
+msgid "Delay"
+msgstr "Vertraging"
+
+#: data/ui/main_view.ui:456
+msgid "History"
+msgstr "Geschiedenis"
+
+#: data/ui/settings_view.ui:118 data/ui/settings_view.ui:132
+msgid "Prefer the global delay over individual screenshot mode delays"
+msgstr "Algemene vertraging prefereren boven individuele schermafdrukvertragingen"
+
+#: data/ui/settings_view.ui:121
+msgctxt "Use global [screenshot] delay"
+msgid "Use global delay"
+msgstr "Algemene vertraging gebruiken"
+
+#: data/ui/settings_view.ui:145 data/ui/settings_view.ui:147
+#: data/ui/settings_view.ui:158
+msgid "Global screenshot delay"
+msgstr "Algemene schermafdrukvertraging"
+
+#: data/ui/settings_view.ui:173 data/ui/settings_view.ui:186
+msgid "Upload screenshots automatically"
+msgstr "Schermafdrukken automatisch uploaden"
+
+#: data/ui/settings_view.ui:175
+msgid "Automatic upload"
+msgstr "Automatisch uploaden"
+
+#: data/ui/settings_view.ui:199 data/ui/settings_view.ui:212
+msgid "Service to use for uploading screenshots"
+msgstr "Te gebruiken dienst voor het uploaden"
+
+#: data/ui/settings_view.ui:201
+msgid "Upload provider"
+msgstr "Upload-dienst"
+
+#: data/ui/settings_view.ui:225 data/ui/settings_view.ui:238
+msgid "Automatically copy the screenshot URL after uploading it"
+msgstr "Schermafdruk-URL automatisch kopiëren na uploaden"
+
+#: data/ui/settings_view.ui:227
+msgid "Automatic copy"
+msgstr "Automatisch kopiëren"
+
+#: data/ui/settings_view.ui:251 data/ui/settings_view.ui:264
+msgid "Include the pointer in screenshots"
+msgstr "Cursor opnemen in schermafdrukken"
+
+#: data/ui/settings_view.ui:253
+msgid "Include pointer"
+msgstr "Cursor opnemen"
+
+#: data/ui/settings_view.ui:281 data/ui/settings_view.ui:321
+msgid "Screenshots will be saved under this location"
+msgstr "Schermafdrukken zullen worden opgeslagen op deze locatie"
+
+#: data/ui/settings_view.ui:295
+msgid "Choose directory"
+msgstr "Map kiezen"
+
+#: data/ui/settings_view.ui:323
+msgid "Save destination"
+msgstr "Bestemming voor opslaan"
+
+#: data/ui/settings_view.ui:335 data/ui/settings_view.ui:348
+msgid "Re-open the applet after taking a screenshot"
+msgstr "Applet heropenen na maken van schermafdruk"
+
+#: data/ui/settings_view.ui:337
+msgid "Re-open applet"
+msgstr "Applet heropenen"
+
+#: data/ui/settings_view.ui:361 data/ui/settings_view.ui:374
+msgid ""
+"Removing a screenshot from history will also delete the file from the disk "
+"if this is enabled"
+msgstr "Indien ingeschakeld zal een te wissen schermafdruk uit te geschiedenis ook worden verwijderd van de schijf"
+
+#: data/ui/settings_view.ui:363
+msgid "Delete files"
+msgstr "Bestanden verwijderen"
+
+#: data/ui/settings_view.ui:387 data/ui/settings_view.ui:400
+msgid "Show screenshot thumbnails"
+msgstr "Schermafdruk-voorbeeldminiaturen weergeven"
+
+#: data/ui/settings_view.ui:389
+msgid "Show thumbnails"
+msgstr "Voorbeeldminiaturen weergeven"
+
+#: data/ui/settings_view.ui:412
+msgctxt ""
+"Short for Global Settings. This string is the page title used in the stack "
+"switcher on the top of the settings page."
+msgid "Global"
+msgstr "Algemeen"
+
+#: data/ui/settings_view.ui:430
+msgid "<big>Screen</big>"
+msgstr "<big>Scherm</big>"
+
+#: data/ui/settings_view.ui:465 data/ui/settings_view.ui:479
+msgid "Screen screenshot delay"
+msgstr "Scherm-schermafdrukvertraging"
+
+#: data/ui/settings_view.ui:494 data/ui/settings_view.ui:507
+msgid "The monitor to use when taking a screenshot"
+msgstr "Te gebruiken monitor voor het maken van een schermafdruk"
+
+#: data/ui/settings_view.ui:524
+msgid "<big>Window</big>"
+msgstr "<big>Venster</big>"
+
+#: data/ui/settings_view.ui:559 data/ui/settings_view.ui:572
+msgid "Window screenshot delay"
+msgstr "Venster-schermafdrukvertraging"
+
+#: data/ui/settings_view.ui:587 data/ui/settings_view.ui:600
+msgid "Include the window border in window screenshots"
+msgstr "Vensterrand opnemen in venster-schermafdrukken"
+
+#: data/ui/settings_view.ui:617
+msgid "<big>Selection</big>"
+msgstr "<big>Selectie</big>"
+
+#: data/ui/settings_view.ui:652 data/ui/settings_view.ui:665
+msgid "Selection screenshot delay"
+msgstr "Selectie-schermafdrukvertraging"
+
+#: data/ui/settings_view.ui:679
+msgctxt ""
+"Short for Individual Settings. This string is the page title used in the "
+"stack switcher on the top of the settings page."
+msgid "Individual"
+msgstr "Individueel"
+
+#: data/ui/settings_view.ui:709
+msgid "Restore global settings"
+msgstr "Terugzetten op standaardwaarden"
