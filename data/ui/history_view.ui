@@ -20,6 +20,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="receives_default">True</property>
+            <property name="tooltip_text" translatable="yes">Back</property>
             <property name="image">back_image</property>
             <property name="always_show_image">True</property>
             <signal name="clicked" handler="go_back" swapped="no"/>
@@ -86,6 +87,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Remove all screenshots from history</property>
             <property name="margin_left">5</property>
             <property name="margin_right">5</property>
             <property name="margin_top">5</property>

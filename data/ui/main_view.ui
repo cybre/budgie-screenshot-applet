@@ -112,7 +112,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_bottom">10</property>
-                    <property name="label" translatable="yes">Screen</property>
+                    <property name="label" translatable="yes" context="Screen option in the main applet view">Screen</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -168,7 +168,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_bottom">10</property>
-                    <property name="label" translatable="yes">Window</property>
+                    <property name="label" translatable="yes" context="Window option in the main applet view">Window</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -226,7 +226,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="margin_bottom">10</property>
-                    <property name="label" translatable="yes">Selection</property>
+                    <property name="label" translatable="yes" context="Selection option in the main applet view">Selection</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -275,7 +275,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Delay</property>
+                    <property name="label" translatable="yes" context="Screenshot delay">Delay</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>

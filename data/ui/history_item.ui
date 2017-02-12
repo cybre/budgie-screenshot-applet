@@ -112,7 +112,6 @@ Right click to copy</property>
                       </object>
                       <packing>
                         <property name="name">copied</property>
-                        <property name="title" translatable="yes">page0</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -149,7 +148,7 @@ Right click to copy</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">start</property>
-                                    <property name="label" translatable="yes">Title</property>
+                                    <property name="label">Title</property>
                                     <property name="use_markup">True</property>
                                     <property name="ellipsize">end</property>
                                     <property name="max_width_chars">23</property>
@@ -353,7 +352,7 @@ Right click to copy</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="label" translatable="yes">URI</property>
+                                <property name="label">URI</property>
                                 <property name="ellipsize">middle</property>
                                 <property name="max_width_chars">23</property>
                                 <style>
@@ -372,7 +371,7 @@ Right click to copy</property>
                           <object class="GtkLabel" id="time_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Time</property>
+                            <property name="label">Time</property>
                             <style>
                               <class name="dim-label"/>
                             </style>

@@ -1,0 +1,13 @@
+src/ScreenshotApplet.vala
+src/Views/HistoryView.vala
+src/Views/SettingsView.vala
+src/Views/FileChooserView.vala
+src/Widgets/HistoryItem.vala
+src/Widgets/QuickSettings.vala
+src/Backend/SettingsManager.vala
+src/Backend/ScreenshotMode/ScreenshotAbstract.vala
+data/ui/history_item.ui
+data/ui/history_placeholder.ui
+data/ui/history_view.ui
+data/ui/main_view.ui
+data/ui/settings_view.ui
