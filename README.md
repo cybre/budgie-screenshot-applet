@@ -35,4 +35,4 @@ sudo eopkg it budgie-screenshot-applet
 ---
 
 ### Screenshot
-![Screenshot](screenshot.png)
+<img align="center" alt="Screenshot" src="screenshot.png"/>
