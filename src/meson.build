@@ -48,8 +48,7 @@ bsa_vala_args = ['--pkg=config',
                  '--enable-deprecated']
 
 bsa_c_args = ['-include', 'config.h',
-              '-DGNOME_DESKTOP_USE_UNSTABLE_API',
-              '-rdynamic']
+              '-DGNOME_DESKTOP_USE_UNSTABLE_API']
 
 shared_library('screenshotapplet', bsa_sources,
                dependencies: bsa_deps,
