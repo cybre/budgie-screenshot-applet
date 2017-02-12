@@ -26,8 +26,6 @@ private class Ibin : IProvider, GLib.Object
 
     private async bool upload_image(string uri, out string? link)
     {
-        stdout.printf("Ibin.upload_image\n");
-
         link = null;
 
         GLib.File screenshot_file = GLib.File.new_for_uri(uri);
@@ -61,11 +59,8 @@ private class Ibin : IProvider, GLib.Object
         payload = (string)message.response_body.data;
 
         if (payload == null) {
-            stdout.printf("payload is null\n");
             return false;
         }
-
-        stdout.printf("payload: %s\n", payload);
 
         string? url = payload.split("url:")[1];
         if (url == null || !url.has_prefix("http")) {

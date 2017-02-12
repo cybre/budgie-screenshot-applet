@@ -36,8 +36,6 @@ private class Uploader : GLib.Object
 
     public async void start_upload()
     {
-        stdout.printf("\nStarting uploads\n");
-
         upload_started();
         upload_in_progress = true;
 
@@ -60,15 +58,6 @@ private class Uploader : GLib.Object
 
             status = yield provider.upload_image(url, out url);
 
-            // provider.upload_image.begin(url, (obj, res) => {
-            //     status = provider.upload_image.end(res, out url);
-            //     start_upload.callback();
-            // });
-            // yield;
-
-            stdout.printf("status: %s\n", status.to_string());
-            stdout.printf("url: %s\n", url);
-
             item.upload_finished(url, status);
         }
 
@@ -85,7 +74,6 @@ private class Uploader : GLib.Object
     }
 
     public async void cancel_upload() {
-        stdout.printf("Uploader.cancel_upload\n");
         cancellable.cancel();
         provider.cancel_upload.begin();
     }

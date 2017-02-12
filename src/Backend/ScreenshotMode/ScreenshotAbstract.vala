@@ -27,7 +27,6 @@ public abstract class ScreenshotAbstract
 
             int cx, cy;
             window.get_device_position(device, out cx, out cy, null);
-            stdout.printf("cx: %d\ncy: %d\n", cx, cy);
 
             Gdk.Rectangle win_rect;
             window.get_frame_extents(out win_rect);

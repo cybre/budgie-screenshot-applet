@@ -289,7 +289,6 @@ public class HistoryItem : Gtk.Box
     {
         title_stack.set_visible_child_name("normal");
         if (title_entry.get_text() == item_title) {
-            stdout.printf("same\n");
             return;
         }
 
@@ -419,7 +418,7 @@ public class HistoryItem : Gtk.Box
         try {
             Gtk.show_uri(Gdk.Screen.get_default(), item_uri, Gdk.CURRENT_TIME);
         } catch (GLib.Error e) {
-            stderr.printf(e.message);
+            warning(e.message);
         }
 
         return Gdk.EVENT_STOP;
@@ -436,7 +435,7 @@ public class HistoryItem : Gtk.Box
             try {
                 Gtk.show_uri(Gdk.Screen.get_default(), item_file_uri, Gdk.CURRENT_TIME);
             } catch (GLib.Error e) {
-                stderr.printf(e.message);
+                warning(e.message);
             }
         } else if (event.button == 3) {
             thumbnail_stack.set_visible_child_name("copied");

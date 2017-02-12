@@ -27,8 +27,6 @@ private class Imgur : IProvider, GLib.Object
 
     private async bool upload_image(string uri, out string? link)
     {
-        stdout.printf("Imgur.upload_image\n");
-
         link = null;
 
         uint8[] data;
@@ -54,11 +52,8 @@ private class Imgur : IProvider, GLib.Object
         payload = (string)message.response_body.data;
 
         if (payload == null) {
-            stdout.printf("payload is null\n");
             return false;
         }
-
-        stdout.printf("payload: %s\n", payload);
 
         Json.Parser parser = new Json.Parser();
         try {
@@ -70,20 +65,17 @@ private class Imgur : IProvider, GLib.Object
 
         unowned Json.Object node_obj = parser.get_root().get_object();
         if (node_obj == null) {
-            stdout.printf("node_obj(1) is null\n");
             return false;
         }
 
         node_obj = node_obj.get_object_member("data");
         if (node_obj == null) {
-            stdout.printf("node_obj(2) is null\n");
             return false;
         }
 
         string? url = node_obj.get_string_member("link") ?? null;
         if (url == null) {
-            stdout.printf("url is null\n");
-            stdout.printf("ERROR: %s\n", node_obj.get_string_member("error"));
+            warning("ERROR: %s\n", node_obj.get_string_member("error"));
             return false;
         }
 

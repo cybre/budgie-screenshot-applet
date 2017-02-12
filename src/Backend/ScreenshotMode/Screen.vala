@@ -28,7 +28,6 @@ private class Screen : ScreenshotAbstract
         }
 
         if (!status) {
-            stdout.printf("!status\n");
             return false;
         }
 

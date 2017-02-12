@@ -43,8 +43,6 @@ private class ScreenshotManager
             return;
         }
 
-        stdout.printf("Taking %s screenshot\n", mode.to_string());
-
         string? URI = null;
 
         bool status = true;
@@ -55,10 +53,7 @@ private class ScreenshotManager
 
         status = yield screenshot_mode.take_screenshot(out URI);
 
-        stdout.printf("take_screenshot: %s\n", status.to_string());
-
         if (!status) {
-            stdout.printf("!status");
             return;
         }
 
