@@ -27,7 +27,6 @@ private class IndicatorIcon : Gtk.Stack
         "face-kiss-symbolic",
         "face-laugh-symbolic",
         "face-monkey-symbolic",
-        "face-plain-symbolic",
         "face-raspberry-symbolic",
         "face-smile-symbolic",
         "face-smile-big-symbolic",
