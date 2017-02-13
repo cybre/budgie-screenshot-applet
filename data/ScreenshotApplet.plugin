@@ -1,7 +1,7 @@
 [Plugin]
 Module=screenshotapplet.so
 Name=Screenshot
-Description=Screenshot Applet
+Description=Screenshot Widget
 Authors=Stefan Ric
 Copyright=Copyright © 2016-2017 Stefan Ric
 Website=https://github.com/cybre/budgie-screenshot-applet
