@@ -7,4 +7,4 @@ install_data('com.github.cybre.budgie-screenshot-applet.gschema.xml',
              install_dir: join_paths(datadir, 'glib-2.0' ,'schemas'))
 
 install_data('com.github.cybre.budgie-screenshot-applet.appdata.xml',
-             install_dir: join_paths(datadir, 'appstream'))
+             install_dir: join_paths(datadir, 'appdata'))
