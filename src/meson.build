@@ -1,9 +1,12 @@
 gnome = import('gnome')
 
-LOCALE_DIR = get_option('prefix') + '/' + get_option('localedir')
-LIB_INSTALL_DIR = get_option('prefix') + '/' + get_option('libdir') + '/budgie-desktop/plugins/budgie-screenshot-applet'
+LOCALE_DIR = join_paths(get_option('prefix'), get_option('localedir'))
 
-res = gnome.compile_resources('bsa-resources', '../data/budgie-screenshot-applet.gresource.xml', source_dir: '../data')
+data_dir = join_paths(meson.source_root(), 'data')
+vapi_dir = join_paths(meson.source_root(), 'vapi')
+
+gresource_file = join_paths(data_dir, 'com.github.cybre.budgie-screenshot-applet.gresource.xml')
+res = gnome.compile_resources('bsa-resources', gresource_file, source_dir: data_dir)
 
 conf_data = configuration_data()
 conf_data.set('LOCALE_DIR', LOCALE_DIR)
@@ -42,8 +45,8 @@ bsa_deps = [dependency('budgie-1.0', version: '>=2'),
             dependency('libsoup-2.4')]
 
 bsa_vala_args = ['--pkg=config',
-                 '--vapidir=../vapi',
-                 '--gresources=../data/budgie-screenshot-applet.gresource.xml',
+                 '--vapidir=' + vapi_dir,
+                 '--gresources=' + gresource_file,
                  '--target-glib=2.38',
                  '--enable-deprecated']
 
@@ -56,5 +59,3 @@ shared_library('screenshotapplet', bsa_sources,
                c_args: bsa_c_args,
                install: true,
                install_dir: LIB_INSTALL_DIR)
-
-install_data('ScreenshotApplet.plugin', install_dir: LIB_INSTALL_DIR)
