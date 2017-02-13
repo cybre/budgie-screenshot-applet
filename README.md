@@ -21,7 +21,7 @@ sudo eopkg it budgie-desktop-devel libgnome-desktop-devel libjson-glib-devel lib
 **From source**  
 ```bash
 mkdir build && cd build
-meson --prefix /usr ..
+meson --prefix /usr --buildtype=plain ..
 ninja
 sudo ninja install
 ```
