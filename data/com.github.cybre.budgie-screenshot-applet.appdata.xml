@@ -2,34 +2,33 @@
 <component type="addon">
   <id>budgie-screenshot-applet</id>
   <pkgname>budgie-screenshot-applet</pkgname>
+  <extends>budgie-desktop.desktop</extends>
+  <name>Budgie Screenshot Widget</name>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
-  <extends>budgie-desktop.desktop</extends>
-  <name>Screenshot Applet</name>
-  <summary>A screenshot applet for the Budgie desktop</summary>
+  <summary>A screenshot widget for the Budgie desktop</summary>
   <description>
     <p>
-    Screenshot Applet is a Budgie Desktop applet for taking and uploading screenshots to Imgur and Imagebin.
-    It lives in your panel and features a clean interface for quickly taking screenshots.
+    Take a screenshot of your desktop, a window or region; save to disk and upload.
+    Screenshot Widget lives in your panel and features a clean interface for quickly taking screenshots and sharing them.
     </p>
     <p>
     Among other things, Screenshot Applet can:
     </p>
     <ul>
       <li>Take a screenshot of your whole desktop, window or a selected area on the screen</li>
-      <li>Add image effects to your window screenshots</li>
-      <li>Upload your screenshots to either Imgur or Imagebin</li>
+      <li>Upload your screenshots to various online services</li>
       <li>Store your screenshots locally</li>
-      <li>Keep a history of your screenshots (with editable titles)</li>
+      <li>Keep a history of your screenshots</li>
     </ul>
   </description>
+  <url type="homepage">https://github.com/cybre/budgie-screenshot-applet</url>
+  <url type="bugtracker">https://github.com/cybre/budgie-screenshot-applet/issues</url>
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/cybre/budgie-screenshot-applet/master/screenshot.png</image>
       <caption>The start and history pages</caption>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://github.com/cybre/budgie-screenshot-applet</url>
-  <url type="bugtracker">https://github.com/cybre/budgie-screenshot-applet/issues</url>
   <updatecontact>stfric369@gmail.com</updatecontact>
 </component>
