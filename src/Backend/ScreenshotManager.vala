@@ -57,6 +57,9 @@ private class ScreenshotManager
             return;
         }
 
+        Gtk.RecentManager recents = new Gtk.RecentManager();
+        recents.add_item(URI);
+
         Views.MainView._title_entry.set_text("");
 
         Widgets.MainStack.set_page("history_view");
