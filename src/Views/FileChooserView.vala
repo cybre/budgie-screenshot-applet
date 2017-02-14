@@ -22,9 +22,10 @@ private class FileChooserView : Gtk.ScrolledWindow
 
         Gtk.Box main_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         this.add(main_box);
-        
+
         Gtk.Frame header_frame = new Gtk.Frame(null);
         main_box.add(header_frame);
+        header_frame.set_shadow_type(Gtk.ShadowType.NONE);
         header_frame.get_style_context().add_class("view-header");
 
         Gtk.Box header_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
