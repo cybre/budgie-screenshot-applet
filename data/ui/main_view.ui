@@ -69,14 +69,14 @@
                 <property name="position">1</property>
               </packing>
             </child>
-            <style>
-              <class name="view-header"/>
-            </style>
           </object>
         </child>
         <child type="label_item">
           <placeholder/>
         </child>
+        <style>
+          <class name="view-header"/>
+        </style>
       </object>
       <packing>
         <property name="expand">False</property>

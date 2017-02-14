@@ -62,9 +62,9 @@
         <child type="label_item">
           <placeholder/>
         </child>
-      <style>
-        <class name="view-header"/>
-      </style>
+        <style>
+          <class name="view-header"/>
+        </style>
       </object>
       <packing>
         <property name="expand">False</property>
