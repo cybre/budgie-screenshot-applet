@@ -22,10 +22,13 @@ private class FileChooserView : Gtk.ScrolledWindow
 
         Gtk.Box main_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
         this.add(main_box);
+        
+        Gtk.Frame header_frame = new Gtk.Frame(null);
+        main_box.add(header_frame);
+        header_frame.get_style_context().add_class("view-header");
 
         Gtk.Box header_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
-        main_box.add(header_box);
-        header_box.get_style_context().add_class("view-header");
+        header_frame.add(header_box);
 
         Gtk.Button cancel_button = new Gtk.Button.with_label(_("Cancel"));
         header_box.pack_start(cancel_button, false, false, 0);

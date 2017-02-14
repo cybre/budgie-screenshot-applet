@@ -40,7 +40,8 @@ bsa_sources = ['ScreenshotApplet.vala',
                'Backend/ScreenshotMode/Selection.vala',
                res]
 
-bsa_deps = [dependency('budgie-1.0', version: '>=2'),
+bsa_deps = [dependency('gtk+-3.0', version: '>=3.18'),
+            dependency('budgie-1.0', version: '>=2'),
             dependency('gnome-desktop-3.0'),
             dependency('json-glib-1.0'),
             dependency('libsoup-2.4')]

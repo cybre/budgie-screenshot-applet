@@ -52,7 +52,12 @@ public class Applet : Budgie.Applet
         // Bake in our theme
         Gdk.Screen screen = this.get_display().get_default_screen();
         Gtk.CssProvider provider = new Gtk.CssProvider();
-        provider.load_from_resource("/com/github/cybre/budgie-screenshot-applet/style/style.css");
+        string gtk_version = @"$(Gtk.get_major_version()).$(Gtk.get_minor_version())";
+        string style_file = "/com/github/cybre/budgie-screenshot-applet/style/style.css";
+        if (gtk_version == "3.18") {
+            style_file = "/com/github/cybre/budgie-screenshot-applet/style/style-318.css";
+        }
+        provider.load_from_resource(style_file);
         Gtk.StyleContext.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         event_box = new Gtk.EventBox();

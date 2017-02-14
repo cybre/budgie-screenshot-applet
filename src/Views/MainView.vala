@@ -100,7 +100,7 @@ public class MainView : Gtk.Box
         }
         if (event.button == 1) {
             contract_quick_settings(false);
-            IndicatorWindow.get_instance().popdown();
+            IndicatorWindow.get_instance().hide();
             BackendUtil.screenshot_manager.take_screenshot.begin(mode, title_entry.get_text());
         } else if (event.button == 3) {
             if (quick_settings_stack.get_visible_child_name() == mode_string) {

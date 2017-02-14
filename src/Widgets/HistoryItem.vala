@@ -237,14 +237,9 @@ public class HistoryItem : Gtk.Box
         rgba.blue = 255;
         rgba.alpha = 266;
 
-        icon_info.load_symbolic_async.begin(rgba, null, null, null, null, (obj, res) => {
-            try {
-                pb = icon_info.load_symbolic_async.end(res);
-                pb.composite(original_pb, 12, 12, 24, 24, 12, 12, 1.0, 1.0, Gdk.InterpType.NEAREST, 255);
-            } catch (GLib.Error e) {
-                warning(e.message);
-            }
-        });
+        pb = icon_info.load_symbolic(rgba, null, null, null, null);
+        pb.composite(original_pb, 12, 12, 24, 24, 12, 12, 1.0, 1.0, Gdk.InterpType.NEAREST, 255);
+
     }
 
     private void configure_thumbnail(Cairo.Context cr, Gtk.StyleContext style_context, Gdk.Pixbuf? pb)

@@ -12,48 +12,59 @@
     <property name="can_focus">False</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkBox">
+      <object class="GtkFrame">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="label_xalign">0</property>
+        <property name="shadow_type">none</property>
         <child>
-          <object class="GtkButton">
+          <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">Back</property>
-            <property name="image">back_image</property>
-            <property name="always_show_image">True</property>
-            <signal name="clicked" handler="go_back" swapped="no"/>
-            <style>
-              <class name="circular-button"/>
-            </style>
+            <child>
+              <object class="GtkButton">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Back</property>
+                <property name="image">back_image</property>
+                <property name="always_show_image">True</property>
+                <signal name="clicked" handler="go_back" swapped="no"/>
+                <style>
+                  <class name="circular-button"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="label" translatable="yes">&lt;span font="11"&gt;Recent screenshots&lt;/span&gt;</property>
+                <property name="use_markup">True</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="halign">end</property>
-            <property name="label" translatable="yes">&lt;span font="11"&gt;Recent screenshots&lt;/span&gt;</property>
-            <property name="use_markup">True</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
+        <child type="label_item">
+          <placeholder/>
         </child>
-        <style>
-          <class name="view-header"/>
-        </style>
+      <style>
+        <class name="view-header"/>
+      </style>
       </object>
       <packing>
         <property name="expand">False</property>
