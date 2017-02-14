@@ -1,6 +1,6 @@
 i18n = import('i18n')
 
-langs = ['id', 'nl_BE', 'nl_NL', 'sr_RS@latin', 'sr_RS']
+langs = ['ca', 'id', 'it', 'nl_BE', 'nl_NL', 'sr_RS@latin', 'sr_RS']
 
 # Stolen from gnome-twitch
 i18n.gettext('budgie-screenshot-applet', languages: langs, args: [

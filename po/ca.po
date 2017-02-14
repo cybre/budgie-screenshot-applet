@@ -1,0 +1,337 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the budgie-screenshot-applet package.
+# 
+# Translators:
+# Davidmp <medipas@gmail.com>, 2016-2017
+msgid ""
+msgstr ""
+"Project-Id-Version: budgie-screenshot-applet\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-12 06:26+0100\n"
+"PO-Revision-Date: 2017-02-13 15:06+0000\n"
+"Last-Translator: Davidmp <medipas@gmail.com>\n"
+"Language-Team: Catalan (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/ca/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/Views/HistoryView.vala:123 src/Widgets/HistoryItem.vala:295
+msgid "Untitled"
+msgstr "Sense títol"
+
+#: src/Views/SettingsView.vala:77
+msgid "Reset global settings"
+msgstr "Restableix els paràmetres globals"
+
+#: src/Views/SettingsView.vala:80
+msgid "Reset individual settings"
+msgstr "Restableix els paràmetres individuals"
+
+#: src/Views/FileChooserView.vala:30 data/ui/history_item.ui:446
+#: data/ui/history_item.ui:521
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: src/Views/FileChooserView.vala:34 src/Views/FileChooserView.vala:38
+msgid "Select"
+msgstr "Selecciona"
+
+#: src/Widgets/HistoryItem.vala:198
+msgid "Screenshot not available"
+msgstr "Captura de pantalla no disponible"
+
+#: src/Widgets/QuickSettings.vala:35 src/Widgets/QuickSettings.vala:61
+#: src/Widgets/QuickSettings.vala:80 data/ui/main_view.ui:338
+#: data/ui/main_view.ui:401
+msgid "Delay"
+msgstr "Retard"
+
+#: src/Widgets/QuickSettings.vala:35 src/Widgets/QuickSettings.vala:61
+#: src/Widgets/QuickSettings.vala:80 data/ui/settings_view.ui:468
+#: data/ui/settings_view.ui:561 data/ui/settings_view.ui:654
+msgid "Screenshot delay"
+msgstr "Retard de la captura de pantalla"
+
+#: src/Widgets/QuickSettings.vala:42 data/ui/main_view.ui:290
+#: data/ui/settings_view.ui:496
+msgid "Monitor"
+msgstr "Monitor"
+
+#: src/Widgets/QuickSettings.vala:42
+msgid "Monitor to use"
+msgstr "Monitor per usar"
+
+#: src/Widgets/QuickSettings.vala:68 data/ui/main_view.ui:350
+#: data/ui/settings_view.ui:589
+msgid "Include border"
+msgstr "Inclou-hi la vora"
+
+#: src/Widgets/QuickSettings.vala:68
+msgid "Wether to include the window border"
+msgstr "Si s'hi ha d'incloure la vora de la finestra"
+
+#. Initialize save_path if not set
+#: src/Backend/SettingsManager.vala:156 src/Backend/SettingsManager.vala:182
+#: src/Backend/ScreenshotMode/ScreenshotAbstract.vala:84
+msgid "Screenshots"
+msgstr "Captures de pantalla"
+
+#: src/Backend/SettingsManager.vala:223
+msgid "All monitors"
+msgstr "Tots els monitors"
+
+#: src/Backend/ScreenshotMode/ScreenshotAbstract.vala:125
+#, c-format
+msgid "Screenshot from %s"
+msgstr "Captura de pantalla de %s"
+
+#: data/ui/history_item.ui:76
+msgid ""
+"Left click to open\n"
+"Right click to copy"
+msgstr "Clic de l'esquerra per obrir\nClic de la dreta per copiar"
+
+#: data/ui/history_item.ui:167
+msgid "Edit screenshot title"
+msgstr "Edita el títol de la captura"
+
+#: data/ui/history_item.ui:201
+msgid "Clear"
+msgstr "Neteja"
+
+#: data/ui/history_item.ui:202
+msgid "New title (optional)"
+msgstr "Títol nou (opcional)"
+
+#: data/ui/history_item.ui:217
+msgid "Apply changes"
+msgstr "Aplica els canvis"
+
+#: data/ui/history_item.ui:257
+msgid "Upload screenshot"
+msgstr "Carrega la captura de pantalla"
+
+#: data/ui/history_item.ui:277
+msgid "Copy screenshot link"
+msgstr "Copia l'enllaç de la captura de pantalla"
+
+#: data/ui/history_item.ui:316
+msgid "Delete screenshot"
+msgstr "Esborra la captura de pantalla"
+
+#: data/ui/history_item.ui:348
+msgid "Open screenshot"
+msgstr "Obre la captura de pantalla"
+
+#: data/ui/history_item.ui:421
+msgid "<big>Uploading</big>"
+msgstr "<big>Carregant</big>"
+
+#: data/ui/history_item.ui:450
+msgid "Cancel upload"
+msgstr "Cancel·la'n la càrrega"
+
+#: data/ui/history_item.ui:482
+msgid "<big>Upload failed</big>"
+msgstr "<big>Ha fallat la càrrega</big>"
+
+#: data/ui/history_item.ui:502
+msgid "Try again"
+msgstr "Torna-ho a provar"
+
+#: data/ui/history_item.ui:563
+msgid "<big>Upload queued</big>"
+msgstr "<big>Carrega el que és a la cua</big>"
+
+#: data/ui/history_item.ui:574
+msgid "Remove"
+msgstr "Elimina"
+
+#: data/ui/history_placeholder.ui:32
+msgid "<big>Your screenshots will show up here</big>"
+msgstr "<big>Les captures de pantalla es mostraran aquí.</big>"
+
+#: data/ui/history_view.ui:23 data/ui/settings_view.ui:49
+msgid "Back"
+msgstr "Enrere"
+
+#: data/ui/history_view.ui:42
+msgid "<span font=\"11\">Recent screenshots</span>"
+msgstr "<span font=\"11\">Captures recents</span>"
+
+#: data/ui/history_view.ui:90
+msgid "Remove all screenshots from history"
+msgstr "Elimina totes les captures de l'historial"
+
+#: data/ui/history_view.ui:95
+msgid "Clear all screenshots"
+msgstr "Neteja totes les captures de pantalla"
+
+#: data/ui/main_view.ui:41
+msgid "Clear title"
+msgstr "Neteja'n el títol"
+
+#: data/ui/main_view.ui:42
+msgid "Title (Optional)"
+msgstr "Títol (opcional)"
+
+#: data/ui/main_view.ui:115
+msgctxt "Screen option in the main applet view"
+msgid "Screen"
+msgstr "Pantalla"
+
+#: data/ui/main_view.ui:171
+msgctxt "Window option in the main applet view"
+msgid "Window"
+msgstr "Finestra"
+
+#: data/ui/main_view.ui:229
+msgctxt "Selection option in the main applet view"
+msgid "Selection"
+msgstr "Selecció"
+
+#: data/ui/main_view.ui:278
+msgctxt "Screenshot delay"
+msgid "Delay"
+msgstr "Retard"
+
+#: data/ui/main_view.ui:456
+msgid "History"
+msgstr "Historial"
+
+#: data/ui/settings_view.ui:118 data/ui/settings_view.ui:132
+msgid "Prefer the global delay over individual screenshot mode delays"
+msgstr "Prefereix el retard global als retards individuals del mode de captura "
+
+#: data/ui/settings_view.ui:121
+msgctxt "Use global [screenshot] delay"
+msgid "Use global delay"
+msgstr "Usa el retard global"
+
+#: data/ui/settings_view.ui:145 data/ui/settings_view.ui:147
+#: data/ui/settings_view.ui:158
+msgid "Global screenshot delay"
+msgstr "Retard de captura global "
+
+#: data/ui/settings_view.ui:173 data/ui/settings_view.ui:186
+msgid "Upload screenshots automatically"
+msgstr "Carrega les captures automàticament"
+
+#: data/ui/settings_view.ui:175
+msgid "Automatic upload"
+msgstr "Càrrega automàtica"
+
+#: data/ui/settings_view.ui:199 data/ui/settings_view.ui:212
+msgid "Service to use for uploading screenshots"
+msgstr "Servei a usar per carregar captures de pantalla"
+
+#: data/ui/settings_view.ui:201
+msgid "Upload provider"
+msgstr "Carrega el proveïdor"
+
+#: data/ui/settings_view.ui:225 data/ui/settings_view.ui:238
+msgid "Automatically copy the screenshot URL after uploading it"
+msgstr "Copia automàticament l'URL de la captura després de carregar-la"
+
+#: data/ui/settings_view.ui:227
+msgid "Automatic copy"
+msgstr "Còpia automàtica"
+
+#: data/ui/settings_view.ui:251 data/ui/settings_view.ui:264
+msgid "Include the pointer in screenshots"
+msgstr "Inclou el punter a les captures de pantalla"
+
+#: data/ui/settings_view.ui:253
+msgid "Include pointer"
+msgstr "Inclou-hi el punter"
+
+#: data/ui/settings_view.ui:281 data/ui/settings_view.ui:321
+msgid "Screenshots will be saved under this location"
+msgstr "Les captures es desaran en aquesta ubicació"
+
+#: data/ui/settings_view.ui:295
+msgid "Choose directory"
+msgstr "Escolliu un directori"
+
+#: data/ui/settings_view.ui:323
+msgid "Save destination"
+msgstr "Desa la destinació"
+
+#: data/ui/settings_view.ui:335 data/ui/settings_view.ui:348
+msgid "Re-open the applet after taking a screenshot"
+msgstr "Torna a obrir la miniaplicació després de fer una captura"
+
+#: data/ui/settings_view.ui:337
+msgid "Re-open applet"
+msgstr "Reobre la miniaplicació"
+
+#: data/ui/settings_view.ui:361 data/ui/settings_view.ui:374
+msgid ""
+"Removing a screenshot from history will also delete the file from the disk "
+"if this is enabled"
+msgstr "Eliminar una captura de l'historial també n'esborrarà el fitxer del disc si això està habilitat"
+
+#: data/ui/settings_view.ui:363
+msgid "Delete files"
+msgstr "Esborra'n els fitxers"
+
+#: data/ui/settings_view.ui:387 data/ui/settings_view.ui:400
+msgid "Show screenshot thumbnails"
+msgstr "Mostra les miniatures de les captures"
+
+#: data/ui/settings_view.ui:389
+msgid "Show thumbnails"
+msgstr "Mostra'n les miniatures"
+
+#: data/ui/settings_view.ui:412
+msgctxt ""
+"Short for Global Settings. This string is the page title used in the stack "
+"switcher on the top of the settings page."
+msgid "Global"
+msgstr "Global"
+
+#: data/ui/settings_view.ui:430
+msgid "<big>Screen</big>"
+msgstr "<big>Pantalla</big>"
+
+#: data/ui/settings_view.ui:465 data/ui/settings_view.ui:479
+msgid "Screen screenshot delay"
+msgstr "Retard de la captura de la pantalla"
+
+#: data/ui/settings_view.ui:494 data/ui/settings_view.ui:507
+msgid "The monitor to use when taking a screenshot"
+msgstr "El monitor per usar quan es faci una captura"
+
+#: data/ui/settings_view.ui:524
+msgid "<big>Window</big>"
+msgstr "<big>Finestra</big>"
+
+#: data/ui/settings_view.ui:559 data/ui/settings_view.ui:572
+msgid "Window screenshot delay"
+msgstr "Retard de la captura de la finestra"
+
+#: data/ui/settings_view.ui:587 data/ui/settings_view.ui:600
+msgid "Include the window border in window screenshots"
+msgstr "Inclou la vora de la finestra a les captures de finestra"
+
+#: data/ui/settings_view.ui:617
+msgid "<big>Selection</big>"
+msgstr "<big>Selecció</big>"
+
+#: data/ui/settings_view.ui:652 data/ui/settings_view.ui:665
+msgid "Selection screenshot delay"
+msgstr "Retard de la captura de la selecció"
+
+#: data/ui/settings_view.ui:679
+msgctxt ""
+"Short for Individual Settings. This string is the page title used in the "
+"stack switcher on the top of the settings page."
+msgid "Individual"
+msgstr "Individual"
+
+#: data/ui/settings_view.ui:709
+msgid "Restore global settings"
+msgstr "Restableix els paràmetres globals"

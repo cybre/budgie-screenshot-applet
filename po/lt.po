@@ -1,0 +1,337 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the budgie-screenshot-applet package.
+# 
+# Translators:
+# Moo, 2016-2017
+msgid ""
+msgstr ""
+"Project-Id-Version: budgie-screenshot-applet\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-12 06:26+0100\n"
+"PO-Revision-Date: 2017-02-13 12:22+0000\n"
+"Last-Translator: Moo\n"
+"Language-Team: Lithuanian (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/Views/HistoryView.vala:123 src/Widgets/HistoryItem.vala:295
+msgid "Untitled"
+msgstr "Be pavadinimo"
+
+#: src/Views/SettingsView.vala:77
+msgid "Reset global settings"
+msgstr "Atstatyti visuotinius nustatymus"
+
+#: src/Views/SettingsView.vala:80
+msgid "Reset individual settings"
+msgstr "Atstatyti asmeninius nustatymus"
+
+#: src/Views/FileChooserView.vala:30 data/ui/history_item.ui:446
+#: data/ui/history_item.ui:521
+msgid "Cancel"
+msgstr "Atsisakyti"
+
+#: src/Views/FileChooserView.vala:34 src/Views/FileChooserView.vala:38
+msgid "Select"
+msgstr "Pasirinkti"
+
+#: src/Widgets/HistoryItem.vala:198
+msgid "Screenshot not available"
+msgstr "Ekrano kopija neprieinama"
+
+#: src/Widgets/QuickSettings.vala:35 src/Widgets/QuickSettings.vala:61
+#: src/Widgets/QuickSettings.vala:80 data/ui/main_view.ui:338
+#: data/ui/main_view.ui:401
+msgid "Delay"
+msgstr "Delsa"
+
+#: src/Widgets/QuickSettings.vala:35 src/Widgets/QuickSettings.vala:61
+#: src/Widgets/QuickSettings.vala:80 data/ui/settings_view.ui:468
+#: data/ui/settings_view.ui:561 data/ui/settings_view.ui:654
+msgid "Screenshot delay"
+msgstr "Ekrano kopijos delsa"
+
+#: src/Widgets/QuickSettings.vala:42 data/ui/main_view.ui:290
+#: data/ui/settings_view.ui:496
+msgid "Monitor"
+msgstr "Vaizduoklis"
+
+#: src/Widgets/QuickSettings.vala:42
+msgid "Monitor to use"
+msgstr "Vaizduoklis, kurį naudoti"
+
+#: src/Widgets/QuickSettings.vala:68 data/ui/main_view.ui:350
+#: data/ui/settings_view.ui:589
+msgid "Include border"
+msgstr "Įtraukti rėmelį"
+
+#: src/Widgets/QuickSettings.vala:68
+msgid "Wether to include the window border"
+msgstr "Ar įtraukti lango rėmelį"
+
+#. Initialize save_path if not set
+#: src/Backend/SettingsManager.vala:156 src/Backend/SettingsManager.vala:182
+#: src/Backend/ScreenshotMode/ScreenshotAbstract.vala:84
+msgid "Screenshots"
+msgstr "Ekrano kopijos"
+
+#: src/Backend/SettingsManager.vala:223
+msgid "All monitors"
+msgstr "Visi vaizduokliai"
+
+#: src/Backend/ScreenshotMode/ScreenshotAbstract.vala:125
+#, c-format
+msgid "Screenshot from %s"
+msgstr "Ekrano kopija iš %s"
+
+#: data/ui/history_item.ui:76
+msgid ""
+"Left click to open\n"
+"Right click to copy"
+msgstr "Kairysis spustelėjimas, norint atverti\nDešinysis spustelėjimas, norint kopijuoti"
+
+#: data/ui/history_item.ui:167
+msgid "Edit screenshot title"
+msgstr "Taisyti ekrano kopijos pavadinimą"
+
+#: data/ui/history_item.ui:201
+msgid "Clear"
+msgstr "Išvalyti"
+
+#: data/ui/history_item.ui:202
+msgid "New title (optional)"
+msgstr "Naujas pavadinimas (nebūtinas)"
+
+#: data/ui/history_item.ui:217
+msgid "Apply changes"
+msgstr "Taikyti pakeitimus"
+
+#: data/ui/history_item.ui:257
+msgid "Upload screenshot"
+msgstr "Įkelti ekrano kopiją"
+
+#: data/ui/history_item.ui:277
+msgid "Copy screenshot link"
+msgstr "Kopijuoti ekrano kopijos nuorodą"
+
+#: data/ui/history_item.ui:316
+msgid "Delete screenshot"
+msgstr "Ištrinti ekrano kopiją"
+
+#: data/ui/history_item.ui:348
+msgid "Open screenshot"
+msgstr "Atverti ekrano kopiją"
+
+#: data/ui/history_item.ui:421
+msgid "<big>Uploading</big>"
+msgstr "<big>Įkeliama</big>"
+
+#: data/ui/history_item.ui:450
+msgid "Cancel upload"
+msgstr "Atsisakyti įkėlimo"
+
+#: data/ui/history_item.ui:482
+msgid "<big>Upload failed</big>"
+msgstr "<big>Įkėlimas nepavyko</big>"
+
+#: data/ui/history_item.ui:502
+msgid "Try again"
+msgstr "Bandyti dar kartą"
+
+#: data/ui/history_item.ui:563
+msgid "<big>Upload queued</big>"
+msgstr "<big>Įkėlimas laukia eilėje</big>"
+
+#: data/ui/history_item.ui:574
+msgid "Remove"
+msgstr "Šalinti"
+
+#: data/ui/history_placeholder.ui:32
+msgid "<big>Your screenshots will show up here</big>"
+msgstr "<big>Jūsų ekrano kopijos bus rodomos čia</big>"
+
+#: data/ui/history_view.ui:23 data/ui/settings_view.ui:49
+msgid "Back"
+msgstr "Atgal"
+
+#: data/ui/history_view.ui:42
+msgid "<span font=\"11\">Recent screenshots</span>"
+msgstr "<span font=\"11\">Paskiausios ekrano kopijos</span>"
+
+#: data/ui/history_view.ui:90
+msgid "Remove all screenshots from history"
+msgstr "Šalinti iš istorijos visas ekrano kopijas"
+
+#: data/ui/history_view.ui:95
+msgid "Clear all screenshots"
+msgstr "Išvalyti visas ekrano kopijas"
+
+#: data/ui/main_view.ui:41
+msgid "Clear title"
+msgstr "Išvalyti pavadinimą"
+
+#: data/ui/main_view.ui:42
+msgid "Title (Optional)"
+msgstr "Pavadinimas (Nebūtinas)"
+
+#: data/ui/main_view.ui:115
+msgctxt "Screen option in the main applet view"
+msgid "Screen"
+msgstr "Ekranas"
+
+#: data/ui/main_view.ui:171
+msgctxt "Window option in the main applet view"
+msgid "Window"
+msgstr "Langas"
+
+#: data/ui/main_view.ui:229
+msgctxt "Selection option in the main applet view"
+msgid "Selection"
+msgstr "Žymėjimas"
+
+#: data/ui/main_view.ui:278
+msgctxt "Screenshot delay"
+msgid "Delay"
+msgstr "Delsa"
+
+#: data/ui/main_view.ui:456
+msgid "History"
+msgstr "Istorija"
+
+#: data/ui/settings_view.ui:118 data/ui/settings_view.ui:132
+msgid "Prefer the global delay over individual screenshot mode delays"
+msgstr "Teikti pirmenybę visuotinei delsai, o ne asmeninės ekrano kopijų veiksenos delsai"
+
+#: data/ui/settings_view.ui:121
+msgctxt "Use global [screenshot] delay"
+msgid "Use global delay"
+msgstr "Naudoti visuotinę delsą"
+
+#: data/ui/settings_view.ui:145 data/ui/settings_view.ui:147
+#: data/ui/settings_view.ui:158
+msgid "Global screenshot delay"
+msgstr "Visuotinė ekrano kopijų delsa"
+
+#: data/ui/settings_view.ui:173 data/ui/settings_view.ui:186
+msgid "Upload screenshots automatically"
+msgstr "Automatiškai įkelti ekrano kopijas"
+
+#: data/ui/settings_view.ui:175
+msgid "Automatic upload"
+msgstr "Automatinis įkėlimas"
+
+#: data/ui/settings_view.ui:199 data/ui/settings_view.ui:212
+msgid "Service to use for uploading screenshots"
+msgstr "Paslauga, kuri bus naudojama ekrano kopijų įkėlimui"
+
+#: data/ui/settings_view.ui:201
+msgid "Upload provider"
+msgstr "Įkėlimo tiekėjas"
+
+#: data/ui/settings_view.ui:225 data/ui/settings_view.ui:238
+msgid "Automatically copy the screenshot URL after uploading it"
+msgstr "Įkėlus ekrano kopiją, automatiškai kopijuoti jos URL"
+
+#: data/ui/settings_view.ui:227
+msgid "Automatic copy"
+msgstr "Automatinis kopijavimas"
+
+#: data/ui/settings_view.ui:251 data/ui/settings_view.ui:264
+msgid "Include the pointer in screenshots"
+msgstr "Į ekrano kopijas įtraukti rodyklę"
+
+#: data/ui/settings_view.ui:253
+msgid "Include pointer"
+msgstr "Įtraukti rodyklę"
+
+#: data/ui/settings_view.ui:281 data/ui/settings_view.ui:321
+msgid "Screenshots will be saved under this location"
+msgstr "Ekrano kopijos bus įrašomos į šią vietą"
+
+#: data/ui/settings_view.ui:295
+msgid "Choose directory"
+msgstr "Pasirinkti katalogą"
+
+#: data/ui/settings_view.ui:323
+msgid "Save destination"
+msgstr "Įrašymo paskirties vieta"
+
+#: data/ui/settings_view.ui:335 data/ui/settings_view.ui:348
+msgid "Re-open the applet after taking a screenshot"
+msgstr "Padarius ekrano kopiją, iš naujo atverti programėlę"
+
+#: data/ui/settings_view.ui:337
+msgid "Re-open applet"
+msgstr "Iš naujo atverti programėlę"
+
+#: data/ui/settings_view.ui:361 data/ui/settings_view.ui:374
+msgid ""
+"Removing a screenshot from history will also delete the file from the disk "
+"if this is enabled"
+msgstr "Jei įjungta, ekrano kopijos šalinimas iš istorijos tuo pačiu ištrins failą iš disko"
+
+#: data/ui/settings_view.ui:363
+msgid "Delete files"
+msgstr "Ištrinti failus"
+
+#: data/ui/settings_view.ui:387 data/ui/settings_view.ui:400
+msgid "Show screenshot thumbnails"
+msgstr "Rodyti ekrano kopijų miniatiūras"
+
+#: data/ui/settings_view.ui:389
+msgid "Show thumbnails"
+msgstr "Rodyti miniatiūras"
+
+#: data/ui/settings_view.ui:412
+msgctxt ""
+"Short for Global Settings. This string is the page title used in the stack "
+"switcher on the top of the settings page."
+msgid "Global"
+msgstr "Visuotiniai"
+
+#: data/ui/settings_view.ui:430
+msgid "<big>Screen</big>"
+msgstr "<big>Ekranas</big>"
+
+#: data/ui/settings_view.ui:465 data/ui/settings_view.ui:479
+msgid "Screen screenshot delay"
+msgstr "Viso ekrano ekrano kopijos delsa"
+
+#: data/ui/settings_view.ui:494 data/ui/settings_view.ui:507
+msgid "The monitor to use when taking a screenshot"
+msgstr "Vaizduoklis, kurį naudoti darant ekrano kopiją"
+
+#: data/ui/settings_view.ui:524
+msgid "<big>Window</big>"
+msgstr "<big>Langas</big>"
+
+#: data/ui/settings_view.ui:559 data/ui/settings_view.ui:572
+msgid "Window screenshot delay"
+msgstr "Lango ekrano kopijos delsa"
+
+#: data/ui/settings_view.ui:587 data/ui/settings_view.ui:600
+msgid "Include the window border in window screenshots"
+msgstr "Į lango ekrano kopijas įtraukti lango rėmelį"
+
+#: data/ui/settings_view.ui:617
+msgid "<big>Selection</big>"
+msgstr "<big>Žymėjimas</big>"
+
+#: data/ui/settings_view.ui:652 data/ui/settings_view.ui:665
+msgid "Selection screenshot delay"
+msgstr "Žymėjimo ekrano kopijos delsa"
+
+#: data/ui/settings_view.ui:679
+msgctxt ""
+"Short for Individual Settings. This string is the page title used in the "
+"stack switcher on the top of the settings page."
+msgid "Individual"
+msgstr "Asmeniniai"
+
+#: data/ui/settings_view.ui:709
+msgid "Restore global settings"
+msgstr "Atkurti visuotinius nustatymus"
