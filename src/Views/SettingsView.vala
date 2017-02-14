@@ -153,11 +153,6 @@ private class SettingsView : Gtk.Box
         Gtk.ListStore providers = new Gtk.ListStore(2, typeof(string), typeof(string));
         Gtk.TreeIter? iter = null;
 
-        // foreach (var entry in BackendUtil.uploader.get_providers().entries) {
-        //     providers.append(out iter);
-        //     providers.set(iter, 0, entry.key, 1, entry.value.get_name());
-        // }
-
         BackendUtil.uploader.get_providers().foreach((key, val) => {
             providers.append(out iter);
             providers.set(iter, 0, key, 1, val.get_name());
