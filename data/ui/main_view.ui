@@ -2,6 +2,21 @@
 <!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.18"/>
+  <object class="GtkFrame">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="label_xalign">0</property>
+    <property name="shadow_type">none</property>
+    <child>
+      <placeholder/>
+    </child>
+    <child type="label_item">
+      <placeholder/>
+    </child>
+    <style>
+      <class name="quick-settings"/>
+    </style>
+  </object>
   <object class="GtkAdjustment" id="screen_delay_adjustment">
     <property name="upper">60</property>
     <property name="step_increment">1</property>
@@ -270,16 +285,16 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <child>
-          <object class="GtkFrame">
+          <object class="GtkStack" id="quick_settings_stack">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label_xalign">0</property>
-            <property name="shadow_type">none</property>
+            <property name="transition_type">slide-left-right</property>
             <child>
-              <object class="GtkStack" id="quick_settings_stack">
+              <object class="GtkFrame">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="transition_type">slide-left-right</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
                 <child>
                   <object class="GtkGrid">
                     <property name="visible">True</property>
@@ -337,10 +352,24 @@
                       </packing>
                     </child>
                   </object>
-                  <packing>
-                    <property name="name">screen</property>
-                  </packing>
                 </child>
+                <child type="label_item">
+                  <placeholder/>
+                </child>
+                <style>
+                  <class name="quick-settings"/>
+                </style>
+              </object>
+              <packing>
+                <property name="name">screen</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
                 <child>
                   <object class="GtkGrid">
                     <property name="visible">True</property>
@@ -400,11 +429,25 @@
                       </packing>
                     </child>
                   </object>
-                  <packing>
-                    <property name="name">window</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
+                <child type="label_item">
+                  <placeholder/>
+                </child>
+                <style>
+                  <class name="quick-settings"/>
+                </style>
+              </object>
+              <packing>
+                <property name="name">window</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
                 <child>
                   <object class="GtkGrid">
                     <property name="visible">True</property>
@@ -441,19 +484,19 @@
                       <placeholder/>
                     </child>
                   </object>
-                  <packing>
-                    <property name="name">selection</property>
-                    <property name="position">2</property>
-                  </packing>
                 </child>
+                <child type="label_item">
+                  <placeholder/>
+                </child>
+                <style>
+                  <class name="quick-settings"/>
+                </style>
               </object>
+              <packing>
+                <property name="name">selection</property>
+                <property name="position">2</property>
+              </packing>
             </child>
-            <child type="label_item">
-              <placeholder/>
-            </child>
-            <style>
-              <class name="quick-settings"/>
-            </style>
           </object>
         </child>
       </object>
