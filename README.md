@@ -1,6 +1,10 @@
 # Budgie Screenshot Applet
 Take a screenshot of your desktop, a window or region; save to disk and upload. Made with ❤ for Budgie Desktop.
 
+![Screenshot](screenshot.png)
+
+---
+
 ## Dependencies
 ```
 budgie-1.0 >= 2
@@ -31,10 +35,3 @@ You can install budgie-screenshot-applet from the Software Centre or via the com
 ```bash
 sudo eopkg it budgie-screenshot-applet
 ```
-
----
-
-### Screenshot
-<p align="center">
-    <img alt="Screenshot" src="screenshot.png"/>
-</p>
