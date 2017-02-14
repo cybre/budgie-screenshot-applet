@@ -503,7 +503,7 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">The monitor to use when taking a screenshot</property>
+                        <property name="tooltip_text" translatable="yes">The monitor that should be used for taking a screenshot</property>
                         <property name="halign">start</property>
                         <property name="label" translatable="yes">Monitor</property>
                       </object>
@@ -516,7 +516,7 @@
                       <object class="GtkComboBox" id="screen_monitor_combobox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">The monitor to use when taking a screenshot</property>
+                        <property name="tooltip_text" translatable="yes">The monitor that should be used for taking a screenshot</property>
                         <property name="valign">center</property>
                         <property name="hexpand">False</property>
                       </object>
