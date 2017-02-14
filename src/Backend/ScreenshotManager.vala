@@ -57,8 +57,7 @@ private class ScreenshotManager
             return;
         }
 
-        Gtk.RecentManager recents = new Gtk.RecentManager();
-        recents.add_item(URI);
+        Gtk.RecentManager.get_default().add_item(URI);
 
         Views.MainView._title_entry.set_text("");
 
