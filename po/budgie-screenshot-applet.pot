@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: budgie-screenshot-applet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 02:54+0100\n"
+"POT-Creation-Date: 2017-02-14 03:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Untitled"
 msgstr ""
 
-#: src/Views/SettingsView.vala:77
+#: src/Views/SettingsView.vala:77 data/ui/settings_view.ui:723
 msgid "Reset global settings"
 msgstr ""
 
@@ -321,8 +321,4 @@ msgctxt ""
 "Short for Individual Settings. This string is the page title used in the "
 "stack switcher on the top of the settings page."
 msgid "Individual"
-msgstr ""
-
-#: data/ui/settings_view.ui:723
-msgid "Restore global settings"
 msgstr ""
