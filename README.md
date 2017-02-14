@@ -5,7 +5,7 @@ Take a screenshot of your desktop, a window or region; save to disk and upload. 
 ```
 budgie-1.0 >= 2
 gnome-desktop-3.0
-gtk+-3.0 >= 3.20
+gtk+-3.0 >= 3.18
 json-glib-1.0
 libsoup-2.4
 vala
