@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: budgie-screenshot-applet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-12 06:26+0100\n"
-"PO-Revision-Date: 2017-02-12 21:32+0000\n"
+"POT-Creation-Date: 2017-02-14 03:00+0100\n"
+"PO-Revision-Date: 2017-02-14 02:04+0000\n"
 "Last-Translator: Stefan Ric (cybre) <stfric369@gmail.com>\n"
 "Language-Team: Serbian (Latin) (Serbia) (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/sr_RS@latin/)\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Language: sr_RS@latin\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/Views/HistoryView.vala:123 src/Widgets/HistoryItem.vala:295
+#: src/Views/HistoryView.vala:123 src/Widgets/HistoryItem.vala:293
 msgid "Untitled"
 msgstr "Bez naslova"
 
-#: src/Views/SettingsView.vala:77
+#: src/Views/SettingsView.vala:77 data/ui/settings_view.ui:723
 msgid "Reset global settings"
 msgstr "Resetuj globalne postavke"
 
@@ -30,48 +30,18 @@ msgstr "Resetuj globalne postavke"
 msgid "Reset individual settings"
 msgstr "Resetuj individualne postavke"
 
-#: src/Views/FileChooserView.vala:30 data/ui/history_item.ui:446
+#: src/Views/FileChooserView.vala:34 data/ui/history_item.ui:446
 #: data/ui/history_item.ui:521
 msgid "Cancel"
 msgstr "Otkaži"
 
-#: src/Views/FileChooserView.vala:34 src/Views/FileChooserView.vala:38
+#: src/Views/FileChooserView.vala:38 src/Views/FileChooserView.vala:42
 msgid "Select"
 msgstr "Odaberi"
 
 #: src/Widgets/HistoryItem.vala:198
 msgid "Screenshot not available"
 msgstr "Snimak ekrana nije dostupan"
-
-#: src/Widgets/QuickSettings.vala:35 src/Widgets/QuickSettings.vala:61
-#: src/Widgets/QuickSettings.vala:80 data/ui/main_view.ui:338
-#: data/ui/main_view.ui:401
-msgid "Delay"
-msgstr "Vreme odlaganja"
-
-#: src/Widgets/QuickSettings.vala:35 src/Widgets/QuickSettings.vala:61
-#: src/Widgets/QuickSettings.vala:80 data/ui/settings_view.ui:468
-#: data/ui/settings_view.ui:561 data/ui/settings_view.ui:654
-msgid "Screenshot delay"
-msgstr "Vreme odlaganja snimanja ekrana"
-
-#: src/Widgets/QuickSettings.vala:42 data/ui/main_view.ui:290
-#: data/ui/settings_view.ui:496
-msgid "Monitor"
-msgstr "Monitor"
-
-#: src/Widgets/QuickSettings.vala:42
-msgid "Monitor to use"
-msgstr "Monitor koji se koristi"
-
-#: src/Widgets/QuickSettings.vala:68 data/ui/main_view.ui:350
-#: data/ui/settings_view.ui:589
-msgid "Include border"
-msgstr "Uključi ivice prozora"
-
-#: src/Widgets/QuickSettings.vala:68
-msgid "Wether to include the window border"
-msgstr "Da li treba uključiti ivice prozora"
 
 #. Initialize save_path if not set
 #: src/Backend/SettingsManager.vala:156 src/Backend/SettingsManager.vala:182
@@ -154,184 +124,202 @@ msgstr "<big>Otpremanje na čekanju</big>\nUkloni"
 msgid "<big>Your screenshots will show up here</big>"
 msgstr "<big>Tvoji snimci ekrana će se pojaviti ovde</big>"
 
-#: data/ui/history_view.ui:23 data/ui/settings_view.ui:49
+#: data/ui/history_view.ui:29 data/ui/settings_view.ui:55
 msgid "Back"
 msgstr "Nazad"
 
-#: data/ui/history_view.ui:42
+#: data/ui/history_view.ui:48
 msgid "<span font=\"11\">Recent screenshots</span>"
 msgstr "<span font=\\\"11\\\">Nedavni snimci ekrana</span>"
 
-#: data/ui/history_view.ui:90
+#: data/ui/history_view.ui:101
 msgid "Remove all screenshots from history"
 msgstr "Ukloni sve snimke ekrana iz istorije"
 
-#: data/ui/history_view.ui:95
+#: data/ui/history_view.ui:106
 msgid "Clear all screenshots"
 msgstr "Ukloni sve snimke ekrana iz istorije\nUkloni sve snimke ekrana"
 
-#: data/ui/main_view.ui:41
+#: data/ui/main_view.ui:47
 msgid "Clear title"
 msgstr "Ukloni naslov"
 
-#: data/ui/main_view.ui:42
+#: data/ui/main_view.ui:48
 msgid "Title (Optional)"
 msgstr "Naslov (Opcionalno)"
 
-#: data/ui/main_view.ui:115
+#: data/ui/main_view.ui:126
 msgctxt "Screen option in the main applet view"
 msgid "Screen"
 msgstr "Ekran"
 
-#: data/ui/main_view.ui:171
+#: data/ui/main_view.ui:182
 msgctxt "Window option in the main applet view"
 msgid "Window"
 msgstr "Prozor"
 
-#: data/ui/main_view.ui:229
+#: data/ui/main_view.ui:240
 msgctxt "Selection option in the main applet view"
 msgid "Selection"
 msgstr "Selekcija"
 
-#: data/ui/main_view.ui:278
+#: data/ui/main_view.ui:294 data/ui/main_view.ui:320
+#: data/ui/settings_view.ui:477 data/ui/settings_view.ui:491
+msgid "Screen screenshot delay"
+msgstr "Vreme odlaganja snimaka ekrana"
+
+#: data/ui/main_view.ui:296
 msgctxt "Screenshot delay"
 msgid "Delay"
 msgstr "Vreme odlaganja"
 
-#: data/ui/main_view.ui:456
+#: data/ui/main_view.ui:307 data/ui/main_view.ui:332
+#: data/ui/settings_view.ui:506 data/ui/settings_view.ui:519
+msgid "The monitor that should be used for taking a screenshot"
+msgstr "Monitor koji treba koristiti za snimanje ekrana"
+
+#: data/ui/main_view.ui:309 data/ui/settings_view.ui:508
+msgid "Monitor"
+msgstr "Monitor"
+
+#: data/ui/main_view.ui:355 data/ui/main_view.ui:381
+#: data/ui/settings_view.ui:572 data/ui/settings_view.ui:585
+msgid "Window screenshot delay"
+msgstr "Vreme odlaganja snimaka prozora"
+
+#: data/ui/main_view.ui:357 data/ui/main_view.ui:420
+msgid "Delay"
+msgstr "Vreme odlaganja"
+
+#: data/ui/main_view.ui:368 data/ui/main_view.ui:393
+#: data/ui/settings_view.ui:600 data/ui/settings_view.ui:613
+msgid "Include the window border in window screenshots"
+msgstr "Obuhvati ivice prozora u snimcima prozora"
+
+#: data/ui/main_view.ui:370 data/ui/settings_view.ui:602
+msgid "Include border"
+msgstr "Obuhvati ivice prozora"
+
+#: data/ui/main_view.ui:432 data/ui/settings_view.ui:666
+#: data/ui/settings_view.ui:679
+msgid "Selection screenshot delay"
+msgstr "Vreme odlaganja snimaka selekcija"
+
+#: data/ui/main_view.ui:481
 msgid "History"
 msgstr "Istorija"
 
-#: data/ui/settings_view.ui:118 data/ui/settings_view.ui:132
+#: data/ui/settings_view.ui:129 data/ui/settings_view.ui:143
 msgid "Prefer the global delay over individual screenshot mode delays"
 msgstr "Preferiraj globalno vreme odlaganja umesto individualnih"
 
-#: data/ui/settings_view.ui:121
+#: data/ui/settings_view.ui:132
 msgctxt "Use global [screenshot] delay"
 msgid "Use global delay"
 msgstr "Koristi globno vreme odlaganja"
 
-#: data/ui/settings_view.ui:145 data/ui/settings_view.ui:147
-#: data/ui/settings_view.ui:158
+#: data/ui/settings_view.ui:156 data/ui/settings_view.ui:158
+#: data/ui/settings_view.ui:169
 msgid "Global screenshot delay"
 msgstr "Globalno vreme odlaganja"
 
-#: data/ui/settings_view.ui:173 data/ui/settings_view.ui:186
+#: data/ui/settings_view.ui:184 data/ui/settings_view.ui:197
 msgid "Upload screenshots automatically"
 msgstr "Automatski otpremi snimke ekrana"
 
-#: data/ui/settings_view.ui:175
+#: data/ui/settings_view.ui:186
 msgid "Automatic upload"
 msgstr "Automatsko otpremanje"
 
-#: data/ui/settings_view.ui:199 data/ui/settings_view.ui:212
+#: data/ui/settings_view.ui:210 data/ui/settings_view.ui:223
 msgid "Service to use for uploading screenshots"
 msgstr "Servis za otpremanje snimaka ekrana"
 
-#: data/ui/settings_view.ui:201
+#: data/ui/settings_view.ui:212
 msgid "Upload provider"
 msgstr "Servis za otpremanje"
 
-#: data/ui/settings_view.ui:225 data/ui/settings_view.ui:238
+#: data/ui/settings_view.ui:236 data/ui/settings_view.ui:249
 msgid "Automatically copy the screenshot URL after uploading it"
 msgstr "Automatski kopiraj link snimka ekrana nakon otpremanja"
 
-#: data/ui/settings_view.ui:227
+#: data/ui/settings_view.ui:238
 msgid "Automatic copy"
 msgstr "Automatsko kopiranje"
 
-#: data/ui/settings_view.ui:251 data/ui/settings_view.ui:264
+#: data/ui/settings_view.ui:262 data/ui/settings_view.ui:275
 msgid "Include the pointer in screenshots"
-msgstr "Uključi pokazivač u snimcima ekrana"
+msgstr "Obuhvati pokazivač u snimcima ekrana"
 
-#: data/ui/settings_view.ui:253
+#: data/ui/settings_view.ui:264
 msgid "Include pointer"
-msgstr "Uključi pokazivač"
+msgstr "Obuhvati pokazivač"
 
-#: data/ui/settings_view.ui:281 data/ui/settings_view.ui:321
+#: data/ui/settings_view.ui:292 data/ui/settings_view.ui:332
 msgid "Screenshots will be saved under this location"
 msgstr "Snimci ekrana će biti sačuvani na ovoj lokaciji"
 
-#: data/ui/settings_view.ui:295
+#: data/ui/settings_view.ui:306
 msgid "Choose directory"
 msgstr "Odaberi direktorijum"
 
-#: data/ui/settings_view.ui:323
+#: data/ui/settings_view.ui:334
 msgid "Save destination"
 msgstr "Destinacija za čuvanje"
 
-#: data/ui/settings_view.ui:335 data/ui/settings_view.ui:348
+#: data/ui/settings_view.ui:346 data/ui/settings_view.ui:359
 msgid "Re-open the applet after taking a screenshot"
 msgstr "Ponovo otvori aplet nakon snimanja ekrana"
 
-#: data/ui/settings_view.ui:337
+#: data/ui/settings_view.ui:348
 msgid "Re-open applet"
 msgstr "Ponovo otvori aplet"
 
-#: data/ui/settings_view.ui:361 data/ui/settings_view.ui:374
+#: data/ui/settings_view.ui:372 data/ui/settings_view.ui:385
 msgid ""
 "Removing a screenshot from history will also delete the file from the disk "
 "if this is enabled"
 msgstr "Uklanjanje snimka ekrana iz istorije će ga takođe obrisati i sa diska ako je ovo omogućeno"
 
-#: data/ui/settings_view.ui:363
+#: data/ui/settings_view.ui:374
 msgid "Delete files"
 msgstr "Briši datoteke"
 
-#: data/ui/settings_view.ui:387 data/ui/settings_view.ui:400
+#: data/ui/settings_view.ui:398 data/ui/settings_view.ui:411
 msgid "Show screenshot thumbnails"
 msgstr "Prikaži sličice snimaka ekrana"
 
-#: data/ui/settings_view.ui:389
+#: data/ui/settings_view.ui:400
 msgid "Show thumbnails"
 msgstr "Prikaži sličice"
 
-#: data/ui/settings_view.ui:412
+#: data/ui/settings_view.ui:423
 msgctxt ""
 "Short for Global Settings. This string is the page title used in the stack "
 "switcher on the top of the settings page."
 msgid "Global"
 msgstr "Globalna"
 
-#: data/ui/settings_view.ui:430
+#: data/ui/settings_view.ui:442
 msgid "<big>Screen</big>"
 msgstr "<big>Ekran</big>"
 
-#: data/ui/settings_view.ui:465 data/ui/settings_view.ui:479
-msgid "Screen screenshot delay"
-msgstr "Vreme odlaganja snimaka ekrana"
+#: data/ui/settings_view.ui:480 data/ui/settings_view.ui:574
+#: data/ui/settings_view.ui:668
+msgid "Screenshot delay"
+msgstr "Vreme odlaganja snimanja ekrana"
 
-#: data/ui/settings_view.ui:494 data/ui/settings_view.ui:507
-msgid "The monitor to use when taking a screenshot"
-msgstr "Monitor koji treba koristiti za snimanje snimaka ekrana"
-
-#: data/ui/settings_view.ui:524
+#: data/ui/settings_view.ui:537
 msgid "<big>Window</big>"
 msgstr "<big>Prozor</big>"
 
-#: data/ui/settings_view.ui:559 data/ui/settings_view.ui:572
-msgid "Window screenshot delay"
-msgstr "Vreme odlaganja snimaka prozora"
-
-#: data/ui/settings_view.ui:587 data/ui/settings_view.ui:600
-msgid "Include the window border in window screenshots"
-msgstr "Uključi ivice prozora u snimcima prozora"
-
-#: data/ui/settings_view.ui:617
+#: data/ui/settings_view.ui:631
 msgid "<big>Selection</big>"
 msgstr "<big>Selekcija</big>"
 
-#: data/ui/settings_view.ui:652 data/ui/settings_view.ui:665
-msgid "Selection screenshot delay"
-msgstr "Vreme odlaganja snimaka selekcija"
-
-#: data/ui/settings_view.ui:679
+#: data/ui/settings_view.ui:693
 msgctxt ""
 "Short for Individual Settings. This string is the page title used in the "
 "stack switcher on the top of the settings page."
 msgid "Individual"
 msgstr "Individualna"
-
-#: data/ui/settings_view.ui:709
-msgid "Restore global settings"
-msgstr "Povrati globalna podešavanja"
