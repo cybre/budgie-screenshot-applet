@@ -9,7 +9,7 @@ gresource_file = join_paths(data_dir, 'com.github.cybre.budgie-screenshot-applet
 res = gnome.compile_resources('bsa-resources', gresource_file, source_dir: data_dir)
 
 conf_data = configuration_data()
-conf_data.set('PACKAGE_NAME', meson.source_root())
+conf_data.set('PACKAGE_NAME', meson.project_name())
 conf_data.set('LOCALE_DIR', LOCALE_DIR)
 configure_file(input: 'config.h.in', output: 'config.h', configuration: conf_data)
 
