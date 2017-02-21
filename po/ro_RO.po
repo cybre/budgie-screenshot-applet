@@ -3,180 +3,180 @@
 # This file is distributed under the same license as the budgie-screenshot-applet package.
 # 
 # Translators:
-# Yurizal Susanto <rizal.sagi@gmail.com>, 2017
+# Ion Ionica <astonsoft@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: budgie-screenshot-applet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-16 06:06+0100\n"
-"PO-Revision-Date: 2017-02-17 00:08+0000\n"
-"Last-Translator: Yurizal Susanto <rizal.sagi@gmail.com>\n"
-"Language-Team: Indonesian (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/id/)\n"
+"PO-Revision-Date: 2017-02-18 11:15+0000\n"
+"Last-Translator: Ion Ionica <astonsoft@gmail.com>\n"
+"Language-Team: Romanian (Romania) (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: id\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #: src/Views/HistoryView.vala:123 src/Widgets/HistoryItem.vala:293
 msgid "Untitled"
-msgstr "Tanpa nama"
+msgstr "Neintitulat"
 
 #: src/Views/SettingsView.vala:77 data/ui/settings_view.ui:723
 msgid "Reset global settings"
-msgstr "Ulang pengaturan global"
+msgstr "Resetare setari globale"
 
 #: src/Views/SettingsView.vala:80
 msgid "Reset individual settings"
-msgstr "Ulang pengaturan individu"
+msgstr "Resetare setari individuale"
 
 #: src/Views/FileChooserView.vala:34 data/ui/history_item.ui:446
 #: data/ui/history_item.ui:521
 msgid "Cancel"
-msgstr "Batal"
+msgstr "Anulare"
 
 #: src/Views/FileChooserView.vala:38 src/Views/FileChooserView.vala:42
 msgid "Select"
-msgstr "Pilih"
+msgstr "Selectare"
 
 #: src/Widgets/HistoryItem.vala:198
 msgid "Screenshot not available"
-msgstr "Potret layar tidak tersedia"
+msgstr "Fara previzualizare"
 
 #. Initialize save_path if not set
 #: src/Backend/SettingsManager.vala:156 src/Backend/SettingsManager.vala:182
 #: src/Backend/ScreenshotMode/ScreenshotAbstract.vala:84
 msgid "Screenshots"
-msgstr "Potret layar"
+msgstr "Previzualizare"
 
 #: src/Backend/SettingsManager.vala:223
 msgid "All monitors"
-msgstr "Semua monitor"
+msgstr "Toate monitoarele"
 
 #: src/Backend/ScreenshotMode/ScreenshotAbstract.vala:125
 #, c-format
 msgid "Screenshot from %s"
-msgstr "Potret layar dari %s"
+msgstr "Previzualizare de la %s"
 
 #: data/ui/history_item.ui:76
 msgid ""
 "Left click to open\n"
 "Right click to copy"
-msgstr "Klik kiri untuk membuka\nKlik kanan untuk menyalin"
+msgstr "Click stanga deschide Click dreapta copiaza"
 
 #: data/ui/history_item.ui:167
 msgid "Edit screenshot title"
-msgstr "Ubah nama potret layar"
+msgstr "Editeaza titlul previzualizarii"
 
 #: data/ui/history_item.ui:201
 msgid "Clear"
-msgstr "Bersihkan"
+msgstr "Curata"
 
 #: data/ui/history_item.ui:202
 msgid "New title (optional)"
-msgstr "Nama baru (opsional)"
+msgstr "Titlu nou (Optional)"
 
 #: data/ui/history_item.ui:217
 msgid "Apply changes"
-msgstr "Terapkan perubahan"
+msgstr "Aplica schimbari"
 
 #: data/ui/history_item.ui:257
 msgid "Upload screenshot"
-msgstr "Unggah potret layar"
+msgstr "Incarca previzualizarea"
 
 #: data/ui/history_item.ui:277
 msgid "Copy screenshot link"
-msgstr "Salin alamat potret layar"
+msgstr "Copiaza adresa previzualizarii"
 
 #: data/ui/history_item.ui:316
 msgid "Delete screenshot"
-msgstr "Hapus potret layar"
+msgstr "Sterge previzualizarea"
 
 #: data/ui/history_item.ui:348
 msgid "Open screenshot"
-msgstr "Buka potret layar"
+msgstr "Deschide previzualizarea"
 
 #: data/ui/history_item.ui:421
 msgid "<big>Uploading</big>"
-msgstr "<big>Mengunggah</big>"
+msgstr "<big>Incarca</big>"
 
 #: data/ui/history_item.ui:450
 msgid "Cancel upload"
-msgstr "Batalkan pengunggahan"
+msgstr "Anuleaza incarcarea"
 
 #: data/ui/history_item.ui:482
 msgid "<big>Upload failed</big>"
-msgstr "<big>Gagal mengunggah</big>"
+msgstr "<big>Incarcare nereusita</big>"
 
 #: data/ui/history_item.ui:502
 msgid "Try again"
-msgstr "Coba lagi"
+msgstr "Incearca din nou"
 
 #: data/ui/history_item.ui:563
 msgid "<big>Upload queued</big>"
-msgstr "<big>Unggahan diantrikan</big>"
+msgstr "<big>Incarcare in progres</big>"
 
 #: data/ui/history_item.ui:574
 msgid "Remove"
-msgstr "Copot"
+msgstr "Sterge"
 
 #: data/ui/history_placeholder.ui:32
 msgid "<big>Your screenshots will show up here</big>"
-msgstr "<big>Potret layarmu akan tampil di sini</big>"
+msgstr "<big>Previzualizarea v-a aparea aici</big>"
 
 #: data/ui/history_view.ui:29 data/ui/settings_view.ui:55
 msgid "Back"
-msgstr "Kembali"
+msgstr "Inapoi"
 
 #: data/ui/history_view.ui:48
 msgid "<span font=\"11\">Recent screenshots</span>"
-msgstr "<span font=\"11\">Potret layar terbaru</span>"
+msgstr "<span font=\"11\">Previzualizari recente</span>"
 
 #: data/ui/history_view.ui:101
 msgid "Remove all screenshots from history"
-msgstr "Hapus semua potret layar dari riwayat"
+msgstr "Sterge previzualizarile din istoric"
 
 #: data/ui/history_view.ui:106
 msgid "Clear all screenshots"
-msgstr "Bersihkan semua potret layar"
+msgstr "Sterge toate previzualizarile"
 
 #: data/ui/main_view.ui:62
 msgid "Clear title"
-msgstr "Bersihkan nama"
+msgstr "Sterge titlul"
 
 #: data/ui/main_view.ui:63
 msgid "Title (Optional)"
-msgstr "Nama (opsional)"
+msgstr "Titlu (Optional)"
 
 #: data/ui/main_view.ui:141
 msgctxt "Screen option in the main applet view"
 msgid "Screen"
-msgstr "Layar"
+msgstr "Ecran"
 
 #: data/ui/main_view.ui:197
 msgctxt "Window option in the main applet view"
 msgid "Window"
-msgstr "Jendela"
+msgstr "Fereastra"
 
 #: data/ui/main_view.ui:255
 msgctxt "Selection option in the main applet view"
 msgid "Selection"
-msgstr "Pilihan"
+msgstr "Selectie"
 
 #: data/ui/main_view.ui:309 data/ui/main_view.ui:335
 #: data/ui/settings_view.ui:477 data/ui/settings_view.ui:491
 msgid "Screen screenshot delay"
-msgstr "Tundaan untuk potret layar monitor"
+msgstr "Previzualizare ecran intarziata"
 
 #: data/ui/main_view.ui:311
 msgctxt "Screenshot delay"
 msgid "Delay"
-msgstr "Tunda"
+msgstr "Intarziere"
 
 #: data/ui/main_view.ui:322 data/ui/main_view.ui:347
 #: data/ui/settings_view.ui:506 data/ui/settings_view.ui:519
 msgid "The monitor that should be used for taking a screenshot"
-msgstr "Monitor yang harusnya digunakan untuk memotret layar"
+msgstr "Monitorul v-a fi utilizat pentru previzualizare"
 
 #: data/ui/main_view.ui:324 data/ui/settings_view.ui:508
 msgid "Monitor"
@@ -185,113 +185,113 @@ msgstr "Monitor"
 #: data/ui/main_view.ui:384 data/ui/main_view.ui:410
 #: data/ui/settings_view.ui:572 data/ui/settings_view.ui:585
 msgid "Window screenshot delay"
-msgstr "Tundaan untuk potret layar jendela"
+msgstr "Intarziere previzualizare fereastra"
 
 #: data/ui/main_view.ui:386 data/ui/main_view.ui:463
 msgid "Delay"
-msgstr "Tunda"
+msgstr "Intarziere"
 
 #: data/ui/main_view.ui:397 data/ui/main_view.ui:422
 #: data/ui/settings_view.ui:600 data/ui/settings_view.ui:613
 msgid "Include the window border in window screenshots"
-msgstr "Masukkan pinggiran dalam potret layar jendela"
+msgstr "Include marginea in previzualizarea ferestrei"
 
 #: data/ui/main_view.ui:399 data/ui/settings_view.ui:602
 msgid "Include border"
-msgstr "Masukkan pinggiran"
+msgstr "Include marginea"
 
 #: data/ui/main_view.ui:475 data/ui/settings_view.ui:666
 #: data/ui/settings_view.ui:679
 msgid "Selection screenshot delay"
-msgstr "Tundaan untuk potret layar pilihan"
+msgstr "Selectie intarziata previzualizare"
 
 #: data/ui/main_view.ui:524
 msgid "History"
-msgstr "Riwayat"
+msgstr "Istoric"
 
 #: data/ui/settings_view.ui:129 data/ui/settings_view.ui:143
 msgid "Prefer the global delay over individual screenshot mode delays"
-msgstr "Pilih tundaan global daripada modus tundaan potret layar individu"
+msgstr "Preferinta intarziere globala peste modul personalizat de intarziere"
 
 #: data/ui/settings_view.ui:132
 msgctxt "Use global [screenshot] delay"
 msgid "Use global delay"
-msgstr "Gunakan tundaan global"
+msgstr "Utilizare intarziere globala"
 
 #: data/ui/settings_view.ui:156 data/ui/settings_view.ui:158
 #: data/ui/settings_view.ui:169
 msgid "Global screenshot delay"
-msgstr "Tundaan potret layar global"
+msgstr "Previzualizare intarziere globala"
 
 #: data/ui/settings_view.ui:184 data/ui/settings_view.ui:197
 msgid "Upload screenshots automatically"
-msgstr "Otomatis unggah potret layar"
+msgstr "Incarca previzualizarea automat"
 
 #: data/ui/settings_view.ui:186
 msgid "Automatic upload"
-msgstr "Unggah otomatis"
+msgstr "Incarcare automata"
 
 #: data/ui/settings_view.ui:210 data/ui/settings_view.ui:223
 msgid "Service to use for uploading screenshots"
-msgstr "Layanan yang digunakan untuk unggahan"
+msgstr "Serviciul utilizat pentru incarcare previzualizari"
 
 #: data/ui/settings_view.ui:212
 msgid "Upload provider"
-msgstr "Layanan unggah"
+msgstr "Incarcare personalizata"
 
 #: data/ui/settings_view.ui:236 data/ui/settings_view.ui:249
 msgid "Automatically copy the screenshot URL after uploading it"
-msgstr "Otomatis salin URL potret layar setelah mengunggah"
+msgstr "Copiere automata a previzualizarii dupa incarcare"
 
 #: data/ui/settings_view.ui:238
 msgid "Automatic copy"
-msgstr "Salin otomatis"
+msgstr "Copiere automata"
 
 #: data/ui/settings_view.ui:262 data/ui/settings_view.ui:275
 msgid "Include the pointer in screenshots"
-msgstr "Masukkan petunjuk dalam potret layar"
+msgstr "Include un punct in previzualizare"
 
 #: data/ui/settings_view.ui:264
 msgid "Include pointer"
-msgstr "Masukkan petunjuk"
+msgstr "Include punct"
 
 #: data/ui/settings_view.ui:292 data/ui/settings_view.ui:332
 msgid "Screenshots will be saved under this location"
-msgstr "Potret layar akan disimpin di tempat ini"
+msgstr "Previzualizarea va fi salvat in aceasta locatie"
 
 #: data/ui/settings_view.ui:306
 msgid "Choose directory"
-msgstr "Pilih direktori"
+msgstr "Alege directorul"
 
 #: data/ui/settings_view.ui:334
 msgid "Save destination"
-msgstr "Simpan tujuan"
+msgstr "Salveaza destinatia"
 
 #: data/ui/settings_view.ui:346 data/ui/settings_view.ui:359
 msgid "Re-open the applet after taking a screenshot"
-msgstr "Buka kempali applet setelah memotret layar"
+msgstr "Redeschide appletul dupa previzualizare"
 
 #: data/ui/settings_view.ui:348
 msgid "Re-open applet"
-msgstr "Buka kembali applet"
+msgstr "Redeschide previzualizarea"
 
 #: data/ui/settings_view.ui:372 data/ui/settings_view.ui:385
 msgid ""
 "Removing a screenshot from history will also delete the file from the disk "
 "if this is enabled"
-msgstr "Menghapus potret layar dari riwayat juga akan menghapus berkas dari memori jika ini diaktifkan"
+msgstr "Sterge previzualizarea din istoric, si de asemea sterge-o si de pe disc"
 
 #: data/ui/settings_view.ui:374
 msgid "Delete files"
-msgstr "Hapus berkas"
+msgstr "Sterge fisierele"
 
 #: data/ui/settings_view.ui:398 data/ui/settings_view.ui:411
 msgid "Show screenshot thumbnails"
-msgstr "Tampilkan peninjau potret layar"
+msgstr "Arata miniaturi previzualizare"
 
 #: data/ui/settings_view.ui:400
 msgid "Show thumbnails"
-msgstr "Tampilkan peninjau"
+msgstr "Arata miniaturi"
 
 #: data/ui/settings_view.ui:423
 msgctxt ""
@@ -302,24 +302,24 @@ msgstr "Global"
 
 #: data/ui/settings_view.ui:442
 msgid "<big>Screen</big>"
-msgstr "<big>Layar</big>"
+msgstr "<big>Ecran</big>"
 
 #: data/ui/settings_view.ui:480 data/ui/settings_view.ui:574
 #: data/ui/settings_view.ui:668
 msgid "Screenshot delay"
-msgstr "Tundaan potret layar"
+msgstr "Intarziere previzualizare"
 
 #: data/ui/settings_view.ui:537
 msgid "<big>Window</big>"
-msgstr "<big>Jendela</big>"
+msgstr "<big>Fereastra</big>"
 
 #: data/ui/settings_view.ui:631
 msgid "<big>Selection</big>"
-msgstr "<big>Pilihan</big>"
+msgstr "<big>Selectie</big>"
 
 #: data/ui/settings_view.ui:693
 msgctxt ""
 "Short for Individual Settings. This string is the page title used in the "
 "stack switcher on the top of the settings page."
 msgid "Individual"
-msgstr "Individu"
+msgstr "Individual"
