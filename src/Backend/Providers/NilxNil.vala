@@ -12,7 +12,7 @@
 namespace ScreenshotApplet.Backend.Providers
 {
 
-private class NilxNil : IProvider, GLib.Object
+private class NilxNil : IProvider
 {
     private Soup.SessionAsync session;
 
@@ -24,7 +24,7 @@ private class NilxNil : IProvider, GLib.Object
         session.add_feature(logger);
     }
 
-    private async bool upload_image(string uri, out string? link)
+    public override async bool upload_image(string uri, out string? link)
     {
         link = null;
 
@@ -46,6 +46,10 @@ private class NilxNil : IProvider, GLib.Object
         multipart.append_form_file("file", screenshot_file.get_basename(), mime_type, buffer);
 
         Soup.Message message = Soup.Form.request_new_from_multipart("https://0x0.st/", multipart);
+
+        message.wrote_body_data.connect((chunk) => {
+            progress_updated(message.request_body.length, chunk.length);
+        });
 
         GLib.HashTable<string, string> content_type_params;
         message.request_headers.get_content_type(out content_type_params);
@@ -70,11 +74,11 @@ private class NilxNil : IProvider, GLib.Object
         return true;
     }
 
-    public string get_name() {
+    public override string get_name() {
         return "0x0";
     }
 
-    public async void cancel_upload() {
+    public override async void cancel_upload() {
         GLib.Idle.add(() => {
             session.abort();
             return false;

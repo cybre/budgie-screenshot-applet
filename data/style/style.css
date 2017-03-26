@@ -80,3 +80,29 @@ row,
                 0 1px 2px alpha(#000000, 0.24);
     -gtk-icon-shadow: 0 1px alpha(black, 0.1);
 }
+
+progressbar trough {
+    background-color: @theme_bg_color;
+    border-bottom: 1px solid @theme_bg_color;
+}
+
+progressbar progress {
+    border-top: 1px solid mix(@theme_bg_color, #000000, 0.2);
+    background-color: mix(@theme_bg_color, #000000, 0.2);
+
+}
+
+progressbar progress {
+    transition: width 200ms linear;
+    transition: min-width 200ms linear;
+}
+
+progressbar progress,
+progressbar trough {
+    border-radius: 0px;
+}
+
+frame,
+frame > border {
+    border: none;
+}

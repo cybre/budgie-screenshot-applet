@@ -12,11 +12,12 @@
 namespace ScreenshotApplet.Backend.Providers
 {
 
-interface IProvider : GLib.Object
+abstract class IProvider : GLib.Object
 {
-    public abstract async bool upload_image(string uri, out string? link);
-    public abstract string get_name();
-    public abstract async void cancel_upload();
+    public signal void progress_updated(int64 size, int64 chunk);
+    public virtual async bool upload_image(string uri, out string? link) { return false; }
+    public virtual string get_name() { return ""; }
+    public virtual async void cancel_upload() { }
 }
 
 } // End namespace

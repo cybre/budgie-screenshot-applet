@@ -53,6 +53,11 @@ public class HistoryItem : Gtk.Box
     [GtkChild]
     public Gtk.Separator? separator;
 
+    [GtkChild]
+    private Gtk.ProgressBar? upload_progressbar;
+
+    private static bool style_been_set = false;
+
     private string _item_title;
     private string item_file_uri;
     private string _item_uri;
@@ -81,8 +86,18 @@ public class HistoryItem : Gtk.Box
 
     private unowned GLib.Settings settings;
 
+    private string STYLE_CSS = """
+        GtkProgressBar.trough,
+        .progressbar,
+        progressbar progress,
+        progressbar trough {
+            min-height: ${HEIGHT}px;
+        }
+    """;
+
     public signal void deletion(bool only_item);
     public signal void upload_started();
+    public signal void update_progress(int64 size, int64 progress);
     public signal void upload_finished(string? new_uri, bool status);
 
     public HistoryItem(int64 timestamp, string title, string file_uri, string uri, bool startup = false)
@@ -159,6 +174,13 @@ public class HistoryItem : Gtk.Box
 
         this.upload_started.connect(() => {
             main_stack.set_visible_child_name("uploading");
+        });
+
+        this.update_progress.connect((size, progress) => {
+            double s = (double)size;
+            double p = (double)progress;
+            double fraction = p/s;
+            upload_progressbar.set_fraction(fraction);
         });
 
         this.upload_finished.connect((new_uri, status) => {
@@ -320,6 +342,21 @@ public class HistoryItem : Gtk.Box
     [GtkCallback]
     private async void upload_item()
     {
+        // I'm doing this here, fuck it
+        if (!style_been_set) {
+            Gtk.Allocation allocation;
+            this.get_allocation(out allocation);
+            STYLE_CSS = STYLE_CSS.replace("${HEIGHT}", (allocation.height - 2).to_string());
+            Gtk.CssProvider provider = new Gtk.CssProvider();
+            try {
+                provider.load_from_data(STYLE_CSS, STYLE_CSS.length);
+                Gtk.StyleContext.add_provider_for_screen(this.get_display().get_default_screen(), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                style_been_set = true;
+            } catch (Error e) {
+                warning(e.message);
+            }
+        }
+
         BackendUtil.uploader.add_to_queue(this);
 
         if (BackendUtil.uploader.is_upload_in_progress()) {
@@ -336,6 +373,7 @@ public class HistoryItem : Gtk.Box
             return false;
         });
         BackendUtil.uploader.cancel_upload.begin();
+        upload_progressbar.set_fraction(0);
     }
 
     public void delete_file() {

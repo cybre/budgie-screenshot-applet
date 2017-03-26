@@ -12,7 +12,7 @@
 namespace ScreenshotApplet.Backend.Providers
 {
 
-private class Imgur : IProvider, GLib.Object
+private class Imgur : IProvider
 {
     private Soup.SessionAsync session;
 
@@ -25,7 +25,7 @@ private class Imgur : IProvider, GLib.Object
         session.add_feature(logger);
     }
 
-    private async bool upload_image(string uri, out string? link)
+    public override async bool upload_image(string uri, out string? link)
     {
         link = null;
 
@@ -44,6 +44,10 @@ private class Imgur : IProvider, GLib.Object
         message.request_headers.append("Authorization", "Client-ID be12a30d5172bb7");
         string req = "api_key=f410b546502f28376747262f9773ee368abb31f0&image=" + GLib.Uri.escape_string(image);
         message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY, req.data);
+
+        message.wrote_body_data.connect((chunk) => {
+            progress_updated(message.request_body.length, chunk.length);
+        });
 
         string? payload = null;
 
@@ -84,11 +88,11 @@ private class Imgur : IProvider, GLib.Object
         return true;
     }
 
-    public string get_name() {
+    public override string get_name() {
         return "Imgur";
     }
 
-    public async void cancel_upload() {
+    public override async void cancel_upload() {
         GLib.Idle.add(() => {
             session.abort();
             return false;

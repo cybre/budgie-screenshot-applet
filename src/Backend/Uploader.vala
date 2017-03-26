@@ -56,7 +56,15 @@ private class Uploader : GLib.Object
 
             stdout.putc('\n');
 
+            int64 leng = 0;
+            ulong sig = provider.progress_updated.connect((size, chunk) => {
+                leng += chunk;
+                item.update_progress(size, leng);
+            });
+
             status = yield provider.upload_image(url, out url);
+
+            provider.disconnect(sig);
 
             item.upload_finished(url, status);
         }

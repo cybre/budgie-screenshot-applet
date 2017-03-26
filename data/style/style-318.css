@@ -79,3 +79,27 @@ GtkListBoxRow,
                 0 1px 2px alpha(#000000, 0.24);
     icon-shadow: 0 1px alpha(black, 0.1);
 }
+
+GtkProgressBar {
+    border: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+GtkProgressBar.trough {
+    background-color: @theme_bg_color;
+    border-bottom: 1px solid @theme_bg_color;
+    border-radius: 0px;
+    border: none;
+    box-shadow: none;
+}
+
+.progressbar {
+    border-top: 1px solid mix(@theme_bg_color, #000000, 0.2);
+    background-color: mix(@theme_bg_color, #000000, 0.2);
+    border-radius: 0px;
+}
+
+.frame {
+    border: none;
+}
