@@ -1,6 +1,8 @@
 # Budgie Screenshot Widget
 Take a screenshot of your desktop, a window or region; save to disk and upload. Made with ❤ for Budgie Desktop.
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://paypal.me/StefanRic)
+
 ![Screenshot](screenshot.png)
 
 ---
