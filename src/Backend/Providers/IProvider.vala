@@ -15,7 +15,7 @@ namespace ScreenshotApplet.Backend.Providers
 abstract class IProvider : GLib.Object
 {
     public signal void progress_updated(int64 size, int64 chunk);
-    public virtual async bool upload_image(string uri, out string? link) { return false; }
+    public virtual async bool upload_image(string uri, out string? link) { link = ""; return false; }
     public virtual string get_name() { return ""; }
     public virtual async void cancel_upload() { }
 }
