@@ -346,7 +346,7 @@ public class HistoryItem : Gtk.Box
         if (!style_been_set) {
             Gtk.Allocation allocation;
             this.get_allocation(out allocation);
-            STYLE_CSS = STYLE_CSS.replace("${HEIGHT}", (allocation.height - 2).to_string());
+            STYLE_CSS = STYLE_CSS.replace("${HEIGHT}", (allocation.height - 1).to_string());
             Gtk.CssProvider provider = new Gtk.CssProvider();
             try {
                 provider.load_from_data(STYLE_CSS, STYLE_CSS.length);
