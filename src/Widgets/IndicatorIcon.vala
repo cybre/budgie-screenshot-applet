@@ -70,7 +70,7 @@ private class IndicatorIcon : Gtk.Stack
 
         BackendUtil.uploader.upload_finished.connect(() => {
             this.set_visible_child_name("normal");
-            if (!IndicatorWindow.get_instance().get_visible()) {
+            if (!IndicatorWindow.get_instance().get_visible() && !BackendUtil.settings_manager.open_popover) {
                 this.get_style_context().add_class("alert");
             }
         });
