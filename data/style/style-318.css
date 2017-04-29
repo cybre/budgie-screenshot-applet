@@ -56,6 +56,10 @@ GtkListBoxRow,
 }
 
 .budgie-screenshot-applet .new-item {
+    background-color: alpha(@theme_base_color, 0.7);
+}
+
+.budgie-screenshot-applet .new-item-disappear {
     animation: new_item_keyframes 1s ease-in-out;
     animation-iteration-count: 1;
 }

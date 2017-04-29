@@ -85,6 +85,7 @@ public class HistoryItem : Gtk.Box
     }
 
     private unowned GLib.Settings settings;
+    private ulong map_signal;
 
     private string STYLE_CSS = """
         GtkProgressBar.trough,
@@ -157,17 +158,23 @@ public class HistoryItem : Gtk.Box
         if (!startup) {
             GLib.Timeout.add(100, () => {
                 main_revealer.set_reveal_child(true);
-                this.get_style_context().add_class("new-item");
                 if (BackendUtil.settings_manager.automatic_upload) {
                     upload_item.begin();
+                } else {
+                    this.get_style_context().add_class("new-item");
                 }
                 return false;
             });
-
-            GLib.Timeout.add(1300, () => {
-                this.get_style_context().remove_class("new-item");
-                return false;
-            });
+            if (!BackendUtil.settings_manager.automatic_upload) {
+                map_signal = Widgets.IndicatorWindow.get_instance().map.connect(() => {
+                    GLib.Timeout.add(500, () => {
+                        this.get_style_context().remove_class("new-item");
+                        this.get_style_context().add_class("new-item-disappear");
+                        disconnect_map();
+                        return false;
+                    });
+                });
+            }
         } else {
             main_revealer.set_reveal_child(true);
         }
@@ -209,6 +216,14 @@ public class HistoryItem : Gtk.Box
         thumbnail_stack.set_no_show_all(!BackendUtil.settings_manager.show_thumbnails);
 
         this.show_all();
+    }
+
+    private void disconnect_map() {
+        IndicatorWindow.get_instance().disconnect(map_signal);
+        GLib.Timeout.add(1300, () => {
+            this.get_style_context().remove_class("new-item-disappear");
+            return false;
+        });
     }
 
     private void set_up_thumbnails(out Gdk.Pixbuf? real_pb, out Gdk.Pixbuf? copy_pb)
