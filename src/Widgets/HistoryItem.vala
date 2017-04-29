@@ -167,9 +167,11 @@ public class HistoryItem : Gtk.Box
             });
             if (!BackendUtil.settings_manager.automatic_upload) {
                 map_signal = Widgets.IndicatorWindow.get_instance().map.connect(() => {
-                    GLib.Timeout.add(500, () => {
+                    GLib.Timeout.add(300, () => {
                         this.get_style_context().remove_class("new-item");
                         this.get_style_context().add_class("new-item-disappear");
+                        Gtk.Allocation all;
+                        this.get_allocation(out all);
                         disconnect_map();
                         return false;
                     });
