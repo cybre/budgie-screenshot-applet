@@ -229,7 +229,7 @@ msgstr "Subir las capturas automáticamente"
 
 #: data/ui/settings_view.ui:186
 msgid "Automatic upload"
-msgstr "Subidtomáticaa au"
+msgstr "Subida automática"
 
 #: data/ui/settings_view.ui:210 data/ui/settings_view.ui:223
 msgid "Service to use for uploading screenshots"
