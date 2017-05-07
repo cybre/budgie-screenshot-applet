@@ -57,9 +57,13 @@ private class ScreenshotManager
             return;
         }
 
-        Gtk.RecentManager.get_default().add_item(URI);
-
         Views.MainView._title_entry.set_text("");
+
+        if (BackendUtil.settings_manager.dont_save) {
+            return;
+        }
+
+        Gtk.RecentManager.get_default().add_item(URI);
 
         Widgets.MainStack.set_page("history_view");
 

@@ -34,6 +34,12 @@ class SettingsManager : GLib.Object
         }
     }
 
+    public bool dont_save {
+        get {
+            return settings.get_boolean("dont-save");
+        }
+    }
+
     public int delay_global {
         get {
             return settings.get_int("delay-global");

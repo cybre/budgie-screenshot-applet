@@ -230,58 +230,6 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Automatically copy the screenshot URL after uploading it</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Automatic copy</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSwitch" id="automatic_copy_switch">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="tooltip_text" translatable="yes">Automatically copy the screenshot URL after uploading it</property>
-                        <property name="halign">end</property>
-                        <property name="valign">center</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">4</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Include the pointer in screenshots</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">Include pointer</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkSwitch" id="include_pointer_switch">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="tooltip_text" translatable="yes">Include the pointer in screenshots</property>
-                        <property name="halign">end</property>
-                        <property name="valign">center</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">5</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -321,7 +269,7 @@
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
-                        <property name="top_attach">10</property>
+                        <property name="top_attach">11</property>
                         <property name="width">2</property>
                       </packing>
                     </child>
@@ -335,7 +283,7 @@
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
-                        <property name="top_attach">9</property>
+                        <property name="top_attach">10</property>
                         <property name="width">2</property>
                       </packing>
                     </child>
@@ -349,7 +297,7 @@
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
-                        <property name="top_attach">8</property>
+                        <property name="top_attach">9</property>
                       </packing>
                     </child>
                     <child>
@@ -357,6 +305,32 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="tooltip_text" translatable="yes">Re-open the applet after taking a screenshot</property>
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">9</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Show screenshot thumbnails</property>
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Show thumbnails</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">8</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="show_thumbnails_switch">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Show screenshot thumbnails</property>
                         <property name="halign">end</property>
                         <property name="valign">center</property>
                       </object>
@@ -375,7 +349,7 @@
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
-                        <property name="top_attach">6</property>
+                        <property name="top_attach">7</property>
                       </packing>
                     </child>
                     <child>
@@ -388,6 +362,32 @@
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
+                        <property name="top_attach">7</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Include the pointer in screenshots</property>
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Include pointer</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">6</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="include_pointer_switch">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Include the pointer in screenshots</property>
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
                         <property name="top_attach">6</property>
                       </packing>
                     </child>
@@ -395,26 +395,52 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Show screenshot thumbnails</property>
+                        <property name="tooltip_text" translatable="yes">Automatically copy the screenshot URL after uploading it</property>
                         <property name="halign">start</property>
-                        <property name="label" translatable="yes">Show thumbnails</property>
+                        <property name="label" translatable="yes">Automatic copy</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
-                        <property name="top_attach">7</property>
+                        <property name="top_attach">5</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkSwitch" id="show_thumbnails_switch">
+                      <object class="GtkSwitch" id="automatic_copy_switch">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="tooltip_text" translatable="yes">Show screenshot thumbnails</property>
+                        <property name="tooltip_text" translatable="yes">Automatically copy the screenshot URL after uploading it</property>
                         <property name="halign">end</property>
                         <property name="valign">center</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
-                        <property name="top_attach">7</property>
+                        <property name="top_attach">5</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="tooltip_text" translatable="yes">Only copy the screenshot to the clipboard</property>
+                        <property name="halign">start</property>
+                        <property name="label" translatable="yes">Don't save screenshots</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">4</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch" id="dont_save_switch">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="tooltip_text" translatable="yes">Automatically copy the screenshot URL after uploading it</property>
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">4</property>
                       </packing>
                     </child>
                   </object>

@@ -78,6 +78,13 @@ public abstract class ScreenshotAbstract
             return false;
         }
 
+        if (BackendUtil.settings_manager.dont_save) {
+            Gdk.Display display = Gdk.Display.get_default();
+            Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display(display, Gdk.SELECTION_CLIPBOARD);
+            clipboard.set_image(screenshot);
+            return true;
+        }
+
         string save_path = BackendUtil.settings_manager.save_path;
 
         if (save_path == "") {

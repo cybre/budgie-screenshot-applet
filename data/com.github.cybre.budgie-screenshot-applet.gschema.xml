@@ -26,6 +26,10 @@
         <default>true</default>
     </key>
 
+    <key type="b" name="dont-save">
+        <default>false</default>
+    </key>
+
     <key type="s" name="monitor-to-use">
         <default>"all"</default>
     </key>

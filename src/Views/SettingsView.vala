@@ -49,6 +49,9 @@ private class SettingsView : Gtk.Box
     private Gtk.Switch? open_popover_switch;
 
     [GtkChild]
+    private Gtk.Switch? dont_save_switch;
+
+    [GtkChild]
     private Gtk.Entry? save_destination_entry;
 
     [GtkChild]
@@ -112,6 +115,7 @@ private class SettingsView : Gtk.Box
         settings.bind("show-thumbnails", show_thumbnails_switch, "active", GLib.SettingsBindFlags.DEFAULT);
         settings.bind("delete-files", delete_files_switch, "active", GLib.SettingsBindFlags.DEFAULT);
         settings.bind("open-popover", open_popover_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        settings.bind("dont-save", dont_save_switch, "active", GLib.SettingsBindFlags.DEFAULT);
         settings.bind("save-path", save_destination_entry, "text", GLib.SettingsBindFlags.DEFAULT);
         settings.bind("delay-screen", screen_delay_spin, "value", GLib.SettingsBindFlags.DEFAULT);
         settings.bind("monitor-to-use", screen_monitor_combobox, "active_id", GLib.SettingsBindFlags.DEFAULT);
