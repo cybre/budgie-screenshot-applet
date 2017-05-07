@@ -2,10 +2,15 @@
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-list,
-row,
-.budgie-screenshot-applet {
+.budgie-screenshot-applet list,
+.budgie-screenshot-applet row,
+popover.budgie-screenshot-applet {
     padding: 0;
+}
+
+.budgie-screenshot-applet frame,
+.budgie-screenshot-applet frame > border {
+    border: none;
 }
 
 .budgie-screenshot-applet .view-header {
@@ -85,28 +90,23 @@ row,
     -gtk-icon-shadow: 0 1px alpha(black, 0.1);
 }
 
-progressbar trough {
+.budgie-screenshot-applet progressbar trough {
     background-color: @theme_bg_color;
     border-bottom: 1px solid @theme_bg_color;
 }
 
-progressbar progress {
+.budgie-screenshot-applet progressbar progress {
     border-top: 1px solid mix(@theme_bg_color, #000000, 0.2);
     background-color: mix(@theme_bg_color, #000000, 0.2);
 
 }
 
-progressbar progress {
+.budgie-screenshot-applet progressbar progress {
     transition: width 200ms linear;
     transition: min-width 200ms linear;
 }
 
-progressbar progress,
-progressbar trough {
+.budgie-screenshot-applet progressbar progress,
+.budgie-screenshot-applet .budgie-screenshot-applet progressbar trough {
     border-radius: 0px;
-}
-
-frame,
-frame > border {
-    border: none;
 }
