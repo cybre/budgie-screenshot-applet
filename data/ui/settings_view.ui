@@ -421,7 +421,8 @@
                       <object class="GtkLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Only copy the screenshot to the clipboard</property>
+                        <property name="tooltip_text" translatable="yes">Don't save screenshots locally.
+Only copy the screenshot to the clipboard</property>
                         <property name="halign">start</property>
                         <property name="label" translatable="yes">Don't save screenshots</property>
                       </object>
@@ -434,7 +435,8 @@
                       <object class="GtkSwitch" id="dont_save_switch">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="tooltip_text" translatable="yes">Automatically copy the screenshot URL after uploading it</property>
+                        <property name="tooltip_text" translatable="yes">Don't save screenshots locally.
+Only copy the screenshot to the clipboard</property>
                         <property name="halign">end</property>
                         <property name="valign">center</property>
                       </object>
