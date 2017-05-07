@@ -39,9 +39,11 @@ bsa_sources = ['ScreenshotApplet.vala',
                'Backend/ScreenshotMode/Selection.vala',
                res]
 
+dep_gnome = dependency('gnome-desktop-3.0')
+
 bsa_deps = [dependency('gtk+-3.0', version: '>=3.18'),
             dependency('budgie-1.0', version: '>=2'),
-            dependency('gnome-desktop-3.0'),
+            dep_gnome,
             dependency('json-glib-1.0'),
             dependency('libsoup-2.4')]
 
@@ -50,6 +52,11 @@ bsa_vala_args = ['--pkg=config',
                  '--gresources=' + gresource_file,
                  '--target-glib=2.38',
                  '--enable-deprecated']
+
+if dep_gnome.version().version_compare('>=3.21.0')
+    rpath = dep_gnome.get_pkgconfig_variable('typelibdir')
+    bsa_vala_args += ['--girdir', rpath]
+endif
 
 bsa_c_args = ['-include', 'config.h',
               '-DGNOME_DESKTOP_USE_UNSTABLE_API']

@@ -4,7 +4,7 @@ Take a screenshot of your desktop, a window or region; save to disk and upload. 
 Buy me a beer/a coffee/love?  
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://paypal.me/StefanRic)
 
-![Screenshot](screenshot.png)
+![Screenshot](data/images/screenshot1.png)
 
 ---
 

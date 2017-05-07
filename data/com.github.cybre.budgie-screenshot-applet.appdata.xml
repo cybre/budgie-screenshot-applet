@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>budgie-screenshot-applet</id>
-  <extends>budgie-desktop.desktop</extends>
-  <name>Screenshot Widget</name>
+  <id>com.github.cybre.budgie-screenshot-applet</id>
+  <pkgname>budgie-screenshot-applet</pkgname>
+  <translation type="gettext">budgie-screenshot-applet</translation>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
-  <summary>A screenshot widget for the Budgie desktop</summary>
+  <name>Budgie Screenshot Applet</name>
+  <summary>Take a screenshot of your desktop, a window or region; save to disk and upload</summary>
   <description>
     <p>
     Take a screenshot of your desktop, a window or region; save to disk and upload.
-    Screenshot Widget lives in your panel and features a clean interface for quickly taking screenshots and sharing them.
+    Budgie Screenshot Applet lives in your panel and features a clean interface for quickly grabing and sharing screenshots.
+    It allows you to choose from various upload services. You can also store screenshots locally without uploading them.
     </p>
     <p>
     Among other things, Screenshot Applet can:
@@ -21,13 +23,14 @@
       <li>Keep a history of your screenshots</li>
     </ul>
   </description>
-  <url type="homepage">https://github.com/cybre/budgie-screenshot-applet</url>
-  <url type="bugtracker">https://github.com/cybre/budgie-screenshot-applet/issues</url>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/cybre/budgie-screenshot-applet/master/screenshot.png</image>
-      <caption>The start and history pages</caption>
+      <image>https://raw.githubusercontent.com/cybre/budgie-screenshot-applet/master/data/images/screenshot1.png</image>
     </screenshot>
   </screenshots>
+  <url type="homepage">https://github.com/cybre/budgie-screenshot-applet</url>
+  <url type="bugtracker">https://github.com/cybre/budgie-screenshot-applet/issues</url>
+  <url type="translate">https://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet</url>
+  <url type="donation">https://paypal.me/StefanRic</url>
   <updatecontact>stfric369@gmail.com</updatecontact>
 </component>
