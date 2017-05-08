@@ -1,7 +1,7 @@
 /*
  * This file is part of budgie-screenshot-applet
  *
- * Copyright (C) 2016 Stefan Ric <stfric369@gmail.com>
+ * Copyright (C) 2016-2017 Stefan Ric <stfric369@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,11 +57,8 @@ public class Applet : Budgie.Applet
         if (gtk_version == "3.18") {
             style_file = "/com/github/cybre/budgie-screenshot-applet/style/style-318.css";
         }
-        GLib.Idle.add(() => {
-            provider.load_from_resource(style_file);
-            Gtk.StyleContext.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-            return false;
-        });
+        provider.load_from_resource(style_file);
+        Gtk.StyleContext.add_provider_for_screen(screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         event_box = new Gtk.EventBox();
         this.add(event_box);

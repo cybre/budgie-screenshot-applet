@@ -1,7 +1,7 @@
 /*
  * This file is part of budgie-screenshot-applet
  *
- * Copyright (C) 2016 Stefan Ric <stfric369@gmail.com>
+ * Copyright (C) 2016-2017 Stefan Ric <stfric369@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,9 @@ private class SettingsView : Gtk.Box
 {
     [GtkChild]
     private Gtk.Stack? settings_stack;
+
+    [GtkChild]
+    private Gtk.Stack? global_settings_stack;
 
     [GtkChild]
     private Gtk.Switch? global_delay_switch;
@@ -140,6 +143,16 @@ private class SettingsView : Gtk.Box
     [GtkCallback]
     private void go_back() {
         MainStack.set_page("main_view");
+    }
+
+    [GtkCallback]
+    private void open_ftp_settings() {
+        global_settings_stack.set_visible_child_name("ftp");
+    }
+
+    [GtkCallback]
+    private void save_ftp_settings() {
+        global_settings_stack.set_visible_child_name("global");
     }
 
     [GtkCallback]
