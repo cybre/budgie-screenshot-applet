@@ -56,6 +56,12 @@ public class HistoryItem : Gtk.Box
     [GtkChild]
     private Gtk.ProgressBar? upload_progressbar;
 
+    [GtkChild]
+    private Gtk.Box? action_area;
+
+    [GtkChild]
+    private Gtk.Button? edit_button;
+
     private static bool style_been_set = false;
 
     private string _item_title;
@@ -213,6 +219,18 @@ public class HistoryItem : Gtk.Box
                 });
             }
 
+        });
+
+        main_revealer.enter_notify_event.connect(() => {
+            edit_button.get_style_context().add_class("shown");
+            action_area.get_style_context().add_class("shown");
+            return true;
+        });
+
+        main_revealer.leave_notify_event.connect(() => {
+            edit_button.get_style_context().remove_class("shown");
+            action_area.get_style_context().remove_class("shown");
+            return true;
         });
 
         thumbnail_stack.set_no_show_all(!BackendUtil.settings_manager.show_thumbnails);

@@ -54,6 +54,7 @@
       <object class="GtkRevealer" id="main_revealer">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
+        <property name="events">GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_STRUCTURE_MASK</property>
         <child>
           <object class="GtkStack" id="main_stack">
             <property name="visible">True</property>
@@ -160,7 +161,7 @@ Right click to copy</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkButton">
+                                  <object class="GtkButton" id="edit_button">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="receives_default">True</property>
@@ -173,6 +174,7 @@ Right click to copy</property>
                                     <signal name="clicked" handler="edit_title" swapped="no"/>
                                     <style>
                                       <class name="circular-button"/>
+                                      <class name="action-area"/>
                                     </style>
                                   </object>
                                   <packing>
@@ -195,6 +197,7 @@ Right click to copy</property>
                                   <object class="GtkEntry" id="title_entry">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
+                                    <property name="valign">center</property>
                                     <property name="margin_right">10</property>
                                     <property name="max_length">50</property>
                                     <property name="secondary_icon_name">edit-clear-symbolic</property>
@@ -245,28 +248,71 @@ Right click to copy</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkStack" id="copy_stack">
+                          <object class="GtkBox" id="action_area">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="transition_type">slide-left-right</property>
                             <child>
-                              <object class="GtkButton">
+                              <object class="GtkStack" id="copy_stack">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="receives_default">True</property>
-                                <property name="tooltip_text" translatable="yes">Upload screenshot</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="image">upload_image</property>
-                                <property name="relief">none</property>
-                                <property name="always_show_image">True</property>
-                                <signal name="clicked" handler="upload_item" swapped="no"/>
-                                <style>
-                                  <class name="circular-button"/>
-                                </style>
+                                <property name="transition_type">slide-left-right</property>
+                                <child>
+                                  <object class="GtkButton">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="tooltip_text" translatable="yes">Upload screenshot</property>
+                                    <property name="halign">center</property>
+                                    <property name="valign">center</property>
+                                    <property name="image">upload_image</property>
+                                    <property name="relief">none</property>
+                                    <property name="always_show_image">True</property>
+                                    <signal name="clicked" handler="upload_item" swapped="no"/>
+                                    <style>
+                                      <class name="circular-button"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="name">upload</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="tooltip_text" translatable="yes">Copy screenshot link</property>
+                                    <property name="halign">center</property>
+                                    <property name="valign">center</property>
+                                    <property name="image">copy_image</property>
+                                    <property name="relief">none</property>
+                                    <property name="always_show_image">True</property>
+                                    <signal name="clicked" handler="copy_uri" swapped="no"/>
+                                    <style>
+                                      <class name="circular-button"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="name">copy</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkImage">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="icon_name">emblem-ok-symbolic</property>
+                                  </object>
+                                  <packing>
+                                    <property name="name">ok</property>
+                                    <property name="position">2</property>
+                                  </packing>
+                                </child>
                               </object>
                               <packing>
-                                <property name="name">upload</property>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
@@ -274,60 +320,31 @@ Right click to copy</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">True</property>
-                                <property name="tooltip_text" translatable="yes">Copy screenshot link</property>
+                                <property name="tooltip_text" translatable="yes">Delete screenshot</property>
                                 <property name="halign">center</property>
                                 <property name="valign">center</property>
-                                <property name="image">copy_image</property>
+                                <property name="image">delete_image</property>
                                 <property name="relief">none</property>
                                 <property name="always_show_image">True</property>
-                                <signal name="clicked" handler="copy_uri" swapped="no"/>
+                                <signal name="clicked" handler="delete_item" swapped="no"/>
                                 <style>
                                   <class name="circular-button"/>
                                 </style>
                               </object>
                               <packing>
-                                <property name="name">copy</property>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="icon_name">emblem-ok-symbolic</property>
-                              </object>
-                              <packing>
-                                <property name="name">ok</property>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="receives_default">True</property>
-                            <property name="tooltip_text" translatable="yes">Delete screenshot</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="image">delete_image</property>
-                            <property name="relief">none</property>
-                            <property name="always_show_image">True</property>
-                            <signal name="clicked" handler="delete_item" swapped="no"/>
                             <style>
-                              <class name="circular-button"/>
+                              <class name="action-area"/>
                             </style>
                           </object>
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">True</property>
-                            <property name="position">2</property>
+                            <property name="position">1</property>
                           </packing>
                         </child>
                       </object>
