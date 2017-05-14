@@ -32,5 +32,6 @@
   <url type="bugtracker">https://github.com/cybre/budgie-screenshot-applet/issues</url>
   <url type="translate">https://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet</url>
   <url type="donation">https://paypal.me/StefanRic</url>
-  <updatecontact>stfric369@gmail.com</updatecontact>
+  <developer_name>Stefan Ric</developer_name>
+  <updatecontact>stfric369_AT_gmail.com</updatecontact>
 </component>
