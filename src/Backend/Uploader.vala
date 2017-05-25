@@ -32,6 +32,7 @@ private class Uploader : GLib.Object
         upload_providers.set("0x0", new Providers.NilxNil());
         upload_providers.set("ibin", new Providers.Ibin());
         upload_providers.set("imgur", new Providers.Imgur());
+        upload_providers.set("ftp", new Providers.FTP());
     }
 
     public async void start_upload()

@@ -18,6 +18,9 @@ abstract class IProvider : GLib.Object
     public virtual async bool upload_image(string uri, out string? link) { link = ""; return false; }
     public virtual string get_name() { return ""; }
     public virtual async void cancel_upload() { }
+    public virtual bool supports_settings() { return false; }
+    public virtual Gtk.Widget? get_settings_widget() { return null; }
+    public virtual GLib.Settings? get_settings() { return null; }
 }
 
 } // End namespace

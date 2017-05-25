@@ -174,6 +174,18 @@ class SettingsManager : GLib.Object
     }
 
     public void reset_all(string type) {
+
+        if (type == "provider") {
+            GLib.Settings? psettings = BackendUtil.uploader.get_providers().get(upload_provider).get_settings();
+            if (psettings == null) {
+                return;
+            }
+            foreach (string key in psettings.list_keys()) {
+                psettings.reset(key);
+            }
+            return;
+        }
+
         if (type == "individual") {
             foreach (string key in individual_keys) {
                 settings.reset(key);

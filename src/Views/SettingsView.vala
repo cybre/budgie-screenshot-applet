@@ -15,6 +15,11 @@ using ScreenshotApplet.Backend;
 namespace ScreenshotApplet.Views
 {
 
+internal class SettingsContent : Gtk.Bin
+{
+    public SettingsContent() { }
+}
+
 [GtkTemplate (ui = "/com/github/cybre/budgie-screenshot-applet/ui/settings_view.ui")]
 private class SettingsView : Gtk.Box
 {
@@ -75,6 +80,19 @@ private class SettingsView : Gtk.Box
     [GtkChild]
     private Gtk.Label? reset_button_label;
 
+    [GtkChild]
+    private Gtk.Button? provider_config_button;
+
+    [GtkChild]
+    private Gtk.Box? provider_settings_content;
+
+    [GtkChild]
+    private Gtk.StackSwitcher? settings_stack_swither;
+
+    private SettingsContent provider_settings_widget;
+
+    private GLib.Settings settings;
+
     public SettingsView()
     {
         settings_stack.notify["visible-child"].connect(() => {
@@ -89,6 +107,24 @@ private class SettingsView : Gtk.Box
                     break;
             }
         });
+
+        global_settings_stack.notify["visible-child"].connect(() => {
+            switch (global_settings_stack.get_visible_child_name()) {
+                case "global":
+                    reset_button_label.set_label(_("Reset global settings"));
+                    settings_stack_swither.set_sensitive(true);
+                    break;
+                case "provider_settings":
+                    reset_button_label.set_label(_("Reset provider settings"));
+                    settings_stack_swither.set_sensitive(false);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        provider_settings_widget = new SettingsContent();
+        provider_settings_content.add(provider_settings_widget);
 
         upload_provider_combobox.set_model(get_provider_list());
         Gtk.CellRendererText upload_provider_renderer = new Gtk.CellRendererText();
@@ -108,7 +144,7 @@ private class SettingsView : Gtk.Box
         screen_monitor_combobox.set_id_column(0);
         screen_monitor_combobox.set_active(active);
 
-        GLib.Settings settings = BackendUtil.settings_manager.get_settings();
+        settings = BackendUtil.settings_manager.get_settings();
         settings.bind("use-global-delay", global_delay_switch, "active", GLib.SettingsBindFlags.DEFAULT);
         settings.bind("delay-global", global_delay_spin, "value", GLib.SettingsBindFlags.DEFAULT);
         settings.bind("automatic-upload", automatic_upload_switch, "active", GLib.SettingsBindFlags.DEFAULT);
@@ -138,20 +174,45 @@ private class SettingsView : Gtk.Box
         });
 
         global_delay_spin.set_sensitive(global_delay_switch.state);
+
+        settings.changed["upload-provider"].connect(() => {
+            string provider = settings.get_string("upload-provider");
+            bool supports_settings = BackendUtil.uploader.get_providers().get(provider).supports_settings();
+            provider_config_button.set_sensitive(supports_settings);
+        });
+
+        string provider = settings.get_string("upload-provider");
+        bool supports_settings = BackendUtil.uploader.get_providers().get(provider).supports_settings();
+        provider_config_button.set_sensitive(supports_settings);
     }
 
     [GtkCallback]
     private void go_back() {
-        MainStack.set_page("main_view");
+        if (settings_stack.get_visible_child_name() == "global" &&
+            global_settings_stack.get_visible_child_name() != "provider_settings") {
+            MainStack.set_page("main_view");
+        }
+
+        global_settings_stack.set_visible_child_name("global");
     }
 
     [GtkCallback]
-    private void open_ftp_settings() {
-        global_settings_stack.set_visible_child_name("ftp");
+    private void open_provider_settings() {
+        Gtk.Widget? current_widget = provider_settings_widget.get_child();
+        if (current_widget != null) {
+            current_widget.destroy();
+        }
+        string provider_name = settings.get_string("upload-provider");
+        Providers.IProvider provider = BackendUtil.uploader.get_providers().get(provider_name);
+        Gtk.Widget? new_widget = provider.get_settings_widget();
+        if (new_widget != null) {
+            provider_settings_widget.add(new_widget);
+            global_settings_stack.set_visible_child_name("provider_settings");
+        }
     }
 
     [GtkCallback]
-    private void save_ftp_settings() {
+    private void close_settings() {
         global_settings_stack.set_visible_child_name("global");
     }
 
@@ -162,7 +223,11 @@ private class SettingsView : Gtk.Box
 
     [GtkCallback]
     private void restore_settings() {
-        BackendUtil.settings_manager.reset_all(settings_stack.get_visible_child_name());
+        if (global_settings_stack.get_visible_child_name() == "global") {
+            BackendUtil.settings_manager.reset_all(settings_stack.get_visible_child_name());
+        } else {
+            BackendUtil.settings_manager.reset_all("provider");
+        }
     }
 
     private Gtk.ListStore get_provider_list()

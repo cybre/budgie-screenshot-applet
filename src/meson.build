@@ -30,6 +30,7 @@ bsa_sources = ['ScreenshotApplet.vala',
                'Backend/SettingsManager.vala',
                'Backend/Uploader.vala',
                'Backend/Providers/IProvider.vala',
+               'Backend/Providers/FTP.vala',
                'Backend/Providers/Ibin.vala',
                'Backend/Providers/Imgur.vala',
                'Backend/Providers/NilxNil.vala',
@@ -41,13 +42,18 @@ bsa_sources = ['ScreenshotApplet.vala',
 
 dep_gnome = dependency('gnome-desktop-3.0')
 
+posix_dep = meson.get_compiler('vala').find_library('posix')
+
 bsa_deps = [dependency('gtk+-3.0', version: '>=3.18'),
             dependency('budgie-1.0', version: '>=2'),
             dep_gnome,
             dependency('json-glib-1.0'),
-            dependency('libsoup-2.4')]
+            dependency('libsoup-2.4'),
+            dependency('libcurl'),
+            posix_dep]
 
 bsa_vala_args = ['--pkg=config',
+                 '--thread',
                  '--vapidir=' + vapi_dir,
                  '--gresources=' + gresource_file,
                  '--target-glib=2.38',

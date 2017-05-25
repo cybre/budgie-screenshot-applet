@@ -104,6 +104,10 @@ public class Applet : Budgie.Applet
         this.manager.show_popover(event_box);
     }
 
+    public static string get_applet_uuid() {
+        return _instance.uuid;
+    }
+
     public static unowned Applet? get_instance() {
         return _instance;
     }

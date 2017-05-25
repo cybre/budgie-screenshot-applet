@@ -54,7 +54,7 @@ private class Ibin : IProvider
 
         GLib.HashTable<string, string> content_type_params;
         message.request_headers.get_content_type(out content_type_params);
-        message.request_headers.set_content_type("multipart/form-data", content_type_params);
+        message.request_headers.set_content_type(Soup.FORM_MIME_TYPE_MULTIPART, content_type_params);
 
         string? payload = null;
 

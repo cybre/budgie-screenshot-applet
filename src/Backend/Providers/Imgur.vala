@@ -43,7 +43,7 @@ private class Imgur : IProvider
         Soup.Message message = new Soup.Message("POST", "https://api.imgur.com/3/upload.json");
         message.request_headers.append("Authorization", "Client-ID be12a30d5172bb7");
         string req = "api_key=f410b546502f28376747262f9773ee368abb31f0&image=" + GLib.Uri.escape_string(image);
-        message.set_request("application/x-www-form-urlencoded", Soup.MemoryUse.COPY, req.data);
+        message.set_request(Soup.FORM_MIME_TYPE_URLENCODED, Soup.MemoryUse.COPY, req.data);
 
         message.wrote_body_data.connect((chunk) => {
             progress_updated(message.request_body.length, chunk.length);

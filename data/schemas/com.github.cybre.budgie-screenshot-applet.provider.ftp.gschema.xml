@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="budgie-screenshot-applet">
+  <schema id="com.github.cybre.budgie-screenshot-applet.provider.ftp">
+    <key type="s" name="ftp-uri">
+        <default>''</default>
+    </key>
+
+    <key type="s" name="connection-mode">
+        <default>'passive'</default>
+    </key>
+
+    <key type="s" name="username">
+        <default>''</default>
+    </key>
+
+    <key type="s" name="password">
+        <default>''</default>
+    </key>
+
+    <key type="s" name="website-url">
+        <default>''</default>
+    </key>
+  </schema>
+</schemalist>
