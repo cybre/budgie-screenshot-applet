@@ -397,9 +397,4 @@ namespace Curl {
 	[CCode (cname = "CURL_GLOBAL_SSL")]
 	public const int GLOBAL_SSL;
 
-    [CCode (cname = "CURLSSH_AUTH_PASSWORD", cprefix = "CURL_")]
-    public const int CURLSSH_AUTH_PASSWORD;
-
-    [CCode (cname = "CURL_GLOBAL_ALL", cprefix = "CURL_")]
-    public const int GLOBAL_ALL;
 }

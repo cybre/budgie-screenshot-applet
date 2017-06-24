@@ -4,7 +4,7 @@
 
 .budgie-screenshot-applet list,
 .budgie-screenshot-applet row,
-.budgie-screenshot-applet .container {
+popover.budgie-screenshot-applet {
     padding: 0;
 }
 

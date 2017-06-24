@@ -4,7 +4,7 @@
 
 .budgie-screenshot-applet GtkListBox,
 .budgie-screenshot-applet GtkListBoxRow,
-.budgie-screenshot-applet .container {
+.budgie-screenshot-applet {
     padding: 0;
 }
 

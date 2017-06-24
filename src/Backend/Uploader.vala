@@ -72,7 +72,6 @@ private class Uploader : GLib.Object
 
         upload_finished();
         upload_in_progress = false;
-        Curl.global_cleanup();
     }
 
     public void add_to_queue(Widgets.HistoryItem item) {
