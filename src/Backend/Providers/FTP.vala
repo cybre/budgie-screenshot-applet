@@ -31,6 +31,9 @@ public class FTPSettings : Gtk.Grid
     [GtkChild]
     private Gtk.Entry? website_url_entry;
 
+    [GtkChild]
+    private Gtk.Switch? timestamp_switch;
+
     public FTPSettings(GLib.Settings settings)
     {
         settings.bind("ftp-uri", ftp_uri_entry, "text", GLib.SettingsBindFlags.DEFAULT);
@@ -39,6 +42,7 @@ public class FTPSettings : Gtk.Grid
         settings.bind("username", username_entry, "text", GLib.SettingsBindFlags.DEFAULT);
         settings.bind("password", password_entry, "text", GLib.SettingsBindFlags.DEFAULT);
         settings.bind("website-url", website_url_entry, "text", GLib.SettingsBindFlags.DEFAULT);
+        settings.bind("timestamp-as-name", timestamp_switch, "active", GLib.SettingsBindFlags.DEFAULT);
     }
 }
 
@@ -83,7 +87,14 @@ private class FTP : IProvider
             GLib.File file = GLib.File.new_for_uri(uri);
             Posix.FILE? posix_file = Posix.FILE.open(file.get_path(), "r");
 
-            string basename = file.get_basename();
+            string file_name = file.get_basename();
+
+            if (settings.get_boolean("timestamp-as-name")) {
+                GLib.DateTime datetime = new GLib.DateTime.now_local();
+                int64 timestamp = datetime.to_unix();
+                // Our files are always .png
+                file_name = timestamp.to_string() + ".png";
+            }
 
             string ftp_uri = settings.get_string("ftp-uri");
             string connection_mode = settings.get_string("connection-mode");
@@ -93,16 +104,16 @@ private class FTP : IProvider
 
             string curl_url = "";
             if (ftp_uri.has_suffix("/")) {
-                curl_url = @"$ftp_uri$basename";
+                curl_url = @"$ftp_uri$file_name";
             } else {
-                curl_url = @"$ftp_uri/$basename";
+                curl_url = @"$ftp_uri/$file_name";
             }
 
             string image_link = "";
             if (website_url.has_suffix("/")) {
-                image_link = @"$website_url$basename";
+                image_link = @"$website_url$file_name";
             } else {
-                image_link = @"$website_url/$basename";
+                image_link = @"$website_url/$file_name";
             }
 
             cancellable = new GLib.Cancellable();
@@ -121,7 +132,7 @@ private class FTP : IProvider
                 }
                 int64 total = _instance.file_size.abs();
                 int64 now = ((int64)ulnow).abs();
-                stdout.printf("total: %s\nnow: %s\n", _instance.file_size.to_string(), now.to_string());
+                // stdout.printf("total: %s\nnow: %s\n", _instance.file_size.to_string(), now.to_string());
                 _instance.progress_updated(total, now);
                 return 0;
             };
@@ -136,7 +147,7 @@ private class FTP : IProvider
             Curl.Code? res = null;
             SourceFunc callback = upload_image.callback;
 
-            GLib.Thread<void*> thread = new GLib.Thread<void*>.try(null, () => {
+            new GLib.Thread<void*>.try(null, () => {
                 res = handle.perform();
                 Idle.add((owned)callback);
                 return null;
@@ -155,17 +166,6 @@ private class FTP : IProvider
 
         return status;
     }
-
-    public int progress_function(void* user_data, uint64 dltotal, uint64 dlnow, uint64 ultotal, uint64 ulnow)
-    {
-        stdout.printf("progress_function\n");
-        if (cancellable.is_cancelled()) {
-            return 1;
-        }
-
-        return 0;
-    }
-
 
     public override string get_name() {
         return "S/FTP";

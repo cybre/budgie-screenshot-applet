@@ -20,5 +20,9 @@
     <key type="s" name="website-url">
         <default>''</default>
     </key>
+
+    <key type="b" name="timestamp-as-name">
+        <default>false</default>
+    </key>
   </schema>
 </schemalist>

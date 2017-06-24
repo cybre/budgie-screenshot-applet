@@ -189,11 +189,12 @@ private class SettingsView : Gtk.Box
     [GtkCallback]
     private void go_back() {
         if (settings_stack.get_visible_child_name() == "global" &&
-            global_settings_stack.get_visible_child_name() != "provider_settings") {
-            MainStack.set_page("main_view");
+            global_settings_stack.get_visible_child_name() == "provider_settings") {
+            global_settings_stack.set_visible_child_name("global");
+            return;
         }
 
-        global_settings_stack.set_visible_child_name("global");
+        MainStack.set_page("main_view");
     }
 
     [GtkCallback]
