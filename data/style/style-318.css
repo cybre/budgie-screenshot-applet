@@ -84,6 +84,13 @@
     icon-shadow: 0 1px alpha(black, 0.1);
 }
 
+.budgie-screenshot-applet GtkProgressBar,
+.budgie-screenshot-applet GtkProgressBar.trough,
+.budgie-screenshot-applet .progressbar {
+    border: none;
+    box-shadow: none;
+}
+
 .budgie-screenshot-applet GtkProgressBar {
     border: none;
     padding: 0;

@@ -90,6 +90,13 @@ popover.budgie-screenshot-applet {
     -gtk-icon-shadow: 0 1px alpha(black, 0.1);
 }
 
+.budgie-screenshot-applet progressbar,
+.budgie-screenshot-applet progressbar trough,
+.budgie-screenshot-applet progressbar progress {
+    border: none;
+    box-shadow: none;
+}
+
 .budgie-screenshot-applet progressbar trough {
     background-color: @theme_bg_color;
     border-bottom: 1px solid @theme_bg_color;
@@ -102,8 +109,7 @@ popover.budgie-screenshot-applet {
 }
 
 .budgie-screenshot-applet progressbar progress {
-    transition: width 200ms linear;
-    transition: min-width 200ms linear;
+    transition: all 200ms linear;
 }
 
 .budgie-screenshot-applet progressbar progress,
