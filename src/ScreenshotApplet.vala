@@ -34,6 +34,8 @@ public class Applet : Budgie.Applet
     {
         GLib.Object(uuid: uuid);
 
+        Curl.global_init(Curl.GLOBAL_ALL);
+
         Applet._instance = this;
 
         // Initialise gettext

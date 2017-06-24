@@ -57,10 +57,13 @@ private class FTP : IProvider
     public GLib.Cancellable cancellable;
     public static FTP? _instance = null;
     public int64 file_size = 0;
+    Curl.Easy handle;
 
     public FTP()
     {
         _instance = this;
+
+        handle = new Curl.Easy();
 
         string id_prefix = BackendUtil.settings_manager.get_settings().schema_id;
         string schema_id = @"$id_prefix.provider.ftp";
@@ -118,42 +121,35 @@ private class FTP : IProvider
 
             cancellable = new GLib.Cancellable();
 
-            Curl.Easy handle = new Curl.Easy();
+            handle.reset();
             handle.setopt(Curl.Option.URL, curl_url);
-            handle.setopt(Curl.Option.UPLOAD, 1);
+            handle.setopt(Curl.Option.UPLOAD, 1L);
             handle.setopt(Curl.Option.INFILE, (void*)posix_file);
             handle.setopt(Curl.Option.USERNAME, username);
             handle.setopt(Curl.Option.PASSWORD, password);
             handle.setopt(Curl.Option.FOLLOWLOCATION, true);
-            handle.setopt(Curl.Option.VERBOSE, 1);
+            handle.setopt(Curl.Option.CONNECTTIMEOUT, 20L);
+            handle.setopt(Curl.Option.FTP_RESPONSE_TIMEOUT, 20L);
+            handle.setopt(Curl.Option.VERBOSE, 1L);
+            handle.setopt(Curl.Option.NOPROGRESS, 0L);
             Curl.ProgressCallback d = (user_data, dltotal, dlnow, ultotal, ulnow) => {
                 if (_instance.cancellable.is_cancelled()) {
                     return 1;
                 }
-                int64 total = _instance.file_size.abs();
-                int64 now = ((int64)ulnow).abs();
+                // int64 total = _instance.file_size.abs();
+                // int64 now = ((int64)ulnow).abs();
                 // stdout.printf("total: %s\nnow: %s\n", _instance.file_size.to_string(), now.to_string());
-                _instance.progress_updated(total, now);
+                // _instance.progress_updated(total, now);
                 return 0;
             };
             handle.setopt(Curl.Option.XFERINFOFUNCTION, d);
-            handle.setopt(Curl.Option.NOPROGRESS, 0);
 
             if (connection_mode == "active") {
                 handle.setopt(Curl.Option.FTPPORT, "-");
                 handle.setopt(Curl.Option.FTP_CREATE_MISSING_DIRS, 1);
             }
 
-            Curl.Code? res = null;
-            SourceFunc callback = upload_image.callback;
-
-            new GLib.Thread<void*>.try(null, () => {
-                res = handle.perform();
-                Idle.add((owned)callback);
-                return null;
-            });
-
-            yield;
+            Curl.Code? res = yield upload_ftp(handle);
 
             if (res == Curl.Code.OK) {
                 stdout.printf("\nYES\n");
@@ -164,7 +160,48 @@ private class FTP : IProvider
             warning(e.message);
         }
 
+
         return status;
+    }
+
+    private uint64 prevprogress;
+
+    private int upload_cb(void* data, uint64 dltotal, uint64 dlnow, uint64 ultotal, uint64 ulnow)
+    {
+        if (_instance.cancellable.is_cancelled()) {
+            return 1;
+        }
+
+        int64 total = _instance.file_size.abs();
+        int64 now = ((int64)ulnow).abs();
+        // stdout.printf("total: %s\nnow: %s\n", _instance.file_size.to_string(), now.to_string());
+        _instance.progress_updated(total, now);
+
+        prevprogress = ulnow;
+        return 0;
+    }
+
+    private async Curl.Code? upload_ftp(Curl.Easy handle)
+    {
+        SourceFunc callback = upload_ftp.callback;
+        Curl.Code? res = null;
+
+        ThreadFunc<void*> run = () => {
+            Curl.Code result = handle.perform();
+            res = result;
+            Idle.add((owned)callback);
+            return null;
+        };
+
+        try {
+            Thread.create<void*>(run, false);
+        } catch (GLib.ThreadError e) {
+            warning(e.message);
+        }
+
+        yield;
+
+        return res;
     }
 
     public override string get_name() {
