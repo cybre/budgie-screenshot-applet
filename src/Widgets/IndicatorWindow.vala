@@ -12,7 +12,7 @@
 namespace ScreenshotApplet.Widgets
 {
 
-public class IndicatorWindow : Gtk.Popover {
+public class IndicatorWindow : Budgie.Popover {
     private static IndicatorWindow? _instance = null;
 
     public IndicatorWindow(Gtk.Widget? window_parent) {
@@ -25,12 +25,9 @@ public class IndicatorWindow : Gtk.Popover {
 
         MainStack main_stack = new MainStack();
         this.add(main_stack);
-
-        this.map.connect(popover_map_event);
-        this.closed.connect_after(popover_closed_event);
     }
 
-    private void popover_map_event()
+    public override void map()
     {
         // Hack to stop the entry from grabbing focus +
         Views.MainView._title_entry.set_can_focus(false);
@@ -38,9 +35,10 @@ public class IndicatorWindow : Gtk.Popover {
             Views.MainView._title_entry.set_can_focus(true);
             return false;
         });
+        base.map();
     }
 
-    private void popover_closed_event()
+    public override void closed()
     {
         GLib.Timeout.add(200, () => {
             Views.MainView.contract_quick_settings(false);

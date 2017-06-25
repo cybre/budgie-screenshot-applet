@@ -82,6 +82,7 @@ public class MainView : Gtk.Box
     [GtkCallback]
     private bool screenshot_button_callback(Gtk.Widget widget, Gdk.EventButton event)
     {
+
         string mode_string = widget.name;
         ScreenshotType mode = ScreenshotType.SCREEN;
 
@@ -101,7 +102,10 @@ public class MainView : Gtk.Box
         if (event.button == 1) {
             contract_quick_settings(false);
             IndicatorWindow.get_instance().hide();
-            BackendUtil.screenshot_manager.take_screenshot.begin(mode, title_entry.get_text());
+            GLib.Timeout.add(200, () => {
+                BackendUtil.screenshot_manager.take_screenshot.begin(mode, title_entry.get_text());
+                return false;
+            });
         } else if (event.button == 3) {
             if (quick_settings_stack.get_visible_child_name() == mode_string) {
                 toggle_quick_settings();
