@@ -11,3 +11,5 @@ install_data('schemas/com.github.cybre.budgie-screenshot-applet.provider.ftp.gsc
 
 install_data('com.github.cybre.budgie-screenshot-applet.appdata.xml',
              install_dir: join_paths(datadir, 'appdata'))
+
+meson.add_install_script('meson_post_install.py')
