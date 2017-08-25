@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: budgie-screenshot-applet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 03:00+0100\n"
-"PO-Revision-Date: 2017-02-15 16:39+0000\n"
+"POT-Creation-Date: 2017-02-16 06:06+0100\n"
+"PO-Revision-Date: 2017-08-03 11:53+0000\n"
 "Last-Translator: Davidmp <medipas@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -140,72 +140,72 @@ msgstr "Elimina totes les captures de l'historial"
 msgid "Clear all screenshots"
 msgstr "Neteja totes les captures de pantalla"
 
-#: data/ui/main_view.ui:47
+#: data/ui/main_view.ui:62
 msgid "Clear title"
 msgstr "Neteja'n el títol"
 
-#: data/ui/main_view.ui:48
+#: data/ui/main_view.ui:63
 msgid "Title (Optional)"
 msgstr "Títol (opcional)"
 
-#: data/ui/main_view.ui:126
+#: data/ui/main_view.ui:141
 msgctxt "Screen option in the main applet view"
 msgid "Screen"
 msgstr "Pantalla"
 
-#: data/ui/main_view.ui:182
+#: data/ui/main_view.ui:197
 msgctxt "Window option in the main applet view"
 msgid "Window"
 msgstr "Finestra"
 
-#: data/ui/main_view.ui:240
+#: data/ui/main_view.ui:255
 msgctxt "Selection option in the main applet view"
 msgid "Selection"
 msgstr "Selecció"
 
-#: data/ui/main_view.ui:294 data/ui/main_view.ui:320
+#: data/ui/main_view.ui:309 data/ui/main_view.ui:335
 #: data/ui/settings_view.ui:477 data/ui/settings_view.ui:491
 msgid "Screen screenshot delay"
 msgstr "Retard de la captura de la pantalla"
 
-#: data/ui/main_view.ui:296
+#: data/ui/main_view.ui:311
 msgctxt "Screenshot delay"
 msgid "Delay"
 msgstr "Retard"
 
-#: data/ui/main_view.ui:307 data/ui/main_view.ui:332
+#: data/ui/main_view.ui:322 data/ui/main_view.ui:347
 #: data/ui/settings_view.ui:506 data/ui/settings_view.ui:519
 msgid "The monitor that should be used for taking a screenshot"
 msgstr "El monitor que s'hauria d'usar per fer la captura de pantalla"
 
-#: data/ui/main_view.ui:309 data/ui/settings_view.ui:508
+#: data/ui/main_view.ui:324 data/ui/settings_view.ui:508
 msgid "Monitor"
 msgstr "Monitor"
 
-#: data/ui/main_view.ui:355 data/ui/main_view.ui:381
+#: data/ui/main_view.ui:384 data/ui/main_view.ui:410
 #: data/ui/settings_view.ui:572 data/ui/settings_view.ui:585
 msgid "Window screenshot delay"
 msgstr "Retard de la captura de la finestra"
 
-#: data/ui/main_view.ui:357 data/ui/main_view.ui:420
+#: data/ui/main_view.ui:386 data/ui/main_view.ui:463
 msgid "Delay"
 msgstr "Retard"
 
-#: data/ui/main_view.ui:368 data/ui/main_view.ui:393
+#: data/ui/main_view.ui:397 data/ui/main_view.ui:422
 #: data/ui/settings_view.ui:600 data/ui/settings_view.ui:613
 msgid "Include the window border in window screenshots"
 msgstr "Inclou la vora de la finestra a les captures de finestra"
 
-#: data/ui/main_view.ui:370 data/ui/settings_view.ui:602
+#: data/ui/main_view.ui:399 data/ui/settings_view.ui:602
 msgid "Include border"
 msgstr "Inclou-hi la vora"
 
-#: data/ui/main_view.ui:432 data/ui/settings_view.ui:666
+#: data/ui/main_view.ui:475 data/ui/settings_view.ui:666
 #: data/ui/settings_view.ui:679
 msgid "Selection screenshot delay"
 msgstr "Retard de la captura de la selecció"
 
-#: data/ui/main_view.ui:481
+#: data/ui/main_view.ui:524
 msgid "History"
 msgstr "Historial"
 

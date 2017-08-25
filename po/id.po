@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: budgie-screenshot-applet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-16 06:06+0100\n"
-"PO-Revision-Date: 2017-02-17 00:08+0000\n"
+"PO-Revision-Date: 2017-08-03 11:53+0000\n"
 "Last-Translator: Yurizal Susanto <rizal.sagi@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/cybres-budgie-applets/budgie-screenshot-applet/language/id/)\n"
 "MIME-Version: 1.0\n"
@@ -257,7 +257,7 @@ msgstr "Masukkan petunjuk"
 
 #: data/ui/settings_view.ui:292 data/ui/settings_view.ui:332
 msgid "Screenshots will be saved under this location"
-msgstr "Potret layar akan disimpin di tempat ini"
+msgstr "Potret layar akan disimpan di tempat ini"
 
 #: data/ui/settings_view.ui:306
 msgid "Choose directory"
