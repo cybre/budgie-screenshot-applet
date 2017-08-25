@@ -77,87 +77,83 @@ private class FTP : IProvider
         link = null;
         bool status = false;
 
+        uint8[] data;
+
         try {
-            uint8[] data;
-
-            try {
-                GLib.FileUtils.get_data(uri.split("://")[1], out data);
-                file_size = (int64)data.length;
-            } catch (GLib.FileError e) {
-                warning(e.message);
-                return false;
-            }
-            GLib.File file = GLib.File.new_for_uri(uri);
-            Posix.FILE? posix_file = Posix.FILE.open(file.get_path(), "r");
-
-            string file_name = file.get_basename();
-
-            if (settings.get_boolean("timestamp-as-name")) {
-                GLib.DateTime datetime = new GLib.DateTime.now_local();
-                int64 timestamp = datetime.to_unix();
-                // Our files are always .png
-                file_name = timestamp.to_string() + ".png";
-            }
-
-            string ftp_uri = settings.get_string("ftp-uri");
-            string connection_mode = settings.get_string("connection-mode");
-            string username = settings.get_string("username");
-            string password = settings.get_string("password");
-            string website_url = settings.get_string("website-url");
-
-            string curl_url = "";
-            if (ftp_uri.has_suffix("/")) {
-                curl_url = @"$ftp_uri$file_name";
-            } else {
-                curl_url = @"$ftp_uri/$file_name";
-            }
-
-            string image_link = "";
-            if (website_url.has_suffix("/")) {
-                image_link = @"$website_url$file_name";
-            } else {
-                image_link = @"$website_url/$file_name";
-            }
-
-            cancellable = new GLib.Cancellable();
-
-            handle.reset();
-            handle.setopt(Curl.Option.URL, curl_url);
-            handle.setopt(Curl.Option.UPLOAD, 1L);
-            handle.setopt(Curl.Option.INFILE, (void*)posix_file);
-            handle.setopt(Curl.Option.USERNAME, username);
-            handle.setopt(Curl.Option.PASSWORD, password);
-            handle.setopt(Curl.Option.FOLLOWLOCATION, true);
-            handle.setopt(Curl.Option.CONNECTTIMEOUT, 20L);
-            handle.setopt(Curl.Option.FTP_RESPONSE_TIMEOUT, 20L);
-            handle.setopt(Curl.Option.VERBOSE, 1L);
-            handle.setopt(Curl.Option.NOPROGRESS, 0L);
-            Curl.ProgressCallback d = (user_data, dltotal, dlnow, ultotal, ulnow) => {
-                if (_instance.cancellable.is_cancelled()) {
-                    return 1;
-                }
-                // int64 total = _instance.file_size.abs();
-                // int64 now = ((int64)ulnow).abs();
-                // stdout.printf("total: %s\nnow: %s\n", _instance.file_size.to_string(), now.to_string());
-                // _instance.progress_updated(total, now);
-                return 0;
-            };
-            handle.setopt(Curl.Option.XFERINFOFUNCTION, d);
-
-            if (connection_mode == "active") {
-                handle.setopt(Curl.Option.FTPPORT, "-");
-                handle.setopt(Curl.Option.FTP_CREATE_MISSING_DIRS, 1);
-            }
-
-            Curl.Code? res = yield upload_ftp(handle);
-
-            if (res == Curl.Code.OK) {
-                stdout.printf("\nYES\n");
-                link = image_link;
-                status = true;
-            }
-        } catch (GLib.Error e) {
+            GLib.FileUtils.get_data(uri.split("://")[1], out data);
+            file_size = (int64)data.length;
+        } catch (GLib.FileError e) {
             warning(e.message);
+            return false;
+        }
+        GLib.File file = GLib.File.new_for_uri(uri);
+        Posix.FILE? posix_file = Posix.FILE.open(file.get_path(), "r");
+
+        string file_name = file.get_basename();
+
+        if (settings.get_boolean("timestamp-as-name")) {
+            GLib.DateTime datetime = new GLib.DateTime.now_local();
+            int64 timestamp = datetime.to_unix();
+            // Our files are always .png
+            file_name = timestamp.to_string() + ".png";
+        }
+
+        string ftp_uri = settings.get_string("ftp-uri");
+        string connection_mode = settings.get_string("connection-mode");
+        string username = settings.get_string("username");
+        string password = settings.get_string("password");
+        string website_url = settings.get_string("website-url");
+
+        string curl_url = "";
+        if (ftp_uri.has_suffix("/")) {
+            curl_url = @"$ftp_uri$file_name";
+        } else {
+            curl_url = @"$ftp_uri/$file_name";
+        }
+
+        string image_link = "";
+        if (website_url.has_suffix("/")) {
+            image_link = @"$website_url$file_name";
+        } else {
+            image_link = @"$website_url/$file_name";
+        }
+
+        cancellable = new GLib.Cancellable();
+
+        handle.reset();
+        handle.setopt(Curl.Option.URL, curl_url);
+        handle.setopt(Curl.Option.UPLOAD, 1L);
+        handle.setopt(Curl.Option.INFILE, (void*)posix_file);
+        handle.setopt(Curl.Option.USERNAME, username);
+        handle.setopt(Curl.Option.PASSWORD, password);
+        handle.setopt(Curl.Option.FOLLOWLOCATION, true);
+        handle.setopt(Curl.Option.CONNECTTIMEOUT, 20L);
+        handle.setopt(Curl.Option.FTP_RESPONSE_TIMEOUT, 20L);
+        handle.setopt(Curl.Option.VERBOSE, 1L);
+        handle.setopt(Curl.Option.NOPROGRESS, 0L);
+        Curl.ProgressCallback d = (user_data, dltotal, dlnow, ultotal, ulnow) => {
+            if (_instance.cancellable.is_cancelled()) {
+                return 1;
+            }
+            // int64 total = _instance.file_size.abs();
+            // int64 now = ((int64)ulnow).abs();
+            // stdout.printf("total: %s\nnow: %s\n", _instance.file_size.to_string(), now.to_string());
+            // _instance.progress_updated(total, now);
+            return 0;
+        };
+        handle.setopt(Curl.Option.XFERINFOFUNCTION, d);
+
+        if (connection_mode == "active") {
+            handle.setopt(Curl.Option.FTPPORT, "-");
+            handle.setopt(Curl.Option.FTP_CREATE_MISSING_DIRS, 1);
+        }
+
+        Curl.Code? res = yield upload_ftp(handle);
+
+        if (res == Curl.Code.OK) {
+            stdout.printf("\nYES\n");
+            link = image_link;
+            status = true;
         }
 
         return status;
