@@ -106,7 +106,7 @@ private class Screen : ScreenshotAbstract
         int delay = (BackendUtil.settings_manager.use_global_delay) ? BackendUtil.settings_manager.delay_global : BackendUtil.settings_manager.delay_screen;
 
         GLib.Timeout.add(400 + (delay * 1000), () => {
-            ss = Gdk.pixbuf_get_from_window(root, geometry.x, geometry.y, geometry.width, geometry.height);
+            ss = Gdk.pixbuf_get_from_window(root, geometry.x, geometry.y, geometry.width * root.get_scale_factor(), geometry.height * root.get_scale_factor());
             capture.callback();
             return false;
         });

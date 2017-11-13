@@ -45,7 +45,7 @@ private class Selection : ScreenshotAbstract
                 area_window.close();
                 screenshot = new Gdk.Pixbuf.subpixbuf(
                     Gdk.pixbuf_get_from_window(root, 0, 0, root.get_width(), root.get_height()),
-                    geometry.x, geometry.y, geometry.width, geometry.height);
+                    geometry.x, geometry.y, geometry.width * window.get_scale_factor(), geometry.height * window.get_scale_factor());
                 take_screenshot.callback();
                 return false;
             });
