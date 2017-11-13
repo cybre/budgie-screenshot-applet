@@ -59,7 +59,7 @@ public class MainView : Gtk.Box
         int active = 0;
         screen_monitor_combobox.set_model(BackendUtil.settings_manager.get_monitor_list(out active));
         Gtk.CellRendererText screen_monitor_renderer = new Gtk.CellRendererText();
-        screen_monitor_renderer.max_width_chars = 13;
+        screen_monitor_renderer.max_width_chars = 8;
         screen_monitor_renderer.ellipsize = Pango.EllipsizeMode.MIDDLE;
         screen_monitor_combobox.pack_start(screen_monitor_renderer, true);
         screen_monitor_combobox.add_attribute(screen_monitor_renderer, "text", 1);
