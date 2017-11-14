@@ -38,3 +38,9 @@ You can install budgie-screenshot-applet from the Software Centre or via the com
 ```bash
 sudo eopkg it budgie-screenshot-applet
 ```
+
+**Archlinux(AUR)**  
+You can install budgie-screenshot-applet from AUR using via the command line:
+```bash
+yaourt -S budgie-screenshot-applet
+```
