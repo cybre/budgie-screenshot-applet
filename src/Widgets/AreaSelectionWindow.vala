@@ -152,8 +152,8 @@ private class AreaSelectionWindow : Gtk.Window
         style.save();
         style.add_class(Gtk.STYLE_CLASS_RUBBERBAND);
 
-        Gtk.render_background(style, ctx, 0, 0, w, h);
-        Gtk.render_frame(style, ctx, 0, 0, w, h);
+        style.render_background(ctx, 0, 0, w, h);
+        style.render_frame(ctx, 0, 0, w, h);
 
         style.restore();
 
