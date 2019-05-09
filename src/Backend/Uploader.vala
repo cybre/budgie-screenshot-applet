@@ -96,7 +96,7 @@ private class Uploader : GLib.Object
         return upload_in_progress;
     }
 
-    public unowned GLib.HashTable<string, weak Providers.IProvider> get_providers() {
+    public unowned GLib.HashTable<string, Providers.IProvider> get_providers() {
         return upload_providers;
     }
 }
