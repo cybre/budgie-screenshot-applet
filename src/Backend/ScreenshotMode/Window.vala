@@ -61,7 +61,7 @@ private class Window : ScreenshotAbstract
                 rect.height = Gdk.Screen.height() - rect.y;
             }
 
-            screenshot = Gdk.pixbuf_get_from_window(window_to_use, rect.x, rect.y, rect.width * window_to_use.get_scale_factor(), rect.height * window_to_use.get_scale_factor());
+            screenshot = Gdk.pixbuf_get_from_window(window_to_use, rect.x, rect.y, rect.width, rect.height);
 
             take_screenshot.callback();
             return false;

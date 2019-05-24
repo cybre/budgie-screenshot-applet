@@ -57,6 +57,7 @@ private class Screen : ScreenshotAbstract
                 geometry = Gdk.Rectangle();
                 output_info.get_geometry(out geometry.x, out geometry.y,
                     out geometry.width, out geometry.height);
+                break;
             }
         }
 
@@ -65,6 +66,11 @@ private class Screen : ScreenshotAbstract
         }
 
         Gdk.Window root = screen.get_root_window();
+        
+        int scale_factor = root.get_scale_factor();
+        geometry.width /= scale_factor;
+        geometry.height /= scale_factor;
+    
         screenshot = yield capture(root, geometry);
 
         if (screenshot == null) {
@@ -89,6 +95,7 @@ private class Screen : ScreenshotAbstract
         invisible_region.subtract(region);
 
         Gdk.Window root = screen.get_root_window();
+
         screenshot = yield capture(root, (Gdk.Rectangle)rect);
 
         if (screenshot == null) {
@@ -106,7 +113,7 @@ private class Screen : ScreenshotAbstract
         int delay = (BackendUtil.settings_manager.use_global_delay) ? BackendUtil.settings_manager.delay_global : BackendUtil.settings_manager.delay_screen;
 
         GLib.Timeout.add(400 + (delay * 1000), () => {
-            ss = Gdk.pixbuf_get_from_window(root, geometry.x, geometry.y, geometry.width * root.get_scale_factor(), geometry.height * root.get_scale_factor());
+            ss = Gdk.pixbuf_get_from_window(root, geometry.x, geometry.y, geometry.width, geometry.height);
             capture.callback();
             return false;
         });
