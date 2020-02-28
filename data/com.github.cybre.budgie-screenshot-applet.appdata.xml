@@ -3,7 +3,7 @@
   <id>com.github.cybre.budgie-screenshot-applet</id>
   <pkgname>budgie-screenshot-applet</pkgname>
   <translation type="gettext">budgie-screenshot-applet</translation>
-  <metadata_license>CC0-1.0</metadata_license>
+  <metadata_license>GPL-2.0+</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Budgie Screenshot Applet</name>
   <summary>Take a screenshot of your desktop, a window or region; save to disk and upload</summary>

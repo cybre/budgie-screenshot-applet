@@ -10,6 +10,6 @@ install_data('schemas/com.github.cybre.budgie-screenshot-applet.provider.ftp.gsc
              install_dir: join_paths(datadir, 'glib-2.0' ,'schemas'))
 
 install_data('com.github.cybre.budgie-screenshot-applet.appdata.xml',
-             install_dir: join_paths(datadir, 'appdata'))
+             install_dir: join_paths(datadir, 'metainfo'))
 
 meson.add_install_script('meson_post_install.py')
